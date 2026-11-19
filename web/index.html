@@ -669,7 +669,7 @@
               为彻底解决新队员（尤其是大一萌新）初始参赛单场分值剧烈震荡、小号虚高的问题，系统引入参考 Codeforces 的<strong>双轨积分制度</strong>：
             </p>
             <ul class="list-disc list-inside text-sm text-slate-600 space-y-1.5 mb-4">
-              <li><strong>底层真实战力分 (True Rating)</strong>：所有数学计算和期望胜率预测完全基于无偏的真实战力分。无公开外部竞赛记录的新生初始分为 <strong>1000</strong>；已有外部公开 XCPC-Elo 战绩者填入其实际分值。</li>
+              <li><strong>底层真实战力分 (True Rating)</strong>：所有数学计算和期望胜率预测完全基于无偏的真实战力分。无公开外部竞赛记录的新生初始基准分为 <strong>800</strong>；已有外部公开 XCPC-Elo 战绩者填入其实际分值。</li>
               <li><strong>前端展示分 (Display Rating)</strong>：前端排行榜和所有徽章展示采用显示分，计算公式为 <code>Display = max(0, round(True + Offset))</code>。</li>
             </ul>
 
@@ -680,24 +680,24 @@
                   <tr>
                     <th class="py-2.5 px-4 border-b border-slate-200">累计计分场次 (Rated Count)</th>
                     <th class="py-2.5 px-4 border-b border-slate-200">显示分偏移量 (Offset)</th>
-                    <th class="py-2.5 px-4 border-b border-slate-200">初始 1000 战力对应显示分</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">初始 800 战力对应显示分 (无波动参考)</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-slate-600">
                   <tr>
                     <td class="py-2 px-4 font-mono">0 场 (未参赛)</td>
                     <td class="py-2 px-4 font-mono font-bold text-red-600">-1000</td>
-                    <td class="py-2 px-4 font-mono">0 分 (萌新保护)</td>
+                    <td class="py-2 px-4 font-mono">0 分 (新手保护)</td>
                   </tr>
                   <tr>
                     <td class="py-2 px-4 font-mono">1 场</td>
                     <td class="py-2 px-4 font-mono font-bold text-amber-600">-500</td>
-                    <td class="py-2 px-4 font-mono">500 分</td>
+                    <td class="py-2 px-4 font-mono">300 分</td>
                   </tr>
                   <tr>
                     <td class="py-2 px-4 font-mono">2 场</td>
                     <td class="py-2 px-4 font-mono font-bold text-amber-600">-250</td>
-                    <td class="py-2 px-4 font-mono">750 分</td>
+                    <td class="py-2 px-4 font-mono">550 分</td>
                   </tr>
                   <tr class="bg-emerald-50/50">
                     <td class="py-2 px-4 font-mono font-bold text-emerald-800">≥ 3 场 (完全定级)</td>

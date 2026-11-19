@@ -99,14 +99,12 @@ function getTier(rating) {
   return TIERS[6];
 }
 
-// Codeforces provisional display offset schedule
+// Provisional display offset schedule (3-contest newbie protection, real rating shown upon finishing 3rd contest)
 function getDisplayOffset(ratedCount) {
   const cnt = Number(ratedCount) || 0;
   if (cnt <= 0) return -1000;
-  if (cnt === 1) return -650;
-  if (cnt === 2) return -400;
-  if (cnt === 3) return -200;
-  if (cnt === 4) return -80;
+  if (cnt === 1) return -500;
+  if (cnt === 2) return -250;
   return 0;
 }
 
