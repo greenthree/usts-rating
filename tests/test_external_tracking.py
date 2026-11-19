@@ -13,8 +13,11 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 import pytest
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.sync_xcpc_elo import (
     extract_organization_elo,

@@ -8,8 +8,12 @@ zero-solve floor protection, and internal school zero-sum calibration.
 from __future__ import annotations
 
 import math
+from pathlib import Path
+import sys
 import numpy as np
 import pytest
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.recalculate import (
     compute_team_rating,
