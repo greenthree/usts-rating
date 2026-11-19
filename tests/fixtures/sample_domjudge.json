@@ -1,0 +1,26 @@
+[
+  {
+    "team_id": "1",
+    "rank": 1,
+    "score": {
+      "num_solved": 9,
+      "total_time": 680
+    }
+  },
+  {
+    "team_id": "2",
+    "rank": 2,
+    "score": {
+      "num_solved": 7,
+      "total_time": 550
+    }
+  },
+  {
+    "team_id": "3",
+    "rank": 3,
+    "score": {
+      "num_solved": 5,
+      "total_time": 420
+    }
+  }
+]

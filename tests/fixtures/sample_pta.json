@@ -1,0 +1,40 @@
+{
+  "commonRankings": [
+    {
+      "ranking": 1,
+      "user": {
+        "studentUser": {
+          "studentNumber": "23001003",
+          "name": "喻文州"
+        },
+        "organization": "苏州科技大学"
+      },
+      "score": 8,
+      "timeConsuming": 480
+    },
+    {
+      "ranking": 2,
+      "user": {
+        "studentUser": {
+          "studentNumber": "24001008",
+          "name": "周泽楷"
+        },
+        "organization": "苏州科技大学"
+      },
+      "score": 7,
+      "timeConsuming": 450
+    },
+    {
+      "ranking": 3,
+      "user": {
+        "studentUser": {
+          "studentNumber": "9990001",
+          "name": "外部选手A"
+        },
+        "organization": "清华大学"
+      },
+      "score": 6,
+      "timeConsuming": 380
+    }
+  ]
+}

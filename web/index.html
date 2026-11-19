@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>苏州科技大学 ACM/XCPC 集训队 Rating 积分系统</title>
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Vue 3 CDN (Global Production Build) -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+
+  <!-- Apache ECharts CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+  <!-- Custom Stylesheet with Codeforces-style Tier Visuals -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+  <div id="app" v-cloak class="flex flex-col min-h-screen">
+    
+    <!-- Top Global Header / Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          
+          <!-- Logo & Brand Title -->
+          <div class="flex items-center gap-3 cursor-pointer" @click="activeTab = 'leaderboard'">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-blue-600 to-sky-500 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-100">
+              U
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-extrabold text-lg text-slate-900 tracking-tight">USTS ACM/XCPC</span>
+                <span class="px-2 py-0.5 text-xs font-semibold rounded bg-indigo-50 text-indigo-700 border border-indigo-200/60">Rating System</span>
+              </div>
+              <p class="text-xs text-slate-500 hidden sm:block">苏州科技大学程序设计竞赛集训队 · 校内外积分看板</p>
+            </div>
+          </div>
+
+          <!-- Main Navigation Tabs -->
+          <nav class="flex items-center space-x-1 sm:space-x-2">
+            <button
+              @click="activeTab = 'leaderboard'"
+              :class="[
+                'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-150 flex items-center gap-1.5',
+                activeTab === 'leaderboard'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              ]"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+              <span>总排行榜</span>
+            </button>
+
+            <button
+              @click="activeTab = 'contests'"
+              :class="[
+                'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-150 flex items-center gap-1.5',
+                activeTab === 'contests'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              ]"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+              <span>比赛记录</span>
+            </button>
+
+            <button
+              @click="activeTab = 'rules'"
+              :class="[
+                'px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-150 flex items-center gap-1.5',
+                activeTab === 'rules'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              ]"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+              <span>积分规则说明</span>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Error Alert Banner (if rating_db.json fails to load) -->
+    <div v-if="errorMessage" class="bg-red-50 border-b border-red-200 px-4 py-3 text-red-700 text-sm">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+          </svg>
+          <span>{{ errorMessage }}</span>
+        </div>
+        <button @click="loadData" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-semibold">
+          重新加载
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content Body -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+      <!-- ================================================================= -->
+      <!-- VIEW 1: LEADERBOARD (总排行榜) -->
+      <!-- ================================================================= -->
+      <section v-if="activeTab === 'leaderboard'" class="space-y-6">
+        
+        <!-- 4 Summary Statistics Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Card 1: 现役队员数 -->
+          <div class="bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">现役队员数</p>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{{ summaryStats.activeCount }}</h3>
+              <p class="text-xs text-slate-400 mt-0.5">总队员 {{ db.users.length }} 人</p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+              👥
+            </div>
+          </div>
+
+          <!-- Card 2: 高段位(Master/GM)人数 -->
+          <div class="bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">高段位 (Master/GM)</p>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">{{ summaryStats.highTierCount }}</h3>
+              <p class="text-xs text-slate-400 mt-0.5">Display Rating ≥ 1600</p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
+              🏆
+            </div>
+          </div>
+
+          <!-- Card 3: 现役平均分 -->
+          <div class="bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">现役平均分</p>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-indigo-600 mt-1">{{ summaryStats.avgRating }}</h3>
+              <p class="text-xs text-slate-400 mt-0.5">现役成员显示分均值</p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0">
+              📈
+            </div>
+          </div>
+
+          <!-- Card 4: 收录赛事数 -->
+          <div class="bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">收录赛事数</p>
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-blue-600 mt-1">{{ summaryStats.contestCount }}</h3>
+              <p class="text-xs text-slate-400 mt-0.5">校内外ACM赛制正式赛</p>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0">
+              ⚔️
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          
+          <!-- Status Switch (Active / Retired / All) -->
+          <div class="flex items-center bg-slate-100 p-1 rounded-lg">
+            <button
+              @click="statusFilter = 'active'"
+              :class="[
+                'px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-150',
+                statusFilter === 'active' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+              ]"
+            >
+              现役队员
+            </button>
+            <button
+              @click="statusFilter = 'retired'"
+              :class="[
+                'px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-150',
+                statusFilter === 'retired' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+              ]"
+            >
+              退役队员
+            </button>
+            <button
+              @click="statusFilter = 'all'"
+              :class="[
+                'px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-150',
+                statusFilter === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+              ]"
+            >
+              全部队员
+            </button>
+          </div>
+
+          <!-- Right side: Grade selector + Search Input -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            
+            <!-- Grade Select Dropdown -->
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs text-slate-500 whitespace-nowrap">年级:</span>
+              <select
+                v-model="gradeFilter"
+                class="bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              >
+                <option value="all">全部年级</option>
+                <option v-for="g in grades" :key="g" :value="g">{{ g }} 级</option>
+              </select>
+            </div>
+
+            <!-- Search by Name or Student ID -->
+            <div class="relative">
+              <input
+                v-model="searchQuery"
+                type="text"
+                placeholder="搜索姓名、拼音、专业班级..."
+                class="w-full sm:w-56 pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-slate-400"
+              />
+              <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <button
+                v-if="searchQuery"
+                @click="searchQuery = ''"
+                class="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600"
+              >
+                ×
+              </button>
+            </div>
+
+            <!-- Total count label -->
+            <span class="text-xs text-slate-500 text-right sm:text-left whitespace-nowrap self-center">
+              匹配 <strong class="text-slate-800">{{ filteredUsers.length }}</strong> 人
+            </span>
+          </div>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-600 text-xs font-semibold uppercase tracking-wider">
+                  <th class="py-3.5 px-4 text-center w-16">排名</th>
+                  <th class="py-3.5 px-4">选手姓名</th>
+                  <th class="py-3.5 px-4">专业班级</th>
+                  <th class="py-3.5 px-4">年级</th>
+                  <th class="py-3.5 px-4">当前段位</th>
+                  <th class="py-3.5 px-4 text-right">当前积分</th>
+                  <th class="py-3.5 px-4 text-right">最高分</th>
+                  <th class="py-3.5 px-4 text-center">场次</th>
+                  <th class="py-3.5 px-4 text-center">状态</th>
+                  <th class="py-3.5 px-4 text-center">操作</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-sm">
+                <tr
+                  v-for="(user, index) in filteredUsers"
+                  :key="user.student_id"
+                  @click="openUserModal(user)"
+                  class="hover-table-row cursor-pointer transition-colors duration-150"
+                >
+                  <!-- Rank column -->
+                  <td class="py-3.5 px-4 text-center font-bold">
+                    <span
+                      v-if="index === 0"
+                      class="inline-flex items-center justify-center w-7 h-7 rounded-full rank-badge-1 text-xs"
+                    >
+                      1
+                    </span>
+                    <span
+                      v-else-if="index === 1"
+                      class="inline-flex items-center justify-center w-7 h-7 rounded-full rank-badge-2 text-xs"
+                    >
+                      2
+                    </span>
+                    <span
+                      v-else-if="index === 2"
+                      class="inline-flex items-center justify-center w-7 h-7 rounded-full rank-badge-3 text-xs"
+                    >
+                      3
+                    </span>
+                    <span v-else class="text-slate-400 font-mono text-xs">
+                      #{{ index + 1 }}
+                    </span>
+                  </td>
+
+                  <!-- Name (Bold in Tier Color) -->
+                  <td class="py-3.5 px-4">
+                    <span
+                      :style="{ color: user.color }"
+                      class="font-bold hover:underline transition-all duration-150"
+                    >
+                      {{ user.name }}
+                    </span>
+                  </td>
+
+                  <!-- Major & Class -->
+                  <td class="py-3.5 px-4 text-xs font-medium text-slate-600">
+                    <span v-if="user.class_name">{{ user.class_name }}</span>
+                    <span v-else class="text-slate-400 font-mono">-</span>
+                  </td>
+
+                  <!-- Grade -->
+                  <td class="py-3.5 px-4">
+                    <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200/60">
+                      {{ user.grade }}级
+                    </span>
+                  </td>
+
+                  <!-- Tier Badge -->
+                  <td class="py-3.5 px-4">
+                    <span
+                      class="tier-badge"
+                      :class="getTier(user.display_rating).badgeClass"
+                    >
+                      <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: getTier(user.display_rating).color }"></span>
+                      <span>{{ getTier(user.display_rating).name }}</span>
+                      <span class="text-[10px] opacity-75">({{ getTier(user.display_rating).zh }})</span>
+                    </span>
+                  </td>
+
+                  <!-- Display Rating (Large Bold) -->
+                  <td class="py-3.5 px-4 text-right">
+                    <span
+                      :style="{ color: user.color }"
+                      class="font-extrabold text-base tracking-tight font-mono"
+                    >
+                      {{ user.display_rating }}
+                    </span>
+                  </td>
+
+                  <!-- Max Display Rating -->
+                  <td class="py-3.5 px-4 text-right font-mono text-xs text-slate-600 font-semibold">
+                    {{ user.max_display_rating }}
+                  </td>
+
+                  <!-- Rated Contests Count -->
+                  <td class="py-3.5 px-4 text-center">
+                    <span class="inline-block px-2 py-0.5 rounded-full text-xs font-mono font-medium bg-slate-100 text-slate-700">
+                      {{ user.rated_count }}
+                    </span>
+                  </td>
+
+                  <!-- Active / Retired Status -->
+                  <td class="py-3.5 px-4 text-center">
+                    <span
+                      v-if="user.is_active && !user.is_retired"
+                      class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700"
+                    >
+                      <span class="active-indicator"></span>
+                      <span>现役</span>
+                    </span>
+                    <span
+                      v-else
+                      class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400"
+                    >
+                      <span class="retired-indicator"></span>
+                      <span>退役</span>
+                    </span>
+                  </td>
+
+                  <!-- Action Button -->
+                  <td class="py-3.5 px-4 text-center" @click.stop="openUserModal(user)">
+                    <button class="px-2.5 py-1 text-xs font-semibold rounded text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 transition-colors">
+                      详情 &gt;
+                    </button>
+                  </td>
+                </tr>
+
+                <!-- Empty State -->
+                <tr v-if="filteredUsers.length === 0">
+                  <td colspan="10" class="py-12 text-center text-slate-400 text-sm">
+                    未找到符合条件的队员
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- VIEW 2: CONTESTS (比赛记录) -->
+      <!-- ================================================================= -->
+      <section v-if="activeTab === 'contests'" class="space-y-6">
+        
+        <!-- Contests Overview Header -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">已收录比赛历程</h2>
+            <p class="text-xs text-slate-500 mt-1">按比赛时间时序结算的校内外竞赛历史记录</p>
+          </div>
+          <span class="text-xs font-semibold text-slate-500 bg-white px-3 py-1.5 rounded-lg border border-slate-200">
+            共收录 {{ sortedContests.length }} 场比赛
+          </span>
+        </div>
+
+        <!-- Contest Cards Accordion -->
+        <div class="space-y-4">
+          <div
+            v-for="contest in sortedContests"
+            :key="contest.contest_id"
+            class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden contest-card"
+          >
+            <!-- Contest Card Header -->
+            <div class="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100">
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-base sm:text-lg font-bold text-slate-900">
+                    {{ contest.title }}
+                  </h3>
+                  <!-- Contest Type & Weight Badge -->
+                  <span
+                    v-if="contest.contest_type === 'INTERNAL_SCHOOL'"
+                    class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-purple-50 text-purple-700 border border-purple-200"
+                  >
+                    校内赛 (权重 0.80, 零和校准)
+                  </span>
+                  <span
+                    v-else
+                    class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-50 text-amber-700 border border-amber-200"
+                  >
+                    校外赛 (权重 1.00, 外部锚点基准)
+                  </span>
+                </div>
+                <div class="flex items-center gap-4 text-xs text-slate-500">
+                  <span>📅 比赛时间: {{ formatDateTime(contest.start_time) }}</span>
+                  <span>👥 参赛队伍: {{ (contest.standings || []).length }} 支</span>
+                </div>
+              </div>
+
+              <!-- Toggle Expand / Collapse Button -->
+              <button
+                @click="toggleContest(contest.contest_id)"
+                class="self-start md:self-center px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1.5 transition-colors"
+              >
+                <span>{{ isContestExpanded(contest.contest_id) ? '收起完整榜单' : '展开完整榜单' }}</span>
+                <svg
+                  class="w-4 h-4 transition-transform duration-200"
+                  :class="{ 'rotate-180': isContestExpanded(contest.contest_id) }"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Expanded Standings Table -->
+            <div v-show="isContestExpanded(contest.contest_id)" class="bg-slate-50/50 p-4 sm:p-5 border-t border-slate-100">
+              <div class="bg-white rounded-lg border border-slate-200 overflow-x-auto shadow-xs">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                  <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                      <th class="py-2.5 px-3 text-center w-14">名次</th>
+                      <th class="py-2.5 px-3">队伍名称</th>
+                      <th class="py-2.5 px-3 text-center">题数 / 罚时</th>
+                      <th class="py-2.5 px-3">参赛队员</th>
+                      <th class="py-2.5 px-3 text-right">赛前战力</th>
+                      <th class="py-2.5 px-3 text-right">表现分</th>
+                      <th class="py-2.5 px-3 text-right">队伍变动</th>
+                      <th class="py-2.5 px-3 text-right">队员结算</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <tr
+                      v-for="standing in (contest.standings || [])"
+                      :key="standing.team_name + standing.rank"
+                      class="hover:bg-slate-50/80 transition-colors"
+                    >
+                      <!-- Rank -->
+                      <td class="py-2.5 px-3 text-center font-bold font-mono">
+                        <span
+                          v-if="standing.rank === 1"
+                          class="inline-block px-1.5 py-0.5 rounded rank-badge-1 text-xs"
+                        >
+                          #1
+                        </span>
+                        <span
+                          v-else-if="standing.rank === 2"
+                          class="inline-block px-1.5 py-0.5 rounded rank-badge-2 text-xs"
+                        >
+                          #2
+                        </span>
+                        <span
+                          v-else-if="standing.rank === 3"
+                          class="inline-block px-1.5 py-0.5 rounded rank-badge-3 text-xs"
+                        >
+                          #3
+                        </span>
+                        <span v-else class="text-slate-500 text-xs">
+                          #{{ standing.rank }}
+                        </span>
+                      </td>
+
+                      <!-- Team Name & School/External Badge -->
+                      <td class="py-2.5 px-3">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                          <span class="font-bold text-slate-900">{{ standing.team_name }}</span>
+                          <span
+                            v-if="standing.is_star"
+                            class="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200"
+                          >
+                            ★ 打星队
+                          </span>
+                          <span
+                            v-if="standing.is_school"
+                            class="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"
+                          >
+                            校内队伍
+                          </span>
+                          <span
+                            v-else
+                            class="px-1.5 py-0.2 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200"
+                          >
+                            外部锚点
+                          </span>
+                        </div>
+                      </td>
+
+                      <!-- Solved / Penalty -->
+                      <td class="py-2.5 px-3 text-center font-mono text-xs">
+                        <span class="font-bold text-slate-800">{{ standing.solved }} 题</span>
+                        <span class="text-slate-400"> / {{ standing.penalty }} 分</span>
+                      </td>
+
+                      <!-- Members (Clickable, styled with tier color) -->
+                      <td class="py-2.5 px-3">
+                        <div v-if="standing.members && standing.members.length > 0" class="flex flex-wrap items-center gap-1.5">
+                          <button
+                            v-for="mId in standing.members"
+                            :key="mId"
+                            @click="openUserModal(mId)"
+                            class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-colors"
+                            :style="{ color: (usersMap.get(String(mId))?.color || '#4B5563') }"
+                          >
+                            {{ usersMap.get(String(mId))?.name || mId }}
+                          </button>
+                        </div>
+                        <span v-else class="text-slate-400 text-xs">-</span>
+                      </td>
+
+                      <!-- Team Rating -->
+                      <td class="py-2.5 px-3 text-right font-mono text-xs text-slate-600">
+                        {{ standing.team_rating ? standing.team_rating.toFixed(1) : '-' }}
+                      </td>
+
+                      <!-- Perf Rating -->
+                      <td class="py-2.5 px-3 text-right font-mono text-xs font-semibold text-indigo-600">
+                        {{ standing.perf_rating ? standing.perf_rating.toFixed(1) : '-' }}
+                      </td>
+
+                      <!-- Team Delta -->
+                      <td class="py-2.5 px-3 text-right font-mono text-xs font-bold">
+                        <span
+                          v-if="standing.delta > 0"
+                          class="text-emerald-600"
+                        >
+                          +{{ standing.delta.toFixed(1) }}
+                        </span>
+                        <span
+                          v-else-if="standing.delta < 0"
+                          class="text-red-600"
+                        >
+                          {{ standing.delta.toFixed(1) }}
+                        </span>
+                        <span v-else class="text-slate-400">
+                          0.0
+                        </span>
+                      </td>
+
+                      <!-- Member Deltas -->
+                      <td class="py-2.5 px-3 text-right font-mono text-xs">
+                        <div v-if="standing.is_school && standing.members && standing.members.length > 0" class="flex flex-col items-end gap-0.5">
+                          <div
+                            v-for="mId in standing.members"
+                            :key="mId"
+                            class="flex items-center gap-1"
+                          >
+                            <span class="text-[11px] text-slate-400">{{ usersMap.get(String(mId))?.name || mId }}:</span>
+                            <span
+                              v-if="(usersMap.get(String(mId))?.history?.find(h => h.contest_id === contest.contest_id)?.delta ?? standing.delta) > 0"
+                              class="text-emerald-600 font-bold"
+                            >
+                              +{{ (usersMap.get(String(mId))?.history?.find(h => h.contest_id === contest.contest_id)?.delta ?? standing.delta).toFixed(1) }}
+                            </span>
+                            <span
+                              v-else-if="(usersMap.get(String(mId))?.history?.find(h => h.contest_id === contest.contest_id)?.delta ?? standing.delta) < 0"
+                              class="text-red-600 font-bold"
+                            >
+                              {{ (usersMap.get(String(mId))?.history?.find(h => h.contest_id === contest.contest_id)?.delta ?? standing.delta).toFixed(1) }}
+                            </span>
+                            <span v-else class="text-slate-400 font-bold">
+                              0.0
+                            </span>
+                          </div>
+                        </div>
+                        <span v-else class="text-slate-400 text-xs">不计校内分</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- VIEW 3: RULES (积分规则说明) -->
+      <!-- ================================================================= -->
+      <section v-if="activeTab === 'rules'" class="space-y-6">
+        
+        <div class="bg-white rounded-xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-8">
+          
+          <!-- Section 1: Data-as-Code -->
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-indigo-600 text-xl font-bold">#</span>
+              <h2 class="text-xl font-extrabold text-slate-900">系统架构理念：Data-as-Code</h2>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              本系统专为苏州科技大学 ACM/XCPC 集训队设计，完全采用 <strong>Data-as-Code（纯静态无后端服务器）</strong> 架构。所有选手花名册（<code>data/users.csv</code>）和标准化赛事榜单（<code>data/contests/*.json</code>）均直接托管在 Git 版本控制仓库中。每当有新比赛录入并推送到主分支时，GitHub Actions 自动化流水线会依次执行严格的数据规范校验（<code>validate_data.py</code>）、完整的单元与回归测试（<code>pytest</code>）、NumPy 向量化加速的多人算分引擎（<code>recalculate.py</code>），并将聚合完成的纯静态看板自动化发布至 GitHub Pages。无需运维任何数据库和后端服务，数据完全透明、可追溯、零成本维护。
+            </p>
+          </div>
+
+          <hr class="border-slate-100">
+
+          <!-- Section 2: Dual-Track Rating System -->
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-indigo-600 text-xl font-bold">#</span>
+              <h2 class="text-xl font-extrabold text-slate-900">双轨制积分架构 (True Rating vs Display Rating)</h2>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              为彻底解决新队员（尤其是大一萌新）初始参赛单场分值剧烈震荡、小号虚高的问题，系统引入参考 Codeforces 的<strong>双轨积分制度</strong>：
+            </p>
+            <ul class="list-disc list-inside text-sm text-slate-600 space-y-1.5 mb-4">
+              <li><strong>底层真实战力分 (True Rating)</strong>：所有数学计算和期望胜率预测完全基于无偏的真实战力分。无公开外部竞赛记录的新生初始分为 <strong>1000</strong>；已有外部公开 XCPC-Elo 战绩者填入其实际分值。</li>
+              <li><strong>前端展示分 (Display Rating)</strong>：前端排行榜和所有徽章展示采用显示分，计算公式为 <code>Display = max(0, round(True + Offset))</code>。</li>
+            </ul>
+
+            <!-- Offset Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full max-w-xl text-left border border-slate-200 text-xs sm:text-sm rounded-lg overflow-hidden">
+                <thead class="bg-slate-50 text-slate-700 font-semibold">
+                  <tr>
+                    <th class="py-2.5 px-4 border-b border-slate-200">累计计分场次 (Rated Count)</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">显示分偏移量 (Offset)</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">初始 1000 战力对应显示分</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-600">
+                  <tr>
+                    <td class="py-2 px-4 font-mono">0 场 (未参赛)</td>
+                    <td class="py-2 px-4 font-mono font-bold text-red-600">-1000</td>
+                    <td class="py-2 px-4 font-mono">0 分 (萌新保护)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 font-mono">1 场</td>
+                    <td class="py-2 px-4 font-mono font-bold text-amber-600">-500</td>
+                    <td class="py-2 px-4 font-mono">500 分</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 font-mono">2 场</td>
+                    <td class="py-2 px-4 font-mono font-bold text-amber-600">-250</td>
+                    <td class="py-2 px-4 font-mono">750 分</td>
+                  </tr>
+                  <tr class="bg-emerald-50/50">
+                    <td class="py-2 px-4 font-mono font-bold text-emerald-800">≥ 3 场 (完全定级)</td>
+                    <td class="py-2 px-4 font-mono font-bold text-emerald-600">0</td>
+                    <td class="py-2 px-4 font-mono font-bold text-emerald-800">第三场结束直接展示真实积分</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <hr class="border-slate-100">
+
+          <!-- Section 3: Team Power & Multi-Player Elo -->
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-indigo-600 text-xl font-bold">#</span>
+              <h2 class="text-xl font-extrabold text-slate-900">赛前队伍战力合成与 Multi-Player Elo 结算</h2>
+            </div>
+            <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
+              <div>
+                <h4 class="font-bold text-slate-900 mb-1">1. 队伍战力合成公式 ($R_{team}$)</h4>
+                <p>校内组队队伍由 $k$ 名成员组成时，采用与 <strong>XCPC-Elo 官方完全对齐的对数幂平均模型 (log-power-mean)</strong>，将已有参赛历史的队员实力通过胜率胜力值做对数平均：</p>
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 font-mono text-xs sm:text-sm my-2 text-slate-800">
+                  R_team = 400 · log10( (1 / k_rated) · Σ 10^(R_i / 400) )
+                </div>
+                <p>该模型保证队伍战力平滑合理，未参赛新人不拉低种子预期，若全队均为新人则以萌新基准 800 分起跑。外部队伍直接使用其标注的 <code>external_elo</code>（缺省默认为 1500）作为基准锚点。</p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-slate-900 mb-1">2. 期望胜率与二分表现分查找 ($R_{needed}$ 与 $R_{perf}$)</h4>
+                <p>任意两队 $A, B$ 之间，队伍 $B$ 战胜队伍 $A$ 的期望概率为：$P(B > A) = \frac{1}{1 + 10^{(R_A - R_B)/400}}$。队伍 $A$ 的赛前期望种子排名为 $\text{Seed}_A = 1 + \sum_{B \neq A} P(B > A)$。</p>
+                <p>比赛结束后，队伍 $A$ 获得实际排名 $\text{Rank}_A$。引擎在 $[-500.0, 3500.0]$ 区间内进行 <strong>50 次向量化二分查找</strong>：由实际排名 $\text{Rank}_A$ 反推出队伍实际发挥的队伍表现分 $R_{perf}$；由几何均值目标名次 $m_A = \sqrt{\text{Seed}_A \times \text{Rank}_A}$ 反推出目标所需战力 $R_{needed}$。</p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-slate-900 mb-1">3. 动态学习率与个人 Delta 结算</h4>
+                <p>完全对齐 XCPC-Elo 的 <strong>Codeforces 动态衰减学习率</strong>与<strong>个人分差结算机制</strong>：</p>
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 font-mono text-xs sm:text-sm my-2 text-slate-800">
+                  lr_i = 0.6 + 0.3 · e^(-contests_i),  ΔR_i = W_contest · (R_needed - R_{i, old}) · lr_i
+                </div>
+                <p>新选手首场学习率高达 0.9，随场次平滑衰减至 0.6；队员变动直接锚定自身历史积分与队伍目标分之差，使低分队员能快速跟上队伍梯队，高分队员自动达到均衡平台。</p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-slate-900 mb-1">4. 校内外赛事权重与校内赛零和校准</h4>
+                <ul class="list-disc list-inside space-y-1">
+                  <li><strong>校外赛 (EXTERNAL_XCPC, 权重 1.00)</strong>：以全国高校顶尖队伍为锚点，校内队伍的积分变动直接吸收外部战力，不进行零和修正。</li>
+                  <li><strong>校内赛 (INTERNAL_SCHOOL, 权重 0.80)</strong>：仅校内队员参赛。为防止校内赛事内部产生系统性通胀或通缩，引擎计算所有参赛本校选手的均值漂移 $\mu = \frac{1}{M}\sum_{i=1}^M \Delta R_i$，并在结算时从每位选手扣除该均值：$\Delta R_i \leftarrow \Delta R_i - \mu$，确保 $\sum \Delta R_i = 0$ 恒成立。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <hr class="border-slate-100">
+
+          <!-- Section 4: 7-Tier Codeforces System Table -->
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-indigo-600 text-xl font-bold">#</span>
+              <h2 class="text-xl font-extrabold text-slate-900">7 级 Codeforces 风格段位视觉体系</h2>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+              系统采用 800 分以上绿名启航、每 200 分一个段位的纯粹竞技色彩阶梯。选手姓名和当前段位徽章均严格按照其 <strong>Display Rating</strong> 进行着色渲染：
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border border-slate-200 text-xs sm:text-sm rounded-lg overflow-hidden">
+                <thead class="bg-slate-50 text-slate-700 font-semibold">
+                  <tr>
+                    <th class="py-2.5 px-4 border-b border-slate-200">段位等级</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">英文名称</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">集训队称号</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">显示分区间 (Display Rating)</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">标准色标</th>
+                    <th class="py-2.5 px-4 border-b border-slate-200">徽章预览</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-600">
+                  <tr v-for="(tier, idx) in TIERS" :key="tier.name" class="hover:bg-slate-50/60">
+                    <td class="py-2.5 px-4 font-mono font-bold text-slate-400">Tier {{ idx + 1 }}</td>
+                    <td class="py-2.5 px-4 font-bold" :style="{ color: tier.color }">{{ tier.name }}</td>
+                    <td class="py-2.5 px-4 font-semibold text-slate-800">{{ tier.zh }}</td>
+                    <td class="py-2.5 px-4 font-mono">
+                      {{ tier.min }} ~ {{ tier.max === 99999 ? '∞' : tier.max }}
+                    </td>
+                    <td class="py-2.5 px-4 font-mono text-xs">
+                      <span class="inline-flex items-center gap-1.5">
+                        <span class="w-3.5 h-3.5 rounded-full border border-slate-300" :style="{ backgroundColor: tier.color }"></span>
+                        <span>{{ tier.color }}</span>
+                      </span>
+                    </td>
+                    <td class="py-2.5 px-4">
+                      <span class="tier-badge" :class="tier.badgeClass">
+                        <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: tier.color }"></span>
+                        <span>{{ tier.name }}</span>
+                        <span class="text-[10px] opacity-75">({{ tier.zh }})</span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <hr class="border-slate-100">
+
+          <!-- Section 5: Retirement Policy -->
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-indigo-600 text-xl font-bold">#</span>
+              <h2 class="text-xl font-extrabold text-slate-900">退役判定机制</h2>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              为保证排行榜的真实活跃度和梯队选拔参考价值，系统内置自动退役判定规则，满足以下任一条件即判定为退役（<code>is_retired = true</code>）：
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-slate-600 text-sm mt-2 leading-relaxed">
+              <li><strong>毕业退役</strong>：2022 级及更早入学（已毕业）的队员自动判定为退役；</li>
+              <li><strong>超期退役</strong>：选手最近一场有效参赛记录距今超过 <strong>2 年（730 天）</strong>，或已入队满 2 年但从未参加任何一场计分赛；</li>
+              <li><strong>主动退役</strong>：集训队花名册档案明确标注非活跃（<code>is_active = false</code>）。</li>
+            </ul>
+            <p class="text-slate-500 text-xs mt-2">
+              前端总排行榜默认仅展示现役队员，并提供现役 / 退役 / 全部状态筛选切换。
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- =================================================================== -->
+    <!-- USER DETAIL MODAL (个人历史详情弹窗) -->
+    <!-- =================================================================== -->
+    <div
+      v-if="showModal && selectedUser"
+      class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+      @click.self="closeUserModal"
+    >
+      <!-- Modal Backdrop with blur -->
+      <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" @click="closeUserModal"></div>
+
+      <!-- Modal Card -->
+      <div class="relative bg-white rounded-2xl shadow-2xl border border-slate-200/80 w-full max-w-4xl max-h-[92vh] flex flex-col z-10 overflow-hidden my-auto">
+        
+        <!-- Modal Top Bar -->
+        <div class="p-5 sm:p-6 border-b border-slate-100 flex items-start justify-between bg-slate-50/50">
+          <div class="flex items-center gap-3 sm:gap-4">
+            <!-- Tier Colored Avatar Circle -->
+            <div
+              class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white text-xl sm:text-2xl font-black shadow-md shrink-0"
+              :style="{ backgroundColor: selectedUser.color }"
+            >
+              {{ selectedUser.name.slice(0, 1) }}
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-xl sm:text-2xl font-black tracking-tight" :style="{ color: selectedUser.color }">
+                  {{ selectedUser.name }}
+                </h3>
+                <!-- Tier Badge -->
+                <span class="tier-badge" :class="getTier(selectedUser.display_rating).badgeClass">
+                  <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: selectedUser.color }"></span>
+                  <span>{{ getTier(selectedUser.display_rating).name }}</span>
+                  <span class="text-[10px] opacity-75">({{ getTier(selectedUser.display_rating).zh }})</span>
+                </span>
+              </div>
+              <div class="flex items-center gap-3 text-xs text-slate-500 mt-1">
+                <span>专业班级: <strong class="font-medium text-slate-700">{{ selectedUser.class_name || selectedUser.major || '-' }}</strong></span>
+                <span v-if="selectedUser.pinyin" class="text-slate-400">({{ selectedUser.pinyin }})</span>
+                <span>•</span>
+                <span>年级: <strong class="text-slate-700">{{ selectedUser.grade }}级</strong></span>
+                <span>•</span>
+                <span v-if="selectedUser.is_active && !selectedUser.is_retired" class="text-emerald-600 font-semibold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 现役
+                </span>
+                <span v-else class="text-slate-400 font-semibold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span> 退役
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Close Button -->
+          <button
+            @click="closeUserModal"
+            class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Modal Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
+          
+          <!-- 4 Stat Pill Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <!-- Stat 1: Display Rating -->
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/60">
+              <span class="text-xs text-slate-500 font-semibold block">当前显示分</span>
+              <span class="text-2xl font-black font-mono mt-0.5 block" :style="{ color: selectedUser.color }">
+                {{ selectedUser.display_rating }}
+              </span>
+            </div>
+
+            <!-- Stat 2: Max Display Rating -->
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/60">
+              <span class="text-xs text-slate-500 font-semibold block">历史最高分</span>
+              <span class="text-2xl font-black font-mono mt-0.5 block text-slate-800">
+                {{ selectedUser.max_display_rating }}
+              </span>
+            </div>
+
+            <!-- Stat 3: True Rating with tooltip -->
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/60 relative group">
+              <div class="flex items-center gap-1">
+                <span class="text-xs text-slate-500 font-semibold">底层真实分</span>
+                <svg class="w-3.5 h-3.5 text-slate-400 cursor-help" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <span class="text-2xl font-black font-mono mt-0.5 block text-slate-700">
+                {{ selectedUser.true_rating ? selectedUser.true_rating.toFixed(1) : '-' }}
+              </span>
+              <!-- Tooltip Popup -->
+              <div class="absolute bottom-full left-0 mb-2 w-64 bg-slate-800 text-white text-xs rounded-lg p-2.5 shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-20">
+                底层无偏 Elo 战力，前 3 场通过平滑偏移量 [-1000, -500, -250, 0] 平滑过渡至显示分，第三场结束直接展示真实积分。
+              </div>
+            </div>
+
+            <!-- Stat 4: Rated Contests & Best Perf -->
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/60">
+              <span class="text-xs text-slate-500 font-semibold block">计分场次 / 峰值表现</span>
+              <div class="flex items-baseline gap-1 mt-0.5">
+                <span class="text-2xl font-black font-mono text-slate-800">{{ selectedUser.rated_count }}</span>
+                <span class="text-xs text-slate-500 font-mono">场 (Perf: {{ getBestPerf(selectedUser) }})</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive ECharts Canvas Area -->
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                </svg>
+                <span>积分成长趋势折线图 (ECharts)</span>
+              </h4>
+              <span class="text-xs text-slate-400">背景带标注 7 级段位色彩区间</span>
+            </div>
+            <!-- Canvas target -->
+            <div id="ratingChart" class="w-full h-80 sm:h-96"></div>
+          </div>
+
+          <!-- Contest History Table (Reverse-Chronological) -->
+          <div class="space-y-3">
+            <h4 class="text-sm font-bold text-slate-900">历史计分比赛明细 (最新比赛排在最前)</h4>
+            <div class="bg-white rounded-xl border border-slate-200 overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                    <th class="py-2.5 px-3">比赛日期</th>
+                    <th class="py-2.5 px-3">赛事名称</th>
+                    <th class="py-2.5 px-3">参赛队伍</th>
+                    <th class="py-2.5 px-3 text-center">名次</th>
+                    <th class="py-2.5 px-3 text-center">题数/罚时</th>
+                    <th class="py-2.5 px-3 text-right" title="队伍单场综合表现分 (Team Performance Rating)">队伍表现分</th>
+                    <th class="py-2.5 px-3 text-right">积分变动</th>
+                    <th class="py-2.5 px-3 text-right">赛后显示分</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr
+                    v-for="h in [...(selectedUser.history || [])].reverse()"
+                    :key="h.contest_id"
+                    class="hover:bg-slate-50/80 transition-colors"
+                  >
+                    <!-- Date -->
+                    <td class="py-2.5 px-3 text-slate-500 whitespace-nowrap font-mono">
+                      {{ formatDate(h.contest_date) }}
+                    </td>
+
+                    <!-- Title & Type -->
+                    <td class="py-2.5 px-3">
+                      <div class="font-semibold text-slate-800">{{ h.contest_title }}</div>
+                      <span
+                        v-if="h.contest_type === 'INTERNAL_SCHOOL'"
+                        class="text-[10px] text-purple-600 font-medium"
+                      >
+                        校内选拔赛
+                      </span>
+                      <span v-else class="text-[10px] text-blue-600 font-medium">
+                        校外正式赛
+                      </span>
+                    </td>
+
+                    <!-- Team Name -->
+                    <td class="py-2.5 px-3 font-medium text-slate-700">
+                      {{ h.team_name }}
+                    </td>
+
+                    <!-- Rank -->
+                    <td class="py-2.5 px-3 text-center font-mono font-bold text-slate-800">
+                      #{{ h.rank }}
+                    </td>
+
+                    <!-- Solved / Penalty -->
+                    <td class="py-2.5 px-3 text-center font-mono text-slate-500 whitespace-nowrap">
+                      {{ getUserContestStats(selectedUser.student_id, h.contest_id).solved }} 题 /
+                      {{ getUserContestStats(selectedUser.student_id, h.contest_id).penalty }} 分
+                    </td>
+
+                    <!-- Perf Rating -->
+                    <td class="py-2.5 px-3 text-right font-mono font-semibold text-indigo-600">
+                      {{ h.perf_rating ? Number(h.perf_rating).toFixed(1) : '-' }}
+                    </td>
+
+                    <!-- Delta Rating -->
+                    <td class="py-2.5 px-3 text-right font-mono font-bold">
+                      <span
+                        v-if="h.delta > 0"
+                        class="text-emerald-600"
+                      >
+                        +{{ h.delta.toFixed(1) }}
+                      </span>
+                      <span
+                        v-else-if="h.delta < 0"
+                        class="text-red-600"
+                      >
+                        {{ h.delta.toFixed(1) }}
+                      </span>
+                      <span v-else class="text-slate-400">
+                        0.0
+                      </span>
+                    </td>
+
+                    <!-- Post-Contest Display Rating -->
+                    <td class="py-2.5 px-3 text-right font-mono font-black" :style="{ color: getTier(h.display_rating_after).color }">
+                      {{ h.display_rating_after }}
+                    </td>
+                  </tr>
+
+                  <tr v-if="!selectedUser.history || selectedUser.history.length === 0">
+                    <td colspan="8" class="py-8 text-center text-slate-400">
+                      暂无比赛历史记录
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+          <button
+            @click="closeUserModal"
+            class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-lg transition-colors"
+          >
+            关闭详情
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div>
+          <span>© 2026 苏州科技大学 ACM/XCPC 集训队 (USTS Algorithm Training Team)</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Data-as-Code 驱动</span>
+          </span>
+          <span>•</span>
+          <span>纯静态托管 (Zero Backend)</span>
+          <span>•</span>
+          <a href="https://github.com" target="_blank" class="hover:text-slate-700 underline">GitHub Pages</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

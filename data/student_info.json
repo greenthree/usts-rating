@@ -1,0 +1,387 @@
+{
+  "郭瑞阳": {
+    "pinyin": "Guo Ruiyang",
+    "class_name": "计算机1911",
+    "major": "计算机"
+  },
+  "时微淳": {
+    "pinyin": "Shi Weichun",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "黄泱邦": {
+    "pinyin": "Huang Yangbang",
+    "class_name": "信息与计算科学2011",
+    "major": "信息与计算科学"
+  },
+  "曹鹏": {
+    "pinyin": "Cao Peng",
+    "class_name": "计算机1911",
+    "major": "计算机"
+  },
+  "彭羽": {
+    "pinyin": "Peng Yu",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "卫佳炜": {
+    "pinyin": "Wei Jiawei",
+    "class_name": "计算机2011",
+    "major": "计算机"
+  },
+  "沈广浩": {
+    "pinyin": "Shen Guanghao",
+    "class_name": "信息与计算科学1912",
+    "major": "信息与计算科学"
+  },
+  "吴晓凡": {
+    "pinyin": "Wu Xiaofan",
+    "class_name": "统计2012",
+    "major": "统计"
+  },
+  "徐晋轶": {
+    "pinyin": "Xu Jin yi",
+    "class_name": "电子2011",
+    "major": "电子"
+  },
+  "孙宇航": {
+    "pinyin": "Sun yu hang",
+    "class_name": "统计2011",
+    "major": "统计"
+  },
+  "王浩宇": {
+    "pinyin": "Wang Hao Yu",
+    "class_name": "电子2011",
+    "major": "电子"
+  },
+  "文梓潼": {
+    "pinyin": "Wen Zi Tong",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "王东方": {
+    "pinyin": "Wang Dong Fang",
+    "class_name": "电子2011",
+    "major": "电子"
+  },
+  "顾迅": {
+    "pinyin": "gu xun",
+    "class_name": "计算机2011",
+    "major": "计算机"
+  },
+  "刘奕州": {
+    "pinyin": "Liu Yizhou",
+    "class_name": "计算机2011",
+    "major": "计算机"
+  },
+  "邹龙康": {
+    "pinyin": "zoulongkang",
+    "class_name": "计算机2011",
+    "major": "计算机"
+  },
+  "高成杰": {
+    "pinyin": "Gao Chengjie",
+    "class_name": "给排2012",
+    "major": "给排"
+  },
+  "蒋城": {
+    "pinyin": "Jiang Cheng",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "武家辉": {
+    "pinyin": "Wu Jia hui",
+    "class_name": "计算机2011",
+    "major": "计算机"
+  },
+  "韩世豪": {
+    "pinyin": "Han Shihao",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "邓欣怡": {
+    "pinyin": "Deng Xinyi",
+    "class_name": "信息与计算科学2011",
+    "major": "信息与计算科学"
+  },
+  "江帆": {
+    "pinyin": "Jiang Fan",
+    "class_name": "信计2012",
+    "major": "信计"
+  },
+  "牟其霖": {
+    "pinyin": "Mou Qilin",
+    "class_name": "计算机2111",
+    "major": "计算机"
+  },
+  "翁康智": {
+    "pinyin": "Weng Kangzhi",
+    "class_name": "计算机2111",
+    "major": "计算机"
+  },
+  "王纪飞": {
+    "pinyin": "Wang Jifei",
+    "class_name": "计算机2111",
+    "major": "计算机"
+  },
+  "王锴": {
+    "pinyin": "Wang Kai",
+    "class_name": "计算机z1912",
+    "major": "计算机"
+  },
+  "李冬阳": {
+    "pinyin": "Li Dongyang",
+    "class_name": "人工智能2111",
+    "major": "人工智能"
+  },
+  "盛弘康": {
+    "pinyin": "Sheng Hongkang",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "曹可干": {
+    "pinyin": "Cao Kegan",
+    "class_name": "计算机2121",
+    "major": "计算机"
+  },
+  "钱俊枫": {
+    "pinyin": "Qian Junfeng",
+    "class_name": "计算机2121",
+    "major": "计算机"
+  },
+  "刘婉婷": {
+    "pinyin": "Liu Wanting",
+    "class_name": "计算机2012",
+    "major": "计算机"
+  },
+  "童永振": {
+    "pinyin": "Tong Yongzhen",
+    "class_name": "计算机2111",
+    "major": "计算机"
+  },
+  "黄清扬": {
+    "pinyin": "Huang Qingyang",
+    "class_name": "计算机2112",
+    "major": "计算机"
+  },
+  "汤子寒": {
+    "pinyin": "Tang Zihan",
+    "class_name": "生物工程1911",
+    "major": "生物工程"
+  },
+  "陈家杰": {
+    "pinyin": "Chen Jia Jie",
+    "class_name": "信计2012",
+    "major": "信计"
+  },
+  "侯云飞": {
+    "pinyin": "Hou Yunfei",
+    "class_name": "计算机2112",
+    "major": "计算机"
+  },
+  "刘顾斌": {
+    "pinyin": "LiuGuBin",
+    "class_name": "计算机2111",
+    "major": "计算机"
+  },
+  "恽佳洁": {
+    "pinyin": "Yun jia jie",
+    "class_name": "计算机2312",
+    "major": "计算机"
+  },
+  "韩守坤": {
+    "pinyin": "Han Shoukun",
+    "class_name": "计算机2212",
+    "major": "计算机"
+  },
+  "刘仪婷": {
+    "pinyin": "Liu Yiting",
+    "class_name": "人工智能2112",
+    "major": "人工智能"
+  },
+  "林凯伦": {
+    "pinyin": "Lin Kailun",
+    "class_name": "区块链2212",
+    "major": "区块链"
+  },
+  "王泽群": {
+    "pinyin": "Wang Zequn",
+    "class_name": "计算机2112",
+    "major": "计算机"
+  },
+  "张俊龙": {
+    "pinyin": "Zhang Junlong",
+    "class_name": "通信2112",
+    "major": "通信"
+  },
+  "倪翊诚": {
+    "pinyin": "Ni Yicheng",
+    "class_name": "应物2311",
+    "major": "应物"
+  },
+  "沈钰阳": {
+    "pinyin": "Shen Yuyang",
+    "class_name": "信计2212",
+    "major": "信计"
+  },
+  "许晋玮": {
+    "pinyin": "Xu Jinwei",
+    "class_name": "计算机2211",
+    "major": "计算机"
+  },
+  "张屹杰": {
+    "pinyin": "Zhang Yijie",
+    "class_name": "人工智能2212",
+    "major": "人工智能"
+  },
+  "李衍庆": {
+    "pinyin": "Li yanqing",
+    "class_name": "数师2311",
+    "major": "数师"
+  },
+  "金亮": {
+    "pinyin": "Jin Liang",
+    "class_name": "信计2311",
+    "major": "信计"
+  },
+  "贺鹏飞": {
+    "pinyin": "He Pengfei",
+    "class_name": "计算机2312",
+    "major": "计算机"
+  },
+  "邹昱": {
+    "pinyin": "Zou Yu",
+    "class_name": "电子2312",
+    "major": "电子"
+  },
+  "刘渝宁": {
+    "pinyin": "Liu Yuning",
+    "class_name": "计算机2311",
+    "major": "计算机"
+  },
+  "陈泽玮": {
+    "pinyin": "Chen Zewei",
+    "class_name": "区块链2412",
+    "major": "区块链"
+  },
+  "姬政": {
+    "pinyin": "Ji Zheng",
+    "class_name": "区块链2412",
+    "major": "区块链"
+  },
+  "金晓妍": {
+    "pinyin": "Jin Xiaoyan",
+    "class_name": "工商2411",
+    "major": "工商"
+  },
+  "徐照杰": {
+    "pinyin": "Xu Zhaojie",
+    "class_name": "环境类2414",
+    "major": "环境类"
+  },
+  "贺雨欣": {
+    "pinyin": "He Yuxin",
+    "class_name": "计算机2412",
+    "major": "计算机"
+  },
+  "徐健翔": {
+    "pinyin": "Xu jianxiang",
+    "class_name": "计算机2411",
+    "major": "计算机"
+  },
+  "李明宇": {
+    "pinyin": "Li Mingyu",
+    "class_name": "计算机2411",
+    "major": "计算机"
+  },
+  "王永刚": {
+    "pinyin": "Wang Yonggang",
+    "class_name": "地信2412",
+    "major": "地信"
+  },
+  "李紫悦": {
+    "pinyin": "Li Ziyue",
+    "class_name": "地信2412",
+    "major": "地信"
+  },
+  "侯耀辰": {
+    "pinyin": "Hou Yaochen",
+    "class_name": "计算机2311",
+    "major": "计算机"
+  },
+  "朱正超": {
+    "pinyin": "ZhuZhengchao",
+    "class_name": "地信2412",
+    "major": "地信"
+  },
+  "秦志锴": {
+    "pinyin": "QinZhikai",
+    "class_name": "区块链2311",
+    "major": "区块链"
+  },
+  "严昌龙": {
+    "pinyin": "YanChangLong",
+    "class_name": "区块链2411",
+    "major": "区块链"
+  },
+  "蔡恩祈": {
+    "pinyin": "Cai Enqi",
+    "class_name": "工程力学2411",
+    "major": "工程力学"
+  },
+  "陈锦耀": {
+    "pinyin": "Chen JinYao",
+    "class_name": "区块链2412",
+    "major": "区块链"
+  },
+  "金韩希": {
+    "pinyin": "JinHanXi",
+    "class_name": "人工智能2511",
+    "major": "人工智能"
+  },
+  "迮天浩": {
+    "pinyin": "ZeTianHao",
+    "class_name": "计算机2511",
+    "major": "计算机"
+  },
+  "赵君峰": {
+    "pinyin": "Zhao Junfeng",
+    "class_name": "地信2311",
+    "major": "地信"
+  },
+  "姜志豪": {
+    "pinyin": "JiangZhiHao",
+    "class_name": "计算机2512",
+    "major": "计算机"
+  },
+  "吕子奇": {
+    "pinyin": "Lv ZiQi",
+    "class_name": "人工智能2512",
+    "major": "人工智能"
+  },
+  "胡增辉": {
+    "pinyin": "Hu ZengHui",
+    "class_name": "计算机2511",
+    "major": "计算机"
+  },
+  "王星耀": {
+    "pinyin": "Wang Xingyao",
+    "class_name": "人工智能2511",
+    "major": "人工智能"
+  },
+  "赵智贤": {
+    "pinyin": "Zhao ZhiXian",
+    "class_name": "机械2314",
+    "major": "机械"
+  },
+  "李锦涛": {
+    "pinyin": "Li Jintao",
+    "class_name": "机电2314",
+    "major": "机电"
+  },
+  "王国彬": {
+    "pinyin": "Wang Guobin",
+    "class_name": "计算机2511",
+    "major": "计算机"
+  }
+}

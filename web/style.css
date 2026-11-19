@@ -1,0 +1,204 @@
+/*
+ * Suzhou University of Science and Technology (USTS)
+ * ACM/XCPC Rating System - Custom Stylesheet
+ * Codeforces-style visual tier hierarchy & interactive components
+ */
+
+:root {
+  --tier-newbie: #808080;
+  --tier-pupil: #008000;
+  --tier-specialist: #03A89E;
+  --tier-expert: #0000FF;
+  --tier-candidate-master: #AA00AA;
+  --tier-master: #FF8C00;
+  --tier-grandmaster: #FF0000;
+}
+
+/* Prevent Vue uncompiled template flicker */
+[v-cloak] {
+  display: none !important;
+}
+
+/* Base typography and body styling */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth modal transitions */
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+}
+
+/* Custom scrollbars for tables and history views */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Codeforces-styled ranking badges */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  border-width: 1px;
+  white-space: nowrap;
+}
+
+/* Tier Specific Badges */
+.badge-newbie {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border-color: #d1d5db;
+}
+
+.badge-pupil {
+  background-color: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.badge-specialist {
+  background-color: #ccfbf1;
+  color: #0f766e;
+  border-color: #5eead4;
+}
+
+.badge-expert {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.badge-candidate-master {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  border-color: #d8b4fe;
+}
+
+.badge-master {
+  background-color: #ffedd5;
+  color: #c2410c;
+  border-color: #fdba74;
+}
+
+.badge-grandmaster {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+/* Rank Podium Highlights */
+.rank-badge-1 {
+  background: linear-gradient(135deg, #fef08a 0%, #eab308 100%);
+  color: #713f12;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(234, 179, 8, 0.35);
+}
+
+.rank-badge-2 {
+  background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+  color: #1e293b;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(148, 163, 184, 0.35);
+}
+
+.rank-badge-3 {
+  background: linear-gradient(135deg, #fed7aa 0%, #f97316 100%);
+  color: #7c2d12;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(249, 115, 22, 0.35);
+}
+
+/* Pulse animation for active participants */
+@keyframes active-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.15);
+  }
+}
+
+.active-indicator {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #10b981;
+  animation: active-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.retired-indicator {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #9ca3af;
+}
+
+/* Delta indicators */
+.delta-positive {
+  color: #16a34a;
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.delta-negative {
+  color: #dc2626;
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.delta-zero {
+  color: #6b7280;
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+/* Interactive table hover effects */
+.hover-table-row {
+  transition: background-color 0.15s ease-in-out;
+}
+
+.hover-table-row:hover {
+  background-color: #f8fafc;
+}
+
+/* Card hover animation */
+.contest-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contest-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}

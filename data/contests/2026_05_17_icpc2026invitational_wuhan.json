@@ -1,0 +1,2372 @@
+{
+  "contest_id": "icpc2026invitational-wuhan",
+  "title": "2026 年 ICPC 国际大学生程序设计竞赛全国邀请赛（武汉）暨湖北省赛",
+  "contest_type": "EXTERNAL_XCPC",
+  "start_time": "2026-05-17T09:30:00+08:00",
+  "standings": [
+    {
+      "team_name": "抱歉，陶钧",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2700,
+      "solved": 10,
+      "penalty": 1240,
+      "rank": 1,
+      "is_star": false
+    },
+    {
+      "team_name": "东北大学_咎生录",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2340,
+      "solved": 10,
+      "penalty": 1419,
+      "rank": 2,
+      "is_star": false
+    },
+    {
+      "team_name": "冰川电动吉宝_报名早了，名额有了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2666,
+      "solved": 9,
+      "penalty": 1122,
+      "rank": 3,
+      "is_star": false
+    },
+    {
+      "team_name": "不动点集",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2649,
+      "solved": 9,
+      "penalty": 1256,
+      "rank": 4,
+      "is_star": false
+    },
+    {
+      "team_name": "看听学",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2632,
+      "solved": 8,
+      "penalty": 748,
+      "rank": 5,
+      "is_star": false
+    },
+    {
+      "team_name": "万物一心",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2615,
+      "solved": 8,
+      "penalty": 892,
+      "rank": 6,
+      "is_star": false
+    },
+    {
+      "team_name": "电话微波炉（暂定）",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2598,
+      "solved": 8,
+      "penalty": 1044,
+      "rank": 7,
+      "is_star": false
+    },
+    {
+      "team_name": "长大13队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2581,
+      "solved": 8,
+      "penalty": 1085,
+      "rank": 8,
+      "is_star": false
+    },
+    {
+      "team_name": "没班上了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2564,
+      "solved": 7,
+      "penalty": 724,
+      "rank": 9,
+      "is_star": false
+    },
+    {
+      "team_name": "学长说队名可以从mygo歌单里挑",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2547,
+      "solved": 7,
+      "penalty": 976,
+      "rank": 10,
+      "is_star": false
+    },
+    {
+      "team_name": "你是我的天才女友",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2530,
+      "solved": 7,
+      "penalty": 1128,
+      "rank": 11,
+      "is_star": false
+    },
+    {
+      "team_name": "卫何我这么蔡",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2513,
+      "solved": 7,
+      "penalty": 1142,
+      "rank": 12,
+      "is_star": false
+    },
+    {
+      "team_name": "未来路",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2496,
+      "solved": 7,
+      "penalty": 1363,
+      "rank": 13,
+      "is_star": false
+    },
+    {
+      "team_name": "憧憬成为ACM少女",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2479,
+      "solved": 6,
+      "penalty": 587,
+      "rank": 14,
+      "is_star": false
+    },
+    {
+      "team_name": "避战大怪。",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2462,
+      "solved": 6,
+      "penalty": 771,
+      "rank": 15,
+      "is_star": false
+    },
+    {
+      "team_name": "查询队名超时",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2445,
+      "solved": 6,
+      "penalty": 901,
+      "rank": 16,
+      "is_star": false
+    },
+    {
+      "team_name": "咔咔！！！",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2428,
+      "solved": 6,
+      "penalty": 912,
+      "rank": 17,
+      "is_star": false
+    },
+    {
+      "team_name": "圣保罗遗址",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2411,
+      "solved": 6,
+      "penalty": 955,
+      "rank": 18,
+      "is_star": false
+    },
+    {
+      "team_name": "木叶三忍",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2394,
+      "solved": 6,
+      "penalty": 998,
+      "rank": 19,
+      "is_star": false
+    },
+    {
+      "team_name": "迷迭香_fan",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2377,
+      "solved": 6,
+      "penalty": 1016,
+      "rank": 20,
+      "is_star": false
+    },
+    {
+      "team_name": "高级星众联盟魔法卷轴研刻",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2360,
+      "solved": 6,
+      "penalty": 1045,
+      "rank": 21,
+      "is_star": false
+    },
+    {
+      "team_name": "218105633，十六进制",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2343,
+      "solved": 6,
+      "penalty": 1072,
+      "rank": 22,
+      "is_star": false
+    },
+    {
+      "team_name": "爱抖露码斯他",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2326,
+      "solved": 6,
+      "penalty": 1165,
+      "rank": 23,
+      "is_star": false
+    },
+    {
+      "team_name": "终帆",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2309,
+      "solved": 6,
+      "penalty": 1275,
+      "rank": 24,
+      "is_star": false
+    },
+    {
+      "team_name": "1e6可以nlogn吗",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2295,
+      "solved": 5,
+      "penalty": 521,
+      "rank": 25,
+      "is_star": false
+    },
+    {
+      "team_name": "今天又不会起队名的一天",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2284,
+      "solved": 5,
+      "penalty": 542,
+      "rank": 26,
+      "is_star": false
+    },
+    {
+      "team_name": "会赢的",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2273,
+      "solved": 5,
+      "penalty": 635,
+      "rank": 27,
+      "is_star": false
+    },
+    {
+      "team_name": "WA的一声就哭了出来",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2263,
+      "solved": 5,
+      "penalty": 674,
+      "rank": 28,
+      "is_star": false
+    },
+    {
+      "team_name": "旺仔牛逼队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2252,
+      "solved": 5,
+      "penalty": 694,
+      "rank": 29,
+      "is_star": false
+    },
+    {
+      "team_name": "唯独一同打ACM的时光，我从未忘却",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2241,
+      "solved": 5,
+      "penalty": 706,
+      "rank": 30,
+      "is_star": false
+    },
+    {
+      "team_name": "AC.cpp",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2231,
+      "solved": 5,
+      "penalty": 710,
+      "rank": 31,
+      "is_star": false
+    },
+    {
+      "team_name": "鸭鸭王国",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2220,
+      "solved": 5,
+      "penalty": 719,
+      "rank": 32,
+      "is_star": false
+    },
+    {
+      "team_name": "幻梦",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2210,
+      "solved": 5,
+      "penalty": 731,
+      "rank": 33,
+      "is_star": false
+    },
+    {
+      "team_name": "天码行空",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2199,
+      "solved": 5,
+      "penalty": 768,
+      "rank": 34,
+      "is_star": false
+    },
+    {
+      "team_name": "世界赠予我的",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2188,
+      "solved": 5,
+      "penalty": 780,
+      "rank": 35,
+      "is_star": false
+    },
+    {
+      "team_name": "挂机的阿凯",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2178,
+      "solved": 5,
+      "penalty": 850,
+      "rank": 36,
+      "is_star": false
+    },
+    {
+      "team_name": "俄亥俄州大学狂躁四把钥匙标准球员",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2167,
+      "solved": 5,
+      "penalty": 882,
+      "rank": 37,
+      "is_star": false
+    },
+    {
+      "team_name": "爱丽丝最后一次出现是什么时候呢",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2156,
+      "solved": 5,
+      "penalty": 888,
+      "rank": 38,
+      "is_star": false
+    },
+    {
+      "team_name": "三个人加起来等于 Tourist",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2146,
+      "solved": 5,
+      "penalty": 970,
+      "rank": 39,
+      "is_star": false
+    },
+    {
+      "team_name": "谢谢张兵",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2135,
+      "solved": 5,
+      "penalty": 1057,
+      "rank": 40,
+      "is_star": false
+    },
+    {
+      "team_name": "猫全好主治锐涨香",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2124,
+      "solved": 5,
+      "penalty": 1125,
+      "rank": 41,
+      "is_star": false
+    },
+    {
+      "team_name": "焚天裂渊寂灭恐惧老登",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2114,
+      "solved": 4,
+      "penalty": 307,
+      "rank": 42,
+      "is_star": false
+    },
+    {
+      "team_name": "停车坐爱枫林湾",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2103,
+      "solved": 4,
+      "penalty": 311,
+      "rank": 43,
+      "is_star": false
+    },
+    {
+      "team_name": "终局织梦",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2093,
+      "solved": 4,
+      "penalty": 320,
+      "rank": 44,
+      "is_star": false
+    },
+    {
+      "team_name": "重生之我在信大",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2082,
+      "solved": 4,
+      "penalty": 324,
+      "rank": 45,
+      "is_star": false
+    },
+    {
+      "team_name": "聚散似浮萍",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2071,
+      "solved": 4,
+      "penalty": 354,
+      "rank": 46,
+      "is_star": false
+    },
+    {
+      "team_name": "吾心吾行澄如明镜,所作所为皆为正义",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2061,
+      "solved": 4,
+      "penalty": 379,
+      "rank": 47,
+      "is_star": false
+    },
+    {
+      "team_name": "武汉旅游观光团",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2050,
+      "solved": 4,
+      "penalty": 382,
+      "rank": 48,
+      "is_star": false
+    },
+    {
+      "team_name": "雨",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2039,
+      "solved": 4,
+      "penalty": 416,
+      "rank": 49,
+      "is_star": false
+    },
+    {
+      "team_name": "不罗森花",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2029,
+      "solved": 4,
+      "penalty": 427,
+      "rank": 50,
+      "is_star": false
+    },
+    {
+      "team_name": "何の意味",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2018,
+      "solved": 4,
+      "penalty": 473,
+      "rank": 51,
+      "is_star": false
+    },
+    {
+      "team_name": "栈中星河",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2007,
+      "solved": 4,
+      "penalty": 483,
+      "rank": 52,
+      "is_star": false
+    },
+    {
+      "team_name": "优昙昙华",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1997,
+      "solved": 4,
+      "penalty": 487,
+      "rank": 53,
+      "is_star": false
+    },
+    {
+      "team_name": "WRD",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1986,
+      "solved": 4,
+      "penalty": 489,
+      "rank": 54,
+      "is_star": false
+    },
+    {
+      "team_name": "我养了10条鱼",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1976,
+      "solved": 4,
+      "penalty": 509,
+      "rank": 55,
+      "is_star": false
+    },
+    {
+      "team_name": "最后一舞",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1965,
+      "solved": 4,
+      "penalty": 518,
+      "rank": 56,
+      "is_star": false
+    },
+    {
+      "team_name": "负重越野",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1954,
+      "solved": 4,
+      "penalty": 519,
+      "rank": 57,
+      "is_star": false
+    },
+    {
+      "team_name": "建议出题人刷刷力扣再来出题",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1944,
+      "solved": 4,
+      "penalty": 520,
+      "rank": 58,
+      "is_star": false
+    },
+    {
+      "team_name": "涉海蜉蝣",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1933,
+      "solved": 4,
+      "penalty": 532,
+      "rank": 59,
+      "is_star": false
+    },
+    {
+      "team_name": "茶山刘一队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1922,
+      "solved": 4,
+      "penalty": 543,
+      "rank": 60,
+      "is_star": false
+    },
+    {
+      "team_name": "0123456789",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1912,
+      "solved": 4,
+      "penalty": 557,
+      "rank": 61,
+      "is_star": false
+    },
+    {
+      "team_name": "迎风向前",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1901,
+      "solved": 4,
+      "penalty": 560,
+      "rank": 62,
+      "is_star": false
+    },
+    {
+      "team_name": "来我淮理玩吖",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1890,
+      "solved": 4,
+      "penalty": 565,
+      "rank": 63,
+      "is_star": false
+    },
+    {
+      "team_name": "自动AC基米",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1880,
+      "solved": 4,
+      "penalty": 573,
+      "rank": 64,
+      "is_star": false
+    },
+    {
+      "team_name": "Any Ideas",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1869,
+      "solved": 4,
+      "penalty": 604,
+      "rank": 65,
+      "is_star": false
+    },
+    {
+      "team_name": "擢升",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1859,
+      "solved": 4,
+      "penalty": 607,
+      "rank": 66,
+      "is_star": false
+    },
+    {
+      "team_name": "我也要AC吗",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1848,
+      "solved": 4,
+      "penalty": 625,
+      "rank": 67,
+      "is_star": false
+    },
+    {
+      "team_name": "搞得跟真的一样",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1837,
+      "solved": 4,
+      "penalty": 639,
+      "rank": 68,
+      "is_star": false
+    },
+    {
+      "team_name": "和树皮保持距离",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1827,
+      "solved": 4,
+      "penalty": 639,
+      "rank": 69,
+      "is_star": false
+    },
+    {
+      "team_name": "铁花飞",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1816,
+      "solved": 4,
+      "penalty": 670,
+      "rank": 70,
+      "is_star": false
+    },
+    {
+      "team_name": "GPT代替思考",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1805,
+      "solved": 4,
+      "penalty": 671,
+      "rank": 71,
+      "is_star": false
+    },
+    {
+      "team_name": "JXNU_3",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1797,
+      "solved": 4,
+      "penalty": 684,
+      "rank": 72,
+      "is_star": false
+    },
+    {
+      "team_name": "买的cursor不能用来大acm可以申请退款吗",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1791,
+      "solved": 4,
+      "penalty": 719,
+      "rank": 73,
+      "is_star": false
+    },
+    {
+      "team_name": "好喜欢你怎么办",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1786,
+      "solved": 4,
+      "penalty": 728,
+      "rank": 74,
+      "is_star": false
+    },
+    {
+      "team_name": "数论题《AIZO》神插入",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1780,
+      "solved": 4,
+      "penalty": 730,
+      "rank": 75,
+      "is_star": false
+    },
+    {
+      "team_name": "东阳大学C队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1774,
+      "solved": 4,
+      "penalty": 732,
+      "rank": 76,
+      "is_star": false
+    },
+    {
+      "team_name": "WA出三室一厅",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1769,
+      "solved": 4,
+      "penalty": 745,
+      "rank": 77,
+      "is_star": false
+    },
+    {
+      "team_name": "AC誓约",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1763,
+      "solved": 4,
+      "penalty": 751,
+      "rank": 78,
+      "is_star": false
+    },
+    {
+      "team_name": "三妖精SAY YA",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1757,
+      "solved": 4,
+      "penalty": 761,
+      "rank": 79,
+      "is_star": false
+    },
+    {
+      "team_name": "春秋霸主",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1752,
+      "solved": 4,
+      "penalty": 798,
+      "rank": 80,
+      "is_star": false
+    },
+    {
+      "team_name": "日常与地球的画框",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1746,
+      "solved": 4,
+      "penalty": 803,
+      "rank": 81,
+      "is_star": false
+    },
+    {
+      "team_name": "不吃罚时",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1740,
+      "solved": 4,
+      "penalty": 839,
+      "rank": 82,
+      "is_star": false
+    },
+    {
+      "team_name": "漫步AC",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1735,
+      "solved": 4,
+      "penalty": 846,
+      "rank": 83,
+      "is_star": false
+    },
+    {
+      "team_name": "创造性AC",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1729,
+      "solved": 4,
+      "penalty": 848,
+      "rank": 84,
+      "is_star": false
+    },
+    {
+      "team_name": "不祈者",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1723,
+      "solved": 4,
+      "penalty": 889,
+      "rank": 85,
+      "is_star": false
+    },
+    {
+      "team_name": "小来啃老，老来啃小",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1718,
+      "solved": 4,
+      "penalty": 972,
+      "rank": 86,
+      "is_star": false
+    },
+    {
+      "team_name": "404name",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1712,
+      "solved": 3,
+      "penalty": 183,
+      "rank": 87,
+      "is_star": false
+    },
+    {
+      "team_name": "这次绝对滚不到我们的榜好吧",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1706,
+      "solved": 3,
+      "penalty": 188,
+      "rank": 88,
+      "is_star": false
+    },
+    {
+      "team_name": "long，可是帝王之征啊",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1701,
+      "solved": 3,
+      "penalty": 200,
+      "rank": 89,
+      "is_star": false
+    },
+    {
+      "team_name": "哥布林之家",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1695,
+      "solved": 3,
+      "penalty": 264,
+      "rank": 90,
+      "is_star": false
+    },
+    {
+      "team_name": "AC控",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1689,
+      "solved": 3,
+      "penalty": 266,
+      "rank": 91,
+      "is_star": false
+    },
+    {
+      "team_name": "ZJUT4",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1684,
+      "solved": 3,
+      "penalty": 267,
+      "rank": 92,
+      "is_star": false
+    },
+    {
+      "team_name": "阿比盖尔",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1678,
+      "solved": 3,
+      "penalty": 271,
+      "rank": 93,
+      "is_star": false
+    },
+    {
+      "team_name": "小爱同学，播放are you ok",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1672,
+      "solved": 3,
+      "penalty": 272,
+      "rank": 94,
+      "is_star": false
+    },
+    {
+      "team_name": "Flawed_Jade",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1667,
+      "solved": 3,
+      "penalty": 281,
+      "rank": 95,
+      "is_star": false
+    },
+    {
+      "team_name": "原神启动",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1661,
+      "solved": 3,
+      "penalty": 295,
+      "rank": 96,
+      "is_star": false
+    },
+    {
+      "team_name": "Whynot",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1655,
+      "solved": 3,
+      "penalty": 305,
+      "rank": 97,
+      "is_star": false
+    },
+    {
+      "team_name": "闪光袋鼠哥哥亲手操办闪光袋鼠爷爷的退役仪式",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1650,
+      "solved": 3,
+      "penalty": 312,
+      "rank": 98,
+      "is_star": false
+    },
+    {
+      "team_name": "艺吕扬帆",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1644,
+      "solved": 3,
+      "penalty": 316,
+      "rank": 99,
+      "is_star": false
+    },
+    {
+      "team_name": "诈骗一队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1638,
+      "solved": 3,
+      "penalty": 316,
+      "rank": 100,
+      "is_star": false
+    },
+    {
+      "team_name": "EOF",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1633,
+      "solved": 3,
+      "penalty": 327,
+      "rank": 101,
+      "is_star": false
+    },
+    {
+      "team_name": "resot",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1627,
+      "solved": 3,
+      "penalty": 331,
+      "rank": 102,
+      "is_star": false
+    },
+    {
+      "team_name": "又活一天",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1621,
+      "solved": 3,
+      "penalty": 333,
+      "rank": 103,
+      "is_star": false
+    },
+    {
+      "team_name": "贪心加祈祷",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1616,
+      "solved": 3,
+      "penalty": 354,
+      "rank": 104,
+      "is_star": false
+    },
+    {
+      "team_name": "喵喵喵",
+      "is_school": true,
+      "members": [
+        "20240010",
+        "20240011",
+        "20240013"
+      ],
+      "external_elo": null,
+      "solved": 3,
+      "penalty": 357,
+      "rank": 105,
+      "is_star": false
+    },
+    {
+      "team_name": "WA 无涯 AC 是岸",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1604,
+      "solved": 3,
+      "penalty": 361,
+      "rank": 106,
+      "is_star": false
+    },
+    {
+      "team_name": "写using namespace std;的是给",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1599,
+      "solved": 3,
+      "penalty": 368,
+      "rank": 107,
+      "is_star": false
+    },
+    {
+      "team_name": "代码复仇者",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1593,
+      "solved": 3,
+      "penalty": 370,
+      "rank": 108,
+      "is_star": false
+    },
+    {
+      "team_name": "铁树开花",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1587,
+      "solved": 3,
+      "penalty": 373,
+      "rank": 109,
+      "is_star": false
+    },
+    {
+      "team_name": "这是一个很重要的问题",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1582,
+      "solved": 3,
+      "penalty": 374,
+      "rank": 110,
+      "is_star": false
+    },
+    {
+      "team_name": "放学后 Algorithm Time",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1576,
+      "solved": 3,
+      "penalty": 375,
+      "rank": 111,
+      "is_star": false
+    },
+    {
+      "team_name": "没有可以思考的心智，没有可以AC的代码",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1570,
+      "solved": 3,
+      "penalty": 375,
+      "rank": 112,
+      "is_star": false
+    },
+    {
+      "team_name": "育英七队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1565,
+      "solved": 3,
+      "penalty": 378,
+      "rank": 113,
+      "is_star": false
+    },
+    {
+      "team_name": "别开香槟开早了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1559,
+      "solved": 3,
+      "penalty": 380,
+      "rank": 114,
+      "is_star": false
+    },
+    {
+      "team_name": "咕咕嘎嘎",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1553,
+      "solved": 3,
+      "penalty": 380,
+      "rank": 115,
+      "is_star": false
+    },
+    {
+      "team_name": "哈理工2602WH",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1548,
+      "solved": 3,
+      "penalty": 390,
+      "rank": 116,
+      "is_star": false
+    },
+    {
+      "team_name": "故我在",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1542,
+      "solved": 3,
+      "penalty": 410,
+      "rank": 117,
+      "is_star": false
+    },
+    {
+      "team_name": "卫戍之星",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1536,
+      "solved": 3,
+      "penalty": 417,
+      "rank": 118,
+      "is_star": false
+    },
+    {
+      "team_name": "队长被带飞",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1530,
+      "solved": 3,
+      "penalty": 424,
+      "rank": 119,
+      "is_star": false
+    },
+    {
+      "team_name": "等我长小了也要打OI",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1525,
+      "solved": 3,
+      "penalty": 425,
+      "rank": 120,
+      "is_star": false
+    },
+    {
+      "team_name": "King of Performaicpc 2026",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1519,
+      "solved": 3,
+      "penalty": 439,
+      "rank": 121,
+      "is_star": false
+    },
+    {
+      "team_name": "砂糖橘看日出",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1513,
+      "solved": 3,
+      "penalty": 446,
+      "rank": 122,
+      "is_star": false
+    },
+    {
+      "team_name": "东北大学_嘉然今天吃罚时",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2340,
+      "solved": 3,
+      "penalty": 468,
+      "rank": 123,
+      "is_star": false
+    },
+    {
+      "team_name": "渔村大菠萝",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1502,
+      "solved": 3,
+      "penalty": 473,
+      "rank": 124,
+      "is_star": false
+    },
+    {
+      "team_name": "Ciallo World!",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1496,
+      "solved": 3,
+      "penalty": 479,
+      "rank": 125,
+      "is_star": false
+    },
+    {
+      "team_name": "JXNU_2",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1491,
+      "solved": 3,
+      "penalty": 479,
+      "rank": 126,
+      "is_star": false
+    },
+    {
+      "team_name": "啊对对对",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1485,
+      "solved": 3,
+      "penalty": 490,
+      "rank": 127,
+      "is_star": false
+    },
+    {
+      "team_name": "河狸诸葛亮",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1479,
+      "solved": 3,
+      "penalty": 494,
+      "rank": 128,
+      "is_star": false
+    },
+    {
+      "team_name": "最有解在左",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1474,
+      "solved": 3,
+      "penalty": 494,
+      "rank": 129,
+      "is_star": false
+    },
+    {
+      "team_name": "彼岸归航",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1468,
+      "solved": 3,
+      "penalty": 494,
+      "rank": 130,
+      "is_star": false
+    },
+    {
+      "team_name": "我怎么可能成为acm高手～牡蛎牡蛎～",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1462,
+      "solved": 3,
+      "penalty": 513,
+      "rank": 131,
+      "is_star": false
+    },
+    {
+      "team_name": "伪证大师",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1457,
+      "solved": 3,
+      "penalty": 514,
+      "rank": 132,
+      "is_star": false
+    },
+    {
+      "team_name": "三人穿墙",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1451,
+      "solved": 3,
+      "penalty": 518,
+      "rank": 133,
+      "is_star": false
+    },
+    {
+      "team_name": "季节更替",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1445,
+      "solved": 3,
+      "penalty": 521,
+      "rank": 134,
+      "is_star": false
+    },
+    {
+      "team_name": "绩点皇帝",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1440,
+      "solved": 3,
+      "penalty": 545,
+      "rank": 135,
+      "is_star": false
+    },
+    {
+      "team_name": "贼肉",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1434,
+      "solved": 3,
+      "penalty": 566,
+      "rank": 136,
+      "is_star": false
+    },
+    {
+      "team_name": "远航星的告别",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1428,
+      "solved": 3,
+      "penalty": 578,
+      "rank": 137,
+      "is_star": false
+    },
+    {
+      "team_name": "东北大学_目标AC",
+      "is_school": false,
+      "members": [],
+      "external_elo": 2340,
+      "solved": 3,
+      "penalty": 583,
+      "rank": 138,
+      "is_star": false
+    },
+    {
+      "team_name": "睿爸886，我们来旅游啦",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1417,
+      "solved": 3,
+      "penalty": 587,
+      "rank": 139,
+      "is_star": false
+    },
+    {
+      "team_name": "我的带专生物語果然有問題",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1411,
+      "solved": 3,
+      "penalty": 596,
+      "rank": 140,
+      "is_star": false
+    },
+    {
+      "team_name": "直通录用",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1406,
+      "solved": 3,
+      "penalty": 596,
+      "rank": 141,
+      "is_star": false
+    },
+    {
+      "team_name": "麻衣学姐想念zzz",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1400,
+      "solved": 3,
+      "penalty": 602,
+      "rank": 142,
+      "is_star": false
+    },
+    {
+      "team_name": "思考40s，爆了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1397,
+      "solved": 3,
+      "penalty": 636,
+      "rank": 143,
+      "is_star": false
+    },
+    {
+      "team_name": "教练我想拿牌子",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1394,
+      "solved": 3,
+      "penalty": 668,
+      "rank": 144,
+      "is_star": false
+    },
+    {
+      "team_name": "小爱同学，帮我AC队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1390,
+      "solved": 3,
+      "penalty": 683,
+      "rank": 145,
+      "is_star": false
+    },
+    {
+      "team_name": "死手快敲",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1387,
+      "solved": 3,
+      "penalty": 743,
+      "rank": 146,
+      "is_star": false
+    },
+    {
+      "team_name": "爆裂一大清早",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1384,
+      "solved": 3,
+      "penalty": 795,
+      "rank": 147,
+      "is_star": false
+    },
+    {
+      "team_name": "中传赶紧修梆子井地道队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1381,
+      "solved": 2,
+      "penalty": 61,
+      "rank": 148,
+      "is_star": false
+    },
+    {
+      "team_name": "满月三人组",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1378,
+      "solved": 2,
+      "penalty": 70,
+      "rank": 149,
+      "is_star": false
+    },
+    {
+      "team_name": "一如计网",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1374,
+      "solved": 2,
+      "penalty": 70,
+      "rank": 150,
+      "is_star": false
+    },
+    {
+      "team_name": "憧憬成为AC大帝",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1371,
+      "solved": 2,
+      "penalty": 73,
+      "rank": 151,
+      "is_star": false
+    },
+    {
+      "team_name": "超级卡比猎人队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1368,
+      "solved": 2,
+      "penalty": 78,
+      "rank": 152,
+      "is_star": false
+    },
+    {
+      "team_name": "抢不到名额导致的",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1365,
+      "solved": 2,
+      "penalty": 80,
+      "rank": 153,
+      "is_star": false
+    },
+    {
+      "team_name": "涉外零基础新生一队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1362,
+      "solved": 2,
+      "penalty": 90,
+      "rank": 154,
+      "is_star": false
+    },
+    {
+      "team_name": "哈吉利哟难买绿豆",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1359,
+      "solved": 2,
+      "penalty": 92,
+      "rank": 155,
+      "is_star": false
+    },
+    {
+      "team_name": "竹叶雨",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1355,
+      "solved": 2,
+      "penalty": 92,
+      "rank": 156,
+      "is_star": false
+    },
+    {
+      "team_name": "俄拔斯抓可特",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1352,
+      "solved": 2,
+      "penalty": 93,
+      "rank": 157,
+      "is_star": false
+    },
+    {
+      "team_name": "ABCDE",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1349,
+      "solved": 2,
+      "penalty": 93,
+      "rank": 158,
+      "is_star": false
+    },
+    {
+      "team_name": "夏日终曲",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1346,
+      "solved": 2,
+      "penalty": 100,
+      "rank": 159,
+      "is_star": false
+    },
+    {
+      "team_name": "队长说拿牌他就穿JK上一学期课",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1343,
+      "solved": 2,
+      "penalty": 101,
+      "rank": 160,
+      "is_star": false
+    },
+    {
+      "team_name": "人中赤兔，马中吕布",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1339,
+      "solved": 2,
+      "penalty": 106,
+      "rank": 161,
+      "is_star": false
+    },
+    {
+      "team_name": "水哥粉丝团",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1336,
+      "solved": 2,
+      "penalty": 108,
+      "rank": 162,
+      "is_star": false
+    },
+    {
+      "team_name": "O（3）头发量",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1333,
+      "solved": 2,
+      "penalty": 112,
+      "rank": 163,
+      "is_star": false
+    },
+    {
+      "team_name": "超时空AC姬",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1330,
+      "solved": 2,
+      "penalty": 113,
+      "rank": 164,
+      "is_star": false
+    },
+    {
+      "team_name": "峰城大学算法竞赛同好会",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1665,
+      "solved": 2,
+      "penalty": 119,
+      "rank": 165,
+      "is_star": false
+    },
+    {
+      "team_name": "酱味大鸡",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1323,
+      "solved": 2,
+      "penalty": 119,
+      "rank": 166,
+      "is_star": false
+    },
+    {
+      "team_name": "卖南娘的小核弹",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1320,
+      "solved": 2,
+      "penalty": 126,
+      "rank": 167,
+      "is_star": false
+    },
+    {
+      "team_name": "两神带一坑",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1317,
+      "solved": 2,
+      "penalty": 131,
+      "rank": 168,
+      "is_star": false
+    },
+    {
+      "team_name": "欲望加速",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1314,
+      "solved": 2,
+      "penalty": 133,
+      "rank": 169,
+      "is_star": false
+    },
+    {
+      "team_name": "激思构境",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1311,
+      "solved": 2,
+      "penalty": 134,
+      "rank": 170,
+      "is_star": false
+    },
+    {
+      "team_name": "外经贸_",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1307,
+      "solved": 2,
+      "penalty": 141,
+      "rank": 171,
+      "is_star": false
+    },
+    {
+      "team_name": "无限喵喵",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1304,
+      "solved": 2,
+      "penalty": 145,
+      "rank": 172,
+      "is_star": false
+    },
+    {
+      "team_name": "来神了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1301,
+      "solved": 2,
+      "penalty": 147,
+      "rank": 173,
+      "is_star": false
+    },
+    {
+      "team_name": "好想打一辈子ICPC",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1298,
+      "solved": 2,
+      "penalty": 149,
+      "rank": 174,
+      "is_star": false
+    },
+    {
+      "team_name": "博丽灵梦",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1295,
+      "solved": 2,
+      "penalty": 149,
+      "rank": 175,
+      "is_star": false
+    },
+    {
+      "team_name": "组队偷挤牛奶，喝完发现进的是公牛圈",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1291,
+      "solved": 2,
+      "penalty": 150,
+      "rank": 176,
+      "is_star": false
+    },
+    {
+      "team_name": "薛定谔的AC",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1288,
+      "solved": 2,
+      "penalty": 155,
+      "rank": 177,
+      "is_star": false
+    },
+    {
+      "team_name": "怎么WA了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1285,
+      "solved": 2,
+      "penalty": 159,
+      "rank": 178,
+      "is_star": false
+    },
+    {
+      "team_name": "TLE MLE 辉夜姬！",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1282,
+      "solved": 2,
+      "penalty": 167,
+      "rank": 179,
+      "is_star": false
+    },
+    {
+      "team_name": "AC，启动！",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1279,
+      "solved": 2,
+      "penalty": 173,
+      "rank": 180,
+      "is_star": false
+    },
+    {
+      "team_name": "黎卡今天吃什么",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1276,
+      "solved": 2,
+      "penalty": 176,
+      "rank": 181,
+      "is_star": false
+    },
+    {
+      "team_name": "请输入文本",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1272,
+      "solved": 2,
+      "penalty": 185,
+      "rank": 182,
+      "is_star": false
+    },
+    {
+      "team_name": "我的ACM物语果然有问题",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1269,
+      "solved": 2,
+      "penalty": 188,
+      "rank": 183,
+      "is_star": false
+    },
+    {
+      "team_name": "不知道啊",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1266,
+      "solved": 2,
+      "penalty": 194,
+      "rank": 184,
+      "is_star": false
+    },
+    {
+      "team_name": "余胜军徒弟一队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1263,
+      "solved": 2,
+      "penalty": 200,
+      "rank": 185,
+      "is_star": false
+    },
+    {
+      "team_name": "第六感",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1260,
+      "solved": 2,
+      "penalty": 214,
+      "rank": 186,
+      "is_star": false
+    },
+    {
+      "team_name": "教练说不给牌子就捣蛋",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1256,
+      "solved": 2,
+      "penalty": 214,
+      "rank": 187,
+      "is_star": false
+    },
+    {
+      "team_name": "【天天练】的思维训练题让娃的解题思路更清晰",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1253,
+      "solved": 2,
+      "penalty": 221,
+      "rank": 188,
+      "is_star": false
+    },
+    {
+      "team_name": "重生之我在长理打A",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1250,
+      "solved": 2,
+      "penalty": 223,
+      "rank": 189,
+      "is_star": false
+    },
+    {
+      "team_name": "延边大学998244353队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1617,
+      "solved": 2,
+      "penalty": 228,
+      "rank": 190,
+      "is_star": false
+    },
+    {
+      "team_name": "我依然故我，于终幕之上",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1244,
+      "solved": 2,
+      "penalty": 236,
+      "rank": 191,
+      "is_star": false
+    },
+    {
+      "team_name": "#define itn int",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1240,
+      "solved": 2,
+      "penalty": 239,
+      "rank": 192,
+      "is_star": false
+    },
+    {
+      "team_name": "春秋必成",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1237,
+      "solved": 2,
+      "penalty": 240,
+      "rank": 193,
+      "is_star": false
+    },
+    {
+      "team_name": "不吃罚时 (青岛科技大学 #2)",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1806,
+      "solved": 2,
+      "penalty": 242,
+      "rank": 194,
+      "is_star": false
+    },
+    {
+      "team_name": "这一发 · 来自终焉",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1231,
+      "solved": 2,
+      "penalty": 252,
+      "rank": 195,
+      "is_star": false
+    },
+    {
+      "team_name": "孤独的根号三",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1228,
+      "solved": 2,
+      "penalty": 254,
+      "rank": 196,
+      "is_star": false
+    },
+    {
+      "team_name": "提交就是队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1224,
+      "solved": 2,
+      "penalty": 260,
+      "rank": 197,
+      "is_star": false
+    },
+    {
+      "team_name": "明晰梦中见幻想乡",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1221,
+      "solved": 2,
+      "penalty": 266,
+      "rank": 198,
+      "is_star": false
+    },
+    {
+      "team_name": "终解",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1218,
+      "solved": 2,
+      "penalty": 283,
+      "rank": 199,
+      "is_star": false
+    },
+    {
+      "team_name": "秦汉1",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1215,
+      "solved": 2,
+      "penalty": 298,
+      "rank": 200,
+      "is_star": false
+    },
+    {
+      "team_name": "以前见过",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1212,
+      "solved": 2,
+      "penalty": 322,
+      "rank": 201,
+      "is_star": false
+    },
+    {
+      "team_name": "叶公好龙，但是奶龙",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1209,
+      "solved": 2,
+      "penalty": 323,
+      "rank": 202,
+      "is_star": false
+    },
+    {
+      "team_name": "RE:Master",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1205,
+      "solved": 2,
+      "penalty": 327,
+      "rank": 203,
+      "is_star": false
+    },
+    {
+      "team_name": "我不想再打铁了",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1202,
+      "solved": 2,
+      "penalty": 342,
+      "rank": 204,
+      "is_star": false
+    },
+    {
+      "team_name": "畅琰琪遇",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1199,
+      "solved": 2,
+      "penalty": 349,
+      "rank": 205,
+      "is_star": false
+    },
+    {
+      "team_name": "重生之拥有天赋哥的我是无敌的",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1196,
+      "solved": 2,
+      "penalty": 351,
+      "rank": 206,
+      "is_star": false
+    },
+    {
+      "team_name": "我是拉电线高手",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1193,
+      "solved": 2,
+      "penalty": 365,
+      "rank": 207,
+      "is_star": false
+    },
+    {
+      "team_name": "哒哒哒哒哒~好想玩原神~",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1189,
+      "solved": 2,
+      "penalty": 369,
+      "rank": 208,
+      "is_star": false
+    },
+    {
+      "team_name": "队友说队名里必须要有ZmjjKK",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1186,
+      "solved": 2,
+      "penalty": 436,
+      "rank": 209,
+      "is_star": false
+    },
+    {
+      "team_name": "喵喵喵喵喵喵",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1183,
+      "solved": 1,
+      "penalty": 33,
+      "rank": 210,
+      "is_star": false
+    },
+    {
+      "team_name": "她说只嫁打a的",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1180,
+      "solved": 1,
+      "penalty": 34,
+      "rank": 211,
+      "is_star": false
+    },
+    {
+      "team_name": "饭还没吃呢",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1177,
+      "solved": 1,
+      "penalty": 34,
+      "rank": 212,
+      "is_star": false
+    },
+    {
+      "team_name": "打一辈子acm吧",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1173,
+      "solved": 1,
+      "penalty": 35,
+      "rank": 213,
+      "is_star": false
+    },
+    {
+      "team_name": "看！是异色炫彩气球！",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1170,
+      "solved": 1,
+      "penalty": 37,
+      "rank": 214,
+      "is_star": false
+    },
+    {
+      "team_name": "魔法猫娘，小面包和白子酱",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1167,
+      "solved": 1,
+      "penalty": 39,
+      "rank": 215,
+      "is_star": false
+    },
+    {
+      "team_name": "我的刀盾（深圳打铁版）",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1164,
+      "solved": 1,
+      "penalty": 42,
+      "rank": 216,
+      "is_star": false
+    },
+    {
+      "team_name": "享受比赛！",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1161,
+      "solved": 1,
+      "penalty": 45,
+      "rank": 217,
+      "is_star": false
+    },
+    {
+      "team_name": "呜呜呜我是爆零怪",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1157,
+      "solved": 1,
+      "penalty": 46,
+      "rank": 218,
+      "is_star": false
+    },
+    {
+      "team_name": "重生之我在ICPC赛场上原神启动",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1154,
+      "solved": 1,
+      "penalty": 46,
+      "rank": 219,
+      "is_star": false
+    },
+    {
+      "team_name": "不要带走000（电音哭泣）",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1151,
+      "solved": 1,
+      "penalty": 54,
+      "rank": 220,
+      "is_star": false
+    },
+    {
+      "team_name": "都不玩原神",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1148,
+      "solved": 1,
+      "penalty": 62,
+      "rank": 221,
+      "is_star": false
+    },
+    {
+      "team_name": "想出来队名队长就女装",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1145,
+      "solved": 1,
+      "penalty": 71,
+      "rank": 222,
+      "is_star": false
+    },
+    {
+      "team_name": "谁家野鸡护",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1141,
+      "solved": 1,
+      "penalty": 74,
+      "rank": 223,
+      "is_star": false
+    },
+    {
+      "team_name": "你们不要再打了啦",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1138,
+      "solved": 1,
+      "penalty": 75,
+      "rank": 224,
+      "is_star": false
+    },
+    {
+      "team_name": "只是心有不甘",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1135,
+      "solved": 1,
+      "penalty": 77,
+      "rank": 225,
+      "is_star": false
+    },
+    {
+      "team_name": "壁纸引擎",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1132,
+      "solved": 1,
+      "penalty": 80,
+      "rank": 226,
+      "is_star": false
+    },
+    {
+      "team_name": "一切都是烤棉花糖的选择",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1129,
+      "solved": 1,
+      "penalty": 95,
+      "rank": 227,
+      "is_star": false
+    },
+    {
+      "team_name": "妄想AC代偿联盟",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1126,
+      "solved": 1,
+      "penalty": 117,
+      "rank": 228,
+      "is_star": false
+    },
+    {
+      "team_name": "逐花归海",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1122,
+      "solved": 1,
+      "penalty": 158,
+      "rank": 229,
+      "is_star": false
+    },
+    {
+      "team_name": "再WA一次就吃饭",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1119,
+      "solved": 1,
+      "penalty": 160,
+      "rank": 230,
+      "is_star": false
+    },
+    {
+      "team_name": "阿伯丁神助力",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1116,
+      "solved": 1,
+      "penalty": 194,
+      "rank": 231,
+      "is_star": false
+    },
+    {
+      "team_name": "代码“对不”队",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1113,
+      "solved": 1,
+      "penalty": 213,
+      "rank": 232,
+      "is_star": false
+    },
+    {
+      "team_name": "如果我拿到了蓝桥杯省一她还会离开我吗",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1110,
+      "solved": 1,
+      "penalty": 215,
+      "rank": 233,
+      "is_star": false
+    },
+    {
+      "team_name": "小辫子酱殴打稻葉曇",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1106,
+      "solved": 1,
+      "penalty": 289,
+      "rank": 234,
+      "is_star": false
+    },
+    {
+      "team_name": "我也要打吗？对",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1103,
+      "solved": 0,
+      "penalty": 0,
+      "rank": 235,
+      "is_star": false
+    },
+    {
+      "team_name": "码上AC",
+      "is_school": false,
+      "members": [],
+      "external_elo": 1100,
+      "solved": 0,
+      "penalty": 0,
+      "rank": 236,
+      "is_star": false
+    }
+  ]
+}
