@@ -258,6 +258,17 @@
           </div>
         </div>
 
+        <!-- Newbie Protection Notice Banner -->
+        <div class="bg-amber-50/90 border border-amber-200/80 rounded-xl px-4 py-3 flex items-center gap-3 text-xs sm:text-sm text-amber-900 shadow-sm">
+          <svg class="w-5 h-5 text-amber-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+          </svg>
+          <div class="flex-1">
+            <span class="font-semibold text-amber-800">提示：</span>
+            <span>三场以下属于新手保护阶段，三场及以上开始显示真实分数。</span>
+          </div>
+        </div>
+
         <!-- Leaderboard Table -->
         <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
@@ -339,7 +350,6 @@
                     >
                       <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: getTier(user.display_rating).color }"></span>
                       <span>{{ getTier(user.display_rating).name }}</span>
-                      <span class="text-[10px] opacity-75">({{ getTier(user.display_rating).zh }})</span>
                     </span>
                   </td>
 
@@ -760,7 +770,6 @@
                   <tr>
                     <th class="py-2.5 px-4 border-b border-slate-200">段位等级</th>
                     <th class="py-2.5 px-4 border-b border-slate-200">英文名称</th>
-                    <th class="py-2.5 px-4 border-b border-slate-200">集训队称号</th>
                     <th class="py-2.5 px-4 border-b border-slate-200">显示分区间 (Display Rating)</th>
                     <th class="py-2.5 px-4 border-b border-slate-200">标准色标</th>
                     <th class="py-2.5 px-4 border-b border-slate-200">徽章预览</th>
@@ -770,7 +779,6 @@
                   <tr v-for="(tier, idx) in TIERS" :key="tier.name" class="hover:bg-slate-50/60">
                     <td class="py-2.5 px-4 font-mono font-bold text-slate-400">Tier {{ idx + 1 }}</td>
                     <td class="py-2.5 px-4 font-bold" :style="{ color: tier.color }">{{ tier.name }}</td>
-                    <td class="py-2.5 px-4 font-semibold text-slate-800">{{ tier.zh }}</td>
                     <td class="py-2.5 px-4 font-mono">
                       {{ tier.min }} ~ {{ tier.max === 99999 ? '∞' : tier.max }}
                     </td>
@@ -784,7 +792,6 @@
                       <span class="tier-badge" :class="tier.badgeClass">
                         <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: tier.color }"></span>
                         <span>{{ tier.name }}</span>
-                        <span class="text-[10px] opacity-75">({{ tier.zh }})</span>
                       </span>
                     </td>
                   </tr>
@@ -852,7 +859,6 @@
                 <span class="tier-badge" :class="getTier(selectedUser.display_rating).badgeClass">
                   <span class="w-1.5 h-1.5 rounded-full" :style="{ backgroundColor: selectedUser.color }"></span>
                   <span>{{ getTier(selectedUser.display_rating).name }}</span>
-                  <span class="text-[10px] opacity-75">({{ getTier(selectedUser.display_rating).zh }})</span>
                 </span>
               </div>
               <div class="flex items-center gap-3 text-xs text-slate-500 mt-1">
