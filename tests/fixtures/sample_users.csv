@@ -1,0 +1,7 @@
+student_id,name,grade,initial_external_elo,is_active
+23001003,测试队员甲,2023,,true
+23001004,测试队员乙,2023,,true
+24001008,测试队员丙,2024,,true
+24001009,测试队员丁,2024,,true
+26001023,测试队员戊,2026,,true
+26001024,测试队员己,2026,,true

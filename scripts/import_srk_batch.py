@@ -10,20 +10,27 @@ USTS teams and anchoring external teams against the official XCPC-Elo baseline.
 from __future__ import annotations
 
 import argparse
+from hashlib import blake2s
 from pathlib import Path
 import re
 import sys
-from typing import Any
+from tempfile import TemporaryDirectory
 
-from scripts.import_contest import import_contest, DEFAULT_SCHOOL_KEYWORDS
-from scripts.validate_data import validate_contest_dict, validate_users_csv
+if __package__:
+    from .import_contest import import_contest, infer_start_time, read_srk
+    from .validate_data import parse_contest_datetime
+else:
+    from import_contest import import_contest, infer_start_time, read_srk
+    from validate_data import parse_contest_datetime
 
 
 def slugify(text: str) -> str:
-    """Create filesystem-safe slug from title or filename."""
-    s = re.sub(r"[^\w\u4e00-\u9fff\-]+", "_", text.strip())
-    s = re.sub(r"_+", "_", s).strip("_")
-    return s[:40] if s else "contest"
+    """Create a slug that matches the contest filename schema."""
+    slug = re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
+    if not text.isascii():
+        suffix = blake2s(text.encode("utf-8"), digest_size=4).hexdigest()
+        return f"{(slug or 'contest')[:31]}_{suffix}"
+    return slug[:40] or "contest"
 
 
 def batch_import_srk(
@@ -41,7 +48,6 @@ def batch_import_srk(
     """
     src = Path(source_dir)
     out = Path(output_dir)
-    out.mkdir(parents=True, exist_ok=True)
 
     if not src.is_dir():
         raise NotADirectoryError(f"Source directory not found: {src}")
@@ -58,60 +64,69 @@ def batch_import_srk(
 
     print(f"[BATCH-IMPORT] Found {len(srk_files)} SRK files to process from {src}")
 
-    keywords = school_keywords or DEFAULT_SCHOOL_KEYWORDS
+    out.mkdir(parents=True, exist_ok=True)
     imported_files: list[Path] = []
-    success_count = 0
     skipped_count = 0
+    failed_count = 0
+    with TemporaryDirectory(dir=out) as staging_dir:
+        for file_path in srk_files:
+            slug = slugify(file_path.stem.removesuffix(".srk"))
+            staged = Path(staging_dir) / f"{slug}.json"
+            try:
+                _, meta = read_srk(file_path)
+                start_time = meta.get("start_time") or infer_start_time(slug)
+                start = parse_contest_datetime(start_time)
+                if start is None:
+                    raise ValueError(f"Invalid start_time: {start_time}")
+                target = out / f"{start:%Y_%m_%d}_{slug}.json"
+                if target.is_file() and not force_overwrite:
+                    print(f"[BATCH-IMPORT] Skipping existing contest: {target.name}")
+                    skipped_count += 1
+                    continue
 
-    for file_path in srk_files:
-        try:
-            # Let import_contest parse the srk metadata and determine start_time
-            # Temporary dry-run output path
-            stem = file_path.stem.replace(".srk", "")
-            target_slug = slugify(stem)
+                result = import_contest(
+                    input_path=file_path,
+                    output_path=staged,
+                    fmt="srk",
+                    contest_type="EXTERNAL_XCPC",
+                    start_time=start_time,
+                    school_keywords=school_keywords,
+                    default_external_elo=default_external_elo,
+                    users_path=users_path,
+                    external_elo_file=external_elo_map_path,
+                    external_elo_mode="rank",
+                )
+                if force_overwrite:
+                    staged.replace(target)
+                else:
+                    try:
+                        # Publish the completed file only if the destination is absent.
+                        target.hardlink_to(staged)
+                    except FileExistsError:
+                        print(f"[BATCH-IMPORT] Skipping existing contest: {target.name}")
+                        skipped_count += 1
+                        continue
+                imported_files.append(target)
+                standings = result["standings"]
+                school_teams = sum(1 for team in standings if team["is_school"])
+                print(
+                    f"[BATCH-IMPORT] Successfully imported: {target.name} "
+                    f"(Total: {len(standings)}, School: {school_teams})"
+                )
+            except (OSError, ValueError, TypeError, KeyError) as exc:
+                print(f"[BATCH-IMPORT] Error processing {file_path.name}: {exc}", file=sys.stderr)
+                failed_count += 1
+            finally:
+                staged.unlink(missing_ok=True)
 
-            # We create an initial target filename based on file stem
-            target_file = out / f"{target_slug}.json"
-            if target_file.is_file() and not force_overwrite:
-                print(f"[BATCH-IMPORT] Skipping existing contest: {target_file.name}")
-                skipped_count += 1
-                continue
-
-            result = import_contest(
-                input_path=file_path,
-                output_path=target_file,
-                fmt="srk",
-                contest_type="EXTERNAL_XCPC",
-                school_keywords=keywords,
-                default_external_elo=default_external_elo,
-                users_path=users_path,
-                external_elo_file=external_elo_map_path if Path(external_elo_map_path).is_file() else None,
-                external_elo_mode="rank",
-            )
-
-            # Check if start_time allows a better canonical YYYY_MM_DD filename
-            st = result.get("start_time", "")
-            m = re.match(r"^(\d{4})-(\d{2})-(\d{2})", st)
-            if m:
-                canonical_name = f"{m.group(1)}_{m.group(2)}_{m.group(3)}_{target_slug}.json"
-                canonical_file = out / canonical_name
-                if canonical_file != target_file:
-                    target_file.replace(canonical_file)
-                    target_file = canonical_file
-
-            imported_files.append(target_file)
-            success_count += 1
-            school_teams = sum(1 for t in result.get("standings", []) if t.get("is_school"))
-            print(f"[BATCH-IMPORT] Successfully imported: {target_file.name} (Total: {len(result.get('standings', []))}, School: {school_teams})")
-
-        except Exception as e:
-            print(f"[BATCH-IMPORT] Error processing {file_path.name}: {e}", file=sys.stderr)
-
-    print(f"[BATCH-IMPORT] Finished. Imported: {success_count}, Skipped: {skipped_count}, Total: {len(srk_files)}")
+    print(f"[BATCH-IMPORT] Finished. Imported: {len(imported_files)}, "
+          f"Skipped: {skipped_count}, Failed: {failed_count}, Total: {len(srk_files)}")
+    if failed_count:
+        raise ValueError(f"{failed_count} ranklist import(s) failed.")
     return imported_files
 
 
-def main() -> None:
+def main() -> int:
     parser = argparse.ArgumentParser(description="Batch import .srk.json ranklists into USTS Rating System.")
     parser.add_argument("source_dir", type=str, help="Directory containing .srk.json ranklists")
     parser.add_argument("--output-dir", type=str, default="data/contests", help="Target contest directory (default: data/contests)")
@@ -120,14 +135,19 @@ def main() -> None:
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing contest files")
     args = parser.parse_args()
 
-    batch_import_srk(
-        source_dir=args.source_dir,
-        output_dir=args.output_dir,
-        users_path=args.users,
-        external_elo_map_path=args.elo_map,
-        force_overwrite=args.overwrite,
-    )
+    try:
+        batch_import_srk(
+            source_dir=args.source_dir,
+            output_dir=args.output_dir,
+            users_path=args.users,
+            external_elo_map_path=args.elo_map,
+            force_overwrite=args.overwrite,
+        )
+    except (OSError, ValueError) as exc:
+        print(f"[BATCH-IMPORT] {exc}", file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

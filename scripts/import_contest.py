@@ -353,6 +353,28 @@ def parse_pta(
         )
 
 
+def read_srk(file_path: Path) -> tuple[dict[str, Any], dict[str, str]]:
+    with file_path.open("r", encoding="utf-8-sig") as f:
+        data = json.load(f)
+    if not isinstance(data, dict):
+        raise ValueError("SRK ranklist must be a JSON object.")
+
+    meta: dict[str, str] = {}
+    contest = data.get("contest")
+    if isinstance(contest, dict):
+        title = contest.get("title")
+        if isinstance(title, dict):
+            title = title.get("zh-CN") or title.get("fallback") or title.get("en")
+        if isinstance(title, str):
+            meta["title"] = title
+
+        start_time = contest.get("startAt")
+        if isinstance(start_time, str):
+            meta["start_time"] = start_time
+
+    return data, meta
+
+
 def parse_srk(
     file_path: Path,
     school_keywords: list[str],
@@ -362,24 +384,8 @@ def parse_srk(
     default_external_elo: int = 1500,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Parse algoUX standard ranklist (.srk.json) format."""
-    with file_path.open("r", encoding="utf-8-sig") as f:
-        data = json.load(f)
-
-    meta: dict[str, Any] = {}
-    if isinstance(data, dict):
-        c_obj = data.get("contest", {})
-        if isinstance(c_obj, dict):
-            t = c_obj.get("title")
-            if isinstance(t, dict):
-                meta["title"] = t.get("zh-CN") or t.get("fallback") or t.get("en")
-            elif isinstance(t, str):
-                meta["title"] = t
-
-            st = c_obj.get("startAt")
-            if isinstance(st, str):
-                meta["start_time"] = st
-
-    rows = data.get("rows", []) if isinstance(data, dict) else []
+    data, meta = read_srk(file_path)
+    rows = data.get("rows", [])
     standings: list[dict[str, Any]] = []
     seen_names: dict[str, int] = {}
 
@@ -437,17 +443,24 @@ def parse_srk(
         # Resolved members
         resolved_members: list[str] = []
         if is_school:
+            unresolved_members: list[str] = []
             for m_name in member_names:
-                if registered_student_ids and m_name in registered_student_ids:
+                if registered_student_ids is not None and m_name in registered_student_ids:
                     resolved_members.append(m_name)
                 elif name_to_id and m_name in name_to_id:
                     resolved_members.append(name_to_id[m_name])
-                elif STUDENT_ID_PATTERN.match(m_name):
+                elif registered_student_ids is None and STUDENT_ID_PATTERN.fullmatch(m_name):
                     resolved_members.append(m_name)
+                else:
+                    unresolved_members.append(m_name)
 
-            # If a school team has no resolved members or was an empty ghost team, do not treat as school team
-            if not resolved_members:
-                is_school = False
+            if unresolved_members:
+                raise ValueError(
+                    f"School team '{raw_team_name}' has members missing from the roster: "
+                    f"{', '.join(unresolved_members)}."
+                )
+            if not member_names:
+                raise ValueError(f"School team '{raw_team_name}' has no participant names or IDs.")
 
         # Disambiguate duplicate team names by adding organization if necessary
         team_name = raw_team_name
@@ -486,6 +499,7 @@ def parse_srk(
 
         standings.append({
             "team_name": team_name,
+            "organization": organization,
             "is_school": is_school,
             "members": resolved_members if is_school else [],
             "external_elo": external_elo,
@@ -524,6 +538,13 @@ def detect_format(file_path: Path) -> str:
     return "csv"
 
 
+def infer_start_time(contest_id: str) -> str:
+    match = re.match(r"^(\d{4})_(\d{2})_(\d{2})", contest_id)
+    if match:
+        return f"{match[1]}-{match[2]}-{match[3]}T13:00:00+08:00"
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
 def import_contest(
     input_path: str | Path,
     output_path: str | Path,
@@ -556,7 +577,7 @@ def import_contest(
         raise ValueError(f"Invalid contest_type: {contest_type}. Must be one of {VALID_CONTEST_TYPES}")
 
     # Load users for referential integrity & school matching
-    registered_ids: set[str] = set()
+    registered_ids: set[str] | None = None
     name_to_id: dict[str, str] = {}
     u_path = Path(users_path)
     if u_path.is_file():
@@ -621,14 +642,12 @@ def import_contest(
         if t["is_school"]:
             continue
 
-        # Check if external_elo_file provides an exact or substring match
-        matched_elo = None
-        if elo_map:
-            t_name = t.get("team_name", "")
-            for k, score in elo_map.items():
-                if k in t_name:
-                    matched_elo = score
-                    break
+        matched_elo = elo_map.get(t.get("organization", ""))
+        if matched_elo is None:
+            matched_elo = next(
+                (score for key, score in elo_map.items() if key and key in t["team_name"]),
+                None,
+            )
 
         if matched_elo is not None:
             t["external_elo"] = matched_elo
@@ -650,15 +669,8 @@ def import_contest(
     if not contest_id:
         contest_id = out_file.stem
 
-    # Infer start_time if not provided
     if not start_time:
-        # Check if contest_id has YYYY_MM_DD prefix
-        m = re.match(r"^(\d{4})_(\d{2})_(\d{2})", contest_id)
-        if m:
-            start_time = f"{m.group(1)}-{m.group(2)}-{m.group(3)}T13:00:00+08:00"
-        else:
-            now = datetime.now(timezone.utc)
-            start_time = now.strftime("%Y-%m-%dT%H:%M:%S+00:00")
+        start_time = infer_start_time(contest_id)
 
     if not title:
         title = f"Contest {contest_id}"
@@ -675,7 +687,7 @@ def import_contest(
     if not skip_validation:
         errors = validate_contest_dict(
             contest=contest_dict,
-            valid_student_ids=registered_ids if registered_ids else None,
+            valid_student_ids=registered_ids,
             filename=out_file.name,
         )
         if errors:

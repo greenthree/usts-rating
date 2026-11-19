@@ -4854,11 +4854,9 @@
     },
     {
       "team_name": "拔萝卜",
-      "is_school": true,
-      "members": [
-        "23001001"
-      ],
-      "external_elo": null,
+      "is_school": false,
+      "members": [],
+      "external_elo": 1673,
       "solved": 2,
       "penalty": 71,
       "rank": 485,

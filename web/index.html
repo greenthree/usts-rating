@@ -45,9 +45,7 @@
           
           <!-- Logo & Brand Title -->
           <div class="flex items-center gap-3 cursor-pointer" @click="activeTab = 'leaderboard'">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-blue-600 to-sky-500 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-100">
-              U
-            </div>
+            <img src="ustsacm.png" alt="" width="40" height="40" class="w-10 h-10 shrink-0 object-contain">
             <div>
               <div class="flex items-center gap-2">
                 <span class="font-extrabold text-lg text-slate-900 tracking-tight">USTS ACM/XCPC</span>
@@ -138,7 +136,7 @@
             <div>
               <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">现役队员数</p>
               <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{{ summaryStats.activeCount }}</h3>
-              <p class="text-xs text-slate-400 mt-0.5">总队员 {{ db.users.length }} 人</p>
+              <p class="text-xs text-slate-400 mt-0.5">全队 {{ summaryStats.teamCount }} 人</p>
             </div>
             <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
               👥
@@ -194,7 +192,7 @@
                 statusFilter === 'active' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'
               ]"
             >
-              现役队员
+              现役选手
             </button>
             <button
               @click="statusFilter = 'retired'"
@@ -290,7 +288,7 @@
               <tbody class="divide-y divide-slate-100 text-sm">
                 <tr
                   v-for="(user, index) in filteredUsers"
-                  :key="user.student_id"
+                  :key="user.participant_id"
                   @click="openUserModal(user)"
                   class="hover-table-row cursor-pointer transition-colors duration-150"
                 >
@@ -375,10 +373,16 @@
                     </span>
                   </td>
 
-                  <!-- Active / Retired Status -->
+                  <!-- Participation Status -->
                   <td class="py-3.5 px-4 text-center">
                     <span
-                      v-if="user.is_active && !user.is_retired"
+                      v-if="user.is_team_member === false"
+                      class="whitespace-nowrap rounded-md bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700"
+                    >
+                      队外新生
+                    </span>
+                    <span
+                      v-else-if="user.is_active && !user.is_retired"
                       class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700"
                     >
                       <span class="active-indicator"></span>
@@ -404,7 +408,7 @@
                 <!-- Empty State -->
                 <tr v-if="filteredUsers.length === 0">
                   <td colspan="10" class="py-12 text-center text-slate-400 text-sm">
-                    未找到符合条件的队员
+                    未找到符合条件的选手
                   </td>
                 </tr>
               </tbody>
@@ -417,22 +421,36 @@
       <!-- VIEW 2: CONTESTS (比赛记录) -->
       <!-- ================================================================= -->
       <section v-if="activeTab === 'contests'" class="space-y-6">
-        
-        <!-- Contests Overview Header -->
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">已收录比赛历程</h2>
-            <p class="text-xs text-slate-500 mt-1">按比赛时间时序结算的校内外竞赛历史记录</p>
-          </div>
-          <span class="text-xs font-semibold text-slate-500 bg-white px-3 py-1.5 rounded-lg border border-slate-200">
-            共收录 {{ sortedContests.length }} 场比赛
-          </span>
+        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">比赛记录</h2>
+
+        <div v-if="!errorMessage" role="group" aria-label="比赛类型" class="grid grid-cols-2 gap-1 rounded-xl border border-slate-200 bg-slate-100 p-1 sm:max-w-sm">
+          <button
+            v-for="category in contestCategories"
+            :key="category.type"
+            type="button"
+            :aria-pressed="contestType === category.type"
+            @click="contestType = category.type"
+            class="flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-600"
+            :class="contestType === category.type ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-white/60 hover:text-slate-900'"
+          >
+            <span>{{ category.label }}</span>
+            <span v-if="!loading" class="text-xs font-medium tabular-nums">{{ contestsByType[category.type].length }} 场</span>
+          </button>
         </div>
 
+        <p v-if="loading" role="status" class="py-12 text-center text-sm text-slate-600">正在加载比赛记录…</p>
+        <p
+          v-else-if="!errorMessage && !visibleContests.length"
+          role="status"
+          class="rounded-xl border border-dashed border-slate-200 bg-white px-4 py-12 text-center text-sm font-medium text-slate-600"
+        >
+          {{ contestType === 'INTERNAL_SCHOOL' ? '暂无校内赛数据' : '暂无校外赛数据' }}
+        </p>
+
         <!-- Contest Cards Accordion -->
-        <div class="space-y-4">
+        <div v-else-if="!errorMessage" class="space-y-4">
           <div
-            v-for="contest in sortedContests"
+            v-for="contest in visibleContests"
             :key="contest.contest_id"
             class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden contest-card"
           >
@@ -466,6 +484,7 @@
               <!-- Toggle Expand / Collapse Button -->
               <button
                 @click="toggleContest(contest.contest_id)"
+                :aria-expanded="isContestExpanded(contest.contest_id)"
                 class="self-start md:self-center px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-1.5 transition-colors"
               >
                 <span>{{ isContestExpanded(contest.contest_id) ? '收起完整榜单' : '展开完整榜单' }}</span>
@@ -480,7 +499,7 @@
             </div>
 
             <!-- Expanded Standings Table -->
-            <div v-show="isContestExpanded(contest.contest_id)" class="bg-slate-50/50 p-4 sm:p-5 border-t border-slate-100">
+            <div v-if="isContestExpanded(contest.contest_id)" class="bg-slate-50/50 p-4 sm:p-5 border-t border-slate-100">
               <div class="bg-white rounded-lg border border-slate-200 overflow-x-auto shadow-xs">
                 <table class="w-full text-left border-collapse text-xs sm:text-sm">
                   <thead>
@@ -746,7 +765,7 @@
                 <h4 class="font-bold text-slate-900 mb-1">4. 校内外赛事权重与校内赛零和校准</h4>
                 <ul class="list-disc list-inside space-y-1">
                   <li><strong>校外赛 (EXTERNAL_XCPC, 权重 1.00)</strong>：以全国高校顶尖队伍为锚点，校内队伍的积分变动直接吸收外部战力，不进行零和修正。</li>
-                  <li><strong>校内赛 (INTERNAL_SCHOOL, 权重 0.80)</strong>：仅校内队员参赛。为防止校内赛事内部产生系统性通胀或通缩，引擎计算所有参赛本校选手的均值漂移 $\mu = \frac{1}{M}\sum_{i=1}^M \Delta R_i$，并在结算时从每位选手扣除该均值：$\Delta R_i \leftarrow \Delta R_i - \mu$，确保 $\sum \Delta R_i = 0$ 恒成立。</li>
+                  <li><strong>校内赛 (INTERNAL_SCHOOL, 权重 0.80)</strong>：集训队员和已登记的队外新生共同计分。为防止校内赛事内部产生系统性通胀或通缩，引擎计算所有参赛本校选手的均值漂移 $\mu = \frac{1}{M}\sum_{i=1}^M \Delta R_i$，并在结算时从每位选手扣除该均值：$\Delta R_i \leftarrow \Delta R_i - \mu$，确保 $\sum \Delta R_i = 0$ 恒成立。</li>
                 </ul>
               </div>
             </div>
@@ -813,11 +832,12 @@
             </p>
             <ul class="list-disc list-inside space-y-1 text-slate-600 text-sm mt-2 leading-relaxed">
               <li><strong>毕业退役</strong>：2022 级及更早入学（已毕业）的队员自动判定为退役；</li>
-              <li><strong>超期退役</strong>：选手最近一场有效参赛记录距今超过 <strong>2 年（730 天）</strong>，或已入队满 2 年但从未参加任何一场计分赛；</li>
-              <li><strong>主动退役</strong>：集训队花名册档案明确标注非活跃（<code>is_active = false</code>）。</li>
+              <li><strong>超期退役</strong>：选手最近一场有效参赛记录距今超过 <strong>2 年（730 天）</strong>，或入学满 2 年且没有计分记录。</li>
+              <li><strong>主动退役</strong>：选手花名册档案标为非活跃（<code>is_active = false</code>）。</li>
             </ul>
             <p class="text-slate-500 text-xs mt-2">
-              前端总排行榜默认仅展示现役队员，并提供现役 / 退役 / 全部状态筛选切换。
+              总排行榜的「现役选手」包括现役集训队员和已登记的活跃队外新生。
+              队外选手满 365 天未参加计分赛、毕业或被标为非活跃后，从总排行榜隐藏。
             </p>
           </div>
 
@@ -867,7 +887,8 @@
                 <span>•</span>
                 <span>年级: <strong class="text-slate-700">{{ selectedUser.grade }}级</strong></span>
                 <span>•</span>
-                <span v-if="selectedUser.is_active && !selectedUser.is_retired" class="text-emerald-600 font-semibold flex items-center gap-1">
+                <span v-if="selectedUser.is_team_member === false" class="whitespace-nowrap font-semibold text-indigo-700">队外新生</span>
+                <span v-else-if="selectedUser.is_active && !selectedUser.is_retired" class="text-emerald-600 font-semibold flex items-center gap-1">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 现役
                 </span>
                 <span v-else class="text-slate-400 font-semibold flex items-center gap-1">
@@ -1005,8 +1026,8 @@
 
                     <!-- Solved / Penalty -->
                     <td class="py-2.5 px-3 text-center font-mono text-slate-500 whitespace-nowrap">
-                      {{ getUserContestStats(selectedUser.student_id, h.contest_id).solved }} 题 /
-                      {{ getUserContestStats(selectedUser.student_id, h.contest_id).penalty }} 分
+                      {{ getUserContestStats(selectedUser.participant_id, h.contest_id).solved }} 题 /
+                      {{ getUserContestStats(selectedUser.participant_id, h.contest_id).penalty }} 分
                     </td>
 
                     <!-- Perf Rating -->
@@ -1086,6 +1107,6 @@
   </div>
 
   <!-- Application Logic -->
-  <script src="app.js"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>

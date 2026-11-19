@@ -108,6 +108,21 @@ function getDisplayOffset(ratedCount) {
   return 0;
 }
 
+const NON_MEMBER_INACTIVITY_MS = 365 * 24 * 60 * 60 * 1000;
+
+function isLeaderboardVisible(user, now) {
+  if (user.is_team_member !== false) return true;
+  if (!user.is_active) return false;
+
+  const enrollmentYear = Number(user.grade);
+  const graduation = Date.parse(`${enrollmentYear + 4}-07-01T00:00:00+08:00`);
+  const lastParticipation = Date.parse(
+    user.last_contest_date || `${enrollmentYear}-09-01T00:00:00+08:00`
+  );
+
+  return now < graduation && now - lastParticipation < NON_MEMBER_INACTIVITY_MS;
+}
+
 // HTML entity escaping utility to prevent XSS in raw HTML contexts (e.g. ECharts tooltips)
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -150,7 +165,12 @@ const app = createApp({
     const selectedUser = ref(null);
     let chartInstance = null;
 
-    // Contests View State (Expanded contest cards)
+    // Contests View State
+    const contestCategories = [
+      { type: 'INTERNAL_SCHOOL', label: '校内赛' },
+      { type: 'EXTERNAL_XCPC', label: '校外赛' }
+    ];
+    const contestType = ref('EXTERNAL_XCPC');
     const expandedContestIds = ref(new Set());
 
     // Candidate relative paths for resilient data loading
@@ -166,12 +186,12 @@ const app = createApp({
     const usersMap = computed(() => {
       const map = new Map();
       for (const u of db.value.users) {
-        map.set(String(u.student_id), u);
+        map.set(String(u.participant_id), u);
       }
       return map;
     });
 
-    // Detailed contest member stats lookup map: contest_id -> student_id -> stats
+    // Detailed contest member stats lookup map: contest_id -> participant_id -> stats
     const contestMemberStats = computed(() => {
       const map = {};
       for (const c of db.value.contests) {
@@ -195,10 +215,15 @@ const app = createApp({
       return map;
     });
 
+    const leaderboardUsers = computed(() => {
+      const now = Date.now();
+      return (db.value.users || []).filter(user => isLeaderboardVisible(user, now));
+    });
+
     // Dynamic Grades list
     const grades = computed(() => {
       const gradeSet = new Set();
-      for (const u of db.value.users) {
+      for (const u of leaderboardUsers.value) {
         if (u.grade) gradeSet.add(Number(u.grade));
       }
       return Array.from(gradeSet).sort((a, b) => b - a);
@@ -206,8 +231,9 @@ const app = createApp({
 
     // Summary Statistics Cards
     const summaryStats = computed(() => {
-      const allUsers = db.value.users || [];
-      const activeMembers = allUsers.filter(u => u.is_active && !u.is_retired);
+      const allUsers = leaderboardUsers.value;
+      const teamMembers = allUsers.filter(u => u.is_team_member !== false);
+      const activeMembers = teamMembers.filter(u => u.is_active && !u.is_retired);
       const activeCount = activeMembers.length;
 
       // High tier members: Master (>=1600) & Grandmaster (>=1800)
@@ -222,6 +248,7 @@ const app = createApp({
 
       return {
         activeCount,
+        teamCount: teamMembers.length,
         highTierCount,
         avgRating,
         contestCount
@@ -230,7 +257,7 @@ const app = createApp({
 
     // Filtered & Ranked Users for Leaderboard Table
     const filteredUsers = computed(() => {
-      let list = [...(db.value.users || [])];
+      let list = [...leaderboardUsers.value];
 
       // 1. Status Filter
       if (statusFilter.value === 'active') {
@@ -244,19 +271,18 @@ const app = createApp({
         list = list.filter(u => String(u.grade) === String(gradeFilter.value));
       }
 
-      // 3. Search Query (Name, Pinyin, Class/Major, or Student ID)
+    // 3. Search Query (Name, Pinyin, Class/Major)
       const q = searchQuery.value.trim().toLowerCase();
       if (q) {
         list = list.filter(u => {
           const nameMatch = String(u.name || '').toLowerCase().includes(q);
           const pinyinMatch = String(u.pinyin || '').toLowerCase().includes(q);
           const classMatch = String(u.class_name || u.major || '').toLowerCase().includes(q);
-          const idMatch = String(u.student_id || '').toLowerCase().includes(q);
-          return nameMatch || pinyinMatch || classMatch || idMatch;
+          return nameMatch || pinyinMatch || classMatch;
         });
       }
 
-      // 4. Stable Sort by display_rating descending, then rated_count descending, then student_id ascending
+      // 4. Stable sort by display rating, rated count, then participant ID
       list.sort((a, b) => {
         if (b.display_rating !== a.display_rating) {
           return b.display_rating - a.display_rating;
@@ -264,18 +290,22 @@ const app = createApp({
         if (b.rated_count !== a.rated_count) {
           return b.rated_count - a.rated_count;
         }
-        return String(a.student_id).localeCompare(String(b.student_id));
+        return a.participant_id - b.participant_id;
       });
 
       return list;
     });
 
-    // Contests chronologically sorted (or latest first)
-    const sortedContests = computed(() => {
+    // Group contests by type, keeping the latest first in each category.
+    const contestsByType = computed(() => {
       const list = [...(db.value.contests || [])];
       list.sort((a, b) => new Date(b.start_time || 0) - new Date(a.start_time || 0));
-      return list;
+      return {
+        INTERNAL_SCHOOL: list.filter(contest => contest.contest_type === 'INTERNAL_SCHOOL'),
+        EXTERNAL_XCPC: list.filter(contest => contest.contest_type === 'EXTERNAL_XCPC')
+      };
     });
+    const visibleContests = computed(() => contestsByType.value[contestType.value]);
 
     // Resilient data loader with fallback
     async function loadData() {
@@ -290,9 +320,9 @@ const app = createApp({
             const data = await res.json();
             if (data && (Array.isArray(data.users) || Array.isArray(data.contests))) {
               db.value = data;
-              // Expand the most recent contest by default
-              if (data.contests && data.contests.length > 0) {
-                const latest = [...data.contests].sort((a, b) => new Date(b.start_time || 0) - new Date(a.start_time || 0))[0];
+              // Expand the most recent contest in each category by default.
+              expandedContestIds.value.clear();
+              for (const [latest] of Object.values(contestsByType.value)) {
                 if (latest) expandedContestIds.value.add(latest.contest_id);
               }
               loading.value = false;
@@ -455,7 +485,7 @@ const app = createApp({
             const tier = getTier(disp);
             const isInternal = raw.contest_type === 'INTERNAL_SCHOOL';
             const contestTypeZh = isInternal ? '校内赛 (权重 0.80)' : '校外赛 (权重 1.00)';
-            const stats = getUserContestStats(user.student_id, raw.contest_id);
+            const stats = getUserContestStats(user.participant_id, raw.contest_id);
             const safeTitle = escapeHtml(raw.contest_title || '比赛详情');
             const safeTeam = escapeHtml(raw.team_name || '-');
 
@@ -650,7 +680,10 @@ const app = createApp({
       grades,
       summaryStats,
       filteredUsers,
-      sortedContests,
+      contestCategories,
+      contestType,
+      contestsByType,
+      visibleContests,
       toggleContest,
       isContestExpanded,
       formatDate,

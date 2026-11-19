@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
 import sys
 import pytest
 import numpy as np
@@ -28,7 +29,8 @@ from scripts.recalculate import (
     process_contest,
     recalculate_all,
 )
-from scripts.import_srk_batch import slugify, batch_import_srk
+from scripts.import_srk_batch import slugify
+from scripts.validate_data import validate_contest_file
 
 
 @pytest.fixture
@@ -223,6 +225,44 @@ def test_external_team_continuous_evolution():
 
 def test_batch_srk_slugify():
     """Verifies slugify utility produces clean filenames."""
-    assert slugify("2024 ICPC Asia East Continent Final") == "2024_ICPC_Asia_East_Continent_Final"
-    assert slugify("2024年中国大学生程序设计竞赛（哈尔滨）") == "2024年中国大学生程序设计竞赛_哈尔滨"
+    assert slugify("2024 ICPC Asia East Continent Final") == "2024_icpc_asia_east_continent_final"
+    assert slugify("赛区一") != slugify("赛区二")
     assert slugify("  test / slash & symbols  ") == "test_slash_symbols"
+
+
+def test_batch_srk_cli_only_overwrites_when_requested(tmp_path):
+    script = Path(__file__).resolve().parents[1] / "scripts" / "import_srk_batch.py"
+    source = tmp_path / "source"
+    source.mkdir()
+    output = tmp_path / "contests"
+    scoreboard = source / "Round-01.srk.json"
+    contest = {
+        "contest": {"startAt": "2026-11-19T08:00:00+08:00"},
+        "rows": [{"user": {"name": "Example Team"}, "score": {"value": 1}}],
+    }
+    scoreboard.write_text(json.dumps(contest), encoding="utf-8")
+    command = [sys.executable, str(script), str(source), "--output-dir", str(output)]
+
+    first = subprocess.run(command, cwd=tmp_path, capture_output=True, text=True)
+    assert first.returncode == 0, first.stderr
+    target = output / "2026_11_19_round_01.json"
+    original = target.read_bytes()
+    assert not validate_contest_file(target)
+
+    contest["rows"][0]["score"]["value"] = 2
+    scoreboard.write_text(json.dumps(contest), encoding="utf-8")
+    second = subprocess.run(command, cwd=tmp_path, capture_output=True, text=True)
+    assert second.returncode == 0, second.stderr
+    assert target.read_bytes() == original
+    assert list(output.iterdir()) == [target]
+
+    forced = subprocess.run([*command, "--overwrite"], cwd=tmp_path, capture_output=True, text=True)
+    assert forced.returncode == 0, forced.stderr
+    assert json.loads(target.read_bytes())["standings"][0]["solved"] == 2
+
+    contest["rows"][0]["user"]["organization"] = "USTS"
+    scoreboard.write_text(json.dumps(contest), encoding="utf-8")
+    invalid = subprocess.run([*command, "--overwrite"], cwd=tmp_path, capture_output=True, text=True)
+    assert invalid.returncode == 1
+    assert "no participant names or IDs" in invalid.stderr
+    assert json.loads(target.read_bytes())["standings"][0]["solved"] == 2

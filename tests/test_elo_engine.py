@@ -2,7 +2,7 @@
 Pytest Suite for USTS Elo Engine & Mathematical Blueprint
 Verifies win probability, expected seeds, team power synthesis, LogSumExp stability,
 fractional rank tie-breaking, bisection convergence, dual-track display offsets,
-zero-solve floor protection, and internal school zero-sum calibration.
+and internal school zero-sum calibration.
 """
 
 from __future__ import annotations
@@ -23,7 +23,6 @@ from scripts.recalculate import (
     compute_ranks,
     compute_seeds,
     compute_perf_ratings,
-    apply_zero_solve_limit,
     calibrate_internal_school_deltas,
     process_contest,
 )
@@ -237,25 +236,6 @@ def test_display_rating_offsets_and_floor():
     assert to_display_rating(-50.0, 3) == 0      # -50 + 0 = -50 -> 0
 
 
-def test_zero_solve_floor_protection():
-    """
-    7. Verifies that single contest drop worse than -60 is clamped to -60 when solved == 0,
-    and unconstrained when solved > 0.
-    """
-    # solved == 0: large drop clamped to -60
-    assert apply_zero_solve_limit(-150.0, solved=0) == -60.0
-    assert apply_zero_solve_limit(-60.1, solved=0) == -60.0
-    assert apply_zero_solve_limit(-60.0, solved=0) == -60.0
-
-    # solved == 0: moderate drop or gain unconstrained
-    assert apply_zero_solve_limit(-35.0, solved=0) == -35.0
-    assert apply_zero_solve_limit(15.0, solved=0) == 15.0
-
-    # solved > 0: drop is NOT clamped
-    assert apply_zero_solve_limit(-150.0, solved=1) == -150.0
-    assert apply_zero_solve_limit(-80.0, solved=2) == -80.0
-
-
 def test_internal_school_zero_sum_calibration():
     """
     8. Verifies that calibrate_internal_school_deltas subtracts mean drift mu
@@ -344,8 +324,8 @@ def test_external_contest_no_zero_sum():
                 "is_school": True,
                 "members": ["23001002"],
                 "external_elo": None,
-                "solved": 7,
-                "penalty": 650,
+                "solved": 0,
+                "penalty": 0,
             },
         ],
     }
@@ -357,11 +337,8 @@ def test_external_contest_no_zero_sum():
     delta1 = user_db["23001001"]["history"][-1]["delta"]
     delta2 = user_db["23001002"]["history"][-1]["delta"]
 
-    # In EXTERNAL_XCPC, school deltas are NOT forced to sum to 0
-    # Both teams performed well against a 2200 anchor, so their net deltas can be positive
-    school_delta_sum = delta1 + delta2
-    # Verify deltas are computed and not zeroed out by artificial zero-sum
-    assert isinstance(school_delta_sum, float)
+    assert delta1 + delta2 != pytest.approx(0.0)
+    assert delta2 < -60.0
 
     # External team Tsinghua Stars must NOT be added to user_db
     assert "Tsinghua Stars" not in user_db

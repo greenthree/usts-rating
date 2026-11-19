@@ -5,7 +5,7 @@ tests/test_e2e_suite.py - Comprehensive Opaque-Box E2E Test Suite for USTS Ratin
 Structured in 4 Tiers:
 - Tier 1: Feature Coverage (>=5 tests per feature area across CSV validation,
   JSON contest schema, retirement rule, Elo calculation, team power synthesis,
-  0-solve protection, zero-sum drift, 7-tier badge colors, CI/CD workflow syntax).
+  zero-sum drift, 7-tier badge colors, CI/CD workflow syntax).
 - Tier 2: Boundary & Corner Cases (empty standings, 1 team only, all teams 0 solved,
   extreme ratings like 3000 and 200, ties in solved and penalty, 2-year boundary exact cutoff,
   invalid types and duplicate IDs).
@@ -33,6 +33,7 @@ import re
 import shutil
 import subprocess
 import sys
+from tempfile import TemporaryDirectory
 import unittest
 import numpy as np
 
@@ -67,6 +68,15 @@ def run_cli(
         timeout=timeout,
         input=input_text,
     )
+
+
+def recalculate_production_data() -> dict:
+    with TemporaryDirectory() as directory:
+        output_dir = Path(directory)
+        result = run_cli([str(RECALCULATE_SCRIPT), "--data-dir", str(DATA_DIR)], cwd=output_dir)
+        if result.returncode:
+            raise AssertionError(f"Recalculate failed:\n{result.stdout}\n{result.stderr}")
+        return json.loads((output_dir / "dist" / "data" / "rating_db.json").read_text(encoding="utf-8"))
 
 
 # ==============================================================================
@@ -161,13 +171,6 @@ def oracle_bisection_perf(ratings: list[float], target_ranks: list[float], itera
         high = np.where(~mask, mid, high)
         
     return list((low + high) * 0.5)
-
-
-def oracle_zero_solve_clamp(delta: float, solved: int) -> float:
-    """Enforce delta >= -60.0 if solved == 0."""
-    if solved == 0:
-        return max(-60.0, delta)
-    return delta
 
 
 def oracle_internal_zero_sum(deltas: list[float]) -> list[float]:
@@ -586,37 +589,6 @@ class TestTier1FeatureCoverage(unittest.TestCase):
         self.assertEqual(custom_r, 1850.0)
 
     # --------------------------------------------------------------------------
-    # 1.6 0-Solve Drop Protection (>= 5 tests)
-    # --------------------------------------------------------------------------
-    def test_t1_zerosolve_01_drop_clamped_at_minus_60(self):
-        """R3.3: Team with solved == 0 and raw delta = -120 is clamped to -60.0."""
-        clamped = oracle_zero_solve_clamp(-120.0, solved=0)
-        self.assertEqual(clamped, -60.0)
-
-    def test_t1_zerosolve_02_moderate_drop_unclamped(self):
-        """R3.3: Team with solved == 0 and raw delta = -25.0 remains -25.0."""
-        clamped = oracle_zero_solve_clamp(-25.0, solved=0)
-        self.assertEqual(clamped, -25.0)
-
-    def test_t1_zerosolve_03_nonzero_solve_no_clamp(self):
-        """R3.3: Team with solved >= 1 and raw delta = -85.0 is NOT clamped."""
-        delta = oracle_zero_solve_clamp(-85.0, solved=1)
-        self.assertEqual(delta, -85.0)
-
-    def test_t1_zerosolve_04_zero_solve_positive_delta(self):
-        """R3.3: Team with solved == 0 achieving positive delta (e.g. +10) retains +10."""
-        delta = oracle_zero_solve_clamp(10.0, solved=0)
-        self.assertEqual(delta, 10.0)
-
-    def test_t1_zerosolve_05_all_members_receive_clamped_delta(self):
-        """R3.3 & R3.4: All members of 0-solve team receive the capped delta."""
-        team_raw_delta = -150.0
-        team_clamped_delta = oracle_zero_solve_clamp(team_raw_delta, solved=0)
-        members = ["23001001", "23001002"]
-        member_deltas = [team_clamped_delta for _ in members]
-        self.assertTrue(all(d >= -60.0 for d in member_deltas))
-
-    # --------------------------------------------------------------------------
     # 1.7 Zero-Sum Drift Calibration (>= 5 tests)
     # --------------------------------------------------------------------------
     def test_t1_zerosum_01_internal_school_exact_sum(self):
@@ -649,16 +621,6 @@ class TestTier1FeatureCoverage(unittest.TestCase):
         # Team 3 (trio): -15, -15, -15
         member_deltas = [25.0, 10.0, 10.0, -15.0, -15.0, -15.0]
         calibrated = oracle_internal_zero_sum(member_deltas)
-        self.assertLessEqual(abs(sum(calibrated)), 1e-6)
-
-    def test_t1_zerosum_05_interaction_with_zero_solve_floor(self):
-        """R3.4: 0-solve clamping occurs before zero-sum calibration, and sum remains zero."""
-        raw_deltas = [40.0, -100.0, 10.0]
-        # Apply 0-solve clamp to team 2
-        clamped_deltas = [raw_deltas[0], oracle_zero_solve_clamp(raw_deltas[1], solved=0), raw_deltas[2]]
-        self.assertEqual(clamped_deltas[1], -60.0)
-        # Apply internal calibration
-        calibrated = oracle_internal_zero_sum(clamped_deltas)
         self.assertLessEqual(abs(sum(calibrated)), 1e-6)
 
     # --------------------------------------------------------------------------
@@ -878,7 +840,7 @@ class TestTier2BoundaryAndCornerCases(unittest.TestCase):
         self.assertEqual(delta, 0.0)
 
     def test_t2_03_all_teams_zero_solved(self):
-        """Corner Case: All teams solved 0 problems; equal tie rank arithmetic mean and delta clamp."""
+        """Corner Case: All teams solved 0 problems and tie at the mean rank."""
         # Standings of 4 teams, all solved 0, penalty 0
         n = 4
         # Arithmetic mean rank for all tied 1st: (1 + 4) / 2 = 2.5
@@ -892,9 +854,7 @@ class TestTier2BoundaryAndCornerCases(unittest.TestCase):
         # Bisection yields R_perf == R_team
         perfs = oracle_bisection_perf(ratings, m)
         raw_deltas = [0.80 * (p - r) / 2.0 for p, r in zip(perfs, ratings)]
-        # All deltas are around 0.0, clamped with >= -60
-        clamped = [oracle_zero_solve_clamp(d, solved=0) for d in raw_deltas]
-        calibrated = oracle_internal_zero_sum(clamped)
+        calibrated = oracle_internal_zero_sum(raw_deltas)
         self.assertLessEqual(abs(sum(calibrated)), 1e-6)
 
     def test_t2_04_extreme_ratings_numerical_stability(self):
@@ -974,8 +934,7 @@ class TestTier3CrossFeatureCombinations(unittest.TestCase):
         1. Team power synthesis across k=1, 2, 3.
         2. Expected seeds and target rank calculation.
         3. Vectorized bisection for performance ratings.
-        4. 0-solve drop protection clamping.
-        5. Exact zero-sum calibration across all school members (|sum| <= 1e-6).
+        4. Exact zero-sum calibration across all school members (|sum| <= 1e-6).
         """
         # Team 1: Solo (Alice: 1400)
         # Team 2: Duo (Bob: 1200, Charlie: 1100)
@@ -993,11 +952,7 @@ class TestTier3CrossFeatureCombinations(unittest.TestCase):
         
         perfs = oracle_bisection_perf(team_ratings, targets)
         w_contest = 0.80
-        raw_deltas = [w_contest * (p - r) / 2.0 for p, r in zip(perfs, team_ratings)]
-        
-        # Apply 0-solve clamp to team 4
-        clamped_t4 = oracle_zero_solve_clamp(raw_deltas[3], solved=0)
-        team_deltas = [raw_deltas[0], raw_deltas[1], raw_deltas[2], clamped_t4]
+        team_deltas = [w_contest * (p - r) / 2.0 for p, r in zip(perfs, team_ratings)]
         
         # Expand to member deltas:
         # T1 has 1 member, T2 has 2, T3 has 3, T4 has 2 -> Total M = 8 members
@@ -1086,36 +1041,30 @@ class TestTier4RealWorldApplicationScenarios(unittest.TestCase):
 
     def test_t4_01_full_pipeline_raw_csv_import_and_validate(self):
         """Full Pipeline: Raw CSV -> import_contest.py -> validate_data.py."""
-        raw_csv = WORKSPACE_ROOT / "tests" / "fixtures" / "sample_scoreboard.csv"
-        target_json = CONTESTS_DIR / "2026_11_15_pipeline_test.json"
-        
-        try:
-            # Step 1: Import raw CSV
+        fixtures = WORKSPACE_ROOT / "tests" / "fixtures"
+        raw_csv = fixtures / "sample_scoreboard.csv"
+        sample_users = fixtures / "sample_users.csv"
+        with TemporaryDirectory() as directory:
+            target_json = Path(directory) / "2026_11_15_pipeline_test.json"
             res_import = run_cli([
                 str(IMPORT_SCRIPT),
                 "--input", str(raw_csv),
                 "--output", str(target_json),
+                "--users", str(sample_users),
                 "--contest-id", "2026_11_15_pipeline_test",
                 "--title", "Pipeline Integration Contest",
-                "--type", "INTERNAL_SCHOOL",
+                "--type", "EXTERNAL_XCPC",
                 "--start-time", "2026-11-15T13:00:00+08:00",
-                "--skip-validation"
             ])
             self.assertEqual(res_import.returncode, 0, f"Import failed: {res_import.stdout}\n{res_import.stderr}")
-            self.assertTrue(target_json.exists())
-            
-            # Step 2: Validate the generated contest file
+
             res_val = run_cli([
                 str(VALIDATE_SCRIPT),
-                "--users", str(USERS_CSV),
+                "--users", str(sample_users),
                 "--contests", str(target_json),
                 "--strict"
             ])
-            # If foreign student IDs exist in sample, validate handles referential checks
-            self.assertIn("USTS Rating System - Data Integrity Validator", res_val.stdout)
-        finally:
-            if target_json.exists():
-                target_json.unlink()
+            self.assertEqual(res_val.returncode, 0, res_val.stdout + res_val.stderr)
 
     def test_t4_02_production_data_directory_full_integrity(self):
         """Verify the complete production data directory under strict validation."""
@@ -1125,22 +1074,7 @@ class TestTier4RealWorldApplicationScenarios(unittest.TestCase):
 
     def test_t4_03_recalculate_generates_valid_rating_db(self):
         """Verify that recalculate.py generates rating_db.json with valid structure and schema."""
-        if not RECALCULATE_SCRIPT.exists():
-            self.skipTest("scripts/recalculate.py not yet implemented (Milestone 2)")
-            
-        res = run_cli([str(RECALCULATE_SCRIPT)])
-        self.assertEqual(res.returncode, 0, f"Recalculate failed:\n{res.stdout}\n{res.stderr}")
-        
-        # Check generated output
-        db_candidates = [
-            WORKSPACE_ROOT / "dist" / "data" / "rating_db.json",
-            WORKSPACE_ROOT / "web" / "data" / "rating_db.json",
-            WORKSPACE_ROOT / "data" / "rating_db.json"
-        ]
-        db_file = next((f for f in db_candidates if f.exists()), None)
-        self.assertIsNotNone(db_file, "rating_db.json not found in dist/data or web/data")
-        
-        db = json.loads(db_file.read_text(encoding="utf-8"))
+        db = recalculate_production_data()
         self.assertIn("metadata", db)
         self.assertIn("tiers", db)
         self.assertIn("users", db)
@@ -1155,6 +1089,13 @@ class TestTier4RealWorldApplicationScenarios(unittest.TestCase):
         self.assertGreater(len(users), 0)
         for i in range(len(users) - 1):
             self.assertGreaterEqual(users[i]["display_rating"], users[i+1]["display_rating"])
+
+        ids = {user["participant_id"] for user in users}
+        self.assertEqual(ids, set(range(1, len(users) + 1)))
+        self.assertTrue(all("student_id" not in user for user in users))
+        for contest in db["contests"]:
+            for team in contest["standings"]:
+                self.assertTrue(ids.issuperset(team["members"]))
 
     def test_t4_04_web_assets_integrity_and_cdn_references(self):
         """Verify web static assets (web/index.html, app.js, style.css) CDN and tier tokens."""
@@ -1301,35 +1242,67 @@ console.log('ALL_GET_BEST_PERF_PROBES_PASSED');
 
     def test_t5_04_star_team_data_preservation_and_recalculation(self):
         """Verify that star team attribute is preserved in rating_db.json after recalculation."""
-        # Check production contest contains star team
-        mock_contest_path = CONTESTS_DIR / "2026_10_25_icpc_regional_mock.json"
-        self.assertTrue(mock_contest_path.exists())
-        contest_data = json.loads(mock_contest_path.read_text(encoding="utf-8"))
-        star_teams = [s for s in contest_data["standings"] if s.get("is_star")]
-        self.assertGreater(len(star_teams), 0, "Production contest should contain star team")
+        contest_path = CONTESTS_DIR / "2026_11_15_ccpc2026jingzhou.json"
+        contest_data = json.loads(contest_path.read_text(encoding="utf-8"))
+        expected = {team["team_name"] for team in contest_data["standings"] if team.get("is_star")}
+        self.assertTrue(expected, "Production contest should contain star teams")
 
-        # Verify recalculation preserves is_star in output
-        res = run_cli([str(RECALCULATE_SCRIPT)])
-        self.assertEqual(res.returncode, 0)
-        
-        db_candidates = [
-            WORKSPACE_ROOT / "dist" / "data" / "rating_db.json",
-            WORKSPACE_ROOT / "web" / "data" / "rating_db.json",
-            WORKSPACE_ROOT / "data" / "rating_db.json"
-        ]
-        db_file = next((f for f in db_candidates if f.exists()), None)
-        self.assertIsNotNone(db_file)
-        db = json.loads(db_file.read_text(encoding="utf-8"))
-        
-        found_star_in_db = False
-        for c in db.get("contests", []):
-            if c["contest_id"] == "2026_10_25_icpc_regional_mock":
-                for s in c.get("standings", []):
-                    if s.get("is_star"):
-                        found_star_in_db = True
-                        self.assertIn("东南大学", s["team_name"])
-                        break
-        self.assertTrue(found_star_in_db, "is_star flag must be preserved in rating_db.json standings")
+        db = recalculate_production_data()
+        result = next(c for c in db["contests"] if c["contest_id"] == contest_data["contest_id"])
+        actual = {team["team_name"] for team in result["standings"] if team.get("is_star")}
+        self.assertEqual(actual, expected)
+
+    def test_t5_05_leaderboard_hides_ineligible_non_members_in_all_filters(self):
+        node_bin = shutil.which("node")
+        if not node_bin:
+            self.skipTest("Node.js is required to run the leaderboard filters.")
+
+        probe_js = """
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const date = '2026-07-01T00:00:00+08:00';
+const now = Date.parse(date);
+const day = 24 * 60 * 60 * 1000;
+let state;
+const context = {
+    Date: class extends Date { static now() { return now; } },
+    Vue: {
+        createApp: ({ setup }) => ({ mount() { state = setup(); } }),
+        ref: value => ({ value }),
+        computed: getter => ({ get value() { return getter(); } }),
+        onMounted() {},
+        onUnmounted() {}
+    }
+};
+vm.runInNewContext(fs.readFileSync('web/app.js', 'utf8'), context);
+const guest = {
+    is_team_member: false, is_active: true, is_retired: false, grade: 2025,
+    display_rating: 1000, rated_count: 1
+};
+const users = [
+    { ...guest, participant_id: 1, name: 'recent', last_contest_date: new Date(now - 365 * day + 1).toISOString() },
+    { ...guest, participant_id: 2, name: 'expired', last_contest_date: new Date(now - 365 * day).toISOString() },
+    { ...guest, participant_id: 3, name: 'graduated', grade: 2022, last_contest_date: date },
+    { ...guest, participant_id: 4, name: 'enrolled', last_contest_date: null },
+    { ...guest, participant_id: 5, name: 'never raced', grade: 2024, last_contest_date: null },
+    { ...guest, participant_id: 6, name: 'manually inactive', is_active: false, is_retired: true, last_contest_date: date },
+    { ...guest, participant_id: 7, name: 'team member', is_team_member: true, grade: 2022, is_retired: true, last_contest_date: date }
+];
+state.db.value = { metadata: {}, users, contests: [] };
+const shown = () => Array.from(state.filteredUsers.value, user => user.name);
+assert.deepEqual(shown(), ['recent', 'enrolled']);
+state.statusFilter.value = 'all';
+assert.deepEqual(shown(), ['recent', 'enrolled', 'team member']);
+state.statusFilter.value = 'retired';
+assert.deepEqual(shown(), ['team member']);
+assert.equal(state.summaryStats.value.teamCount, 1);
+assert.equal(state.usersMap.value.get('2').name, 'expired');
+"""
+        result = subprocess.run(
+            [node_bin, "-e", probe_js], cwd=WORKSPACE_ROOT, capture_output=True, text=True
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":

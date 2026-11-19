@@ -15,7 +15,7 @@
   - [2.1 双轨制积分体系 (True Rating vs Display Rating)](#21-双轨制积分体系-true-rating-vs-display-rating)
   - [2.2 多人体量战力合成公式 ($R_{team}$)](#22-多人体量战力合成公式-r_team)
   - [2.3 多人 Elo 结算与二分表现分查找](#23-多人-elo-结算与二分表现分查找)
-  - [2.4 零题掉分保护机制 (0-Solve Floor)](#24-零题掉分保护机制-0-solve-floor)
+  - [2.4 个人变动分与赛事权重](#24-个人变动分与赛事权重)
   - [2.5 校内赛零和校准机制 (Zero-Sum Drift Calibration)](#25-校内赛零和校准机制-zero-sum-drift-calibration)
   - [2.6 Codeforces 风格七阶段位徽章体系](#26-codeforces-风格七阶段位徽章体系)
   - [2.7 两年未参赛自动退役判定规则](#27-两年未参赛自动退役判定规则)
@@ -63,37 +63,25 @@
 
 ### 2.1 双轨制积分体系 (True Rating vs Display Rating)
 为防止新队员单场超常发挥后积分瞬间虚高（小号刷分），并激励队员积极、持续地参加训练，系统设计了**双轨制积分架构**：
-- **真实战力分 ($R_{true}$)**：系统底层运算完全依据 $R_{true}$。初始无任何外部公开发表记录的新选手默认赋予基准值 $R_{true} = 1000.0$。若在 `users.csv` 中登记了历史外部权威天梯分（如公开 XCPC-Elo），则采用该初始分。
+- **真实战力分 ($R_{true}$)** 为选手的底层积分。未登记外部 Elo 的选手从 800 分起算，已登记者从花名册上的外部 Elo 起算。
 - **展示积分 ($R_{display}$)**：前端展示与排行榜排名的依据，由真实分加上平滑偏移量获得：
   $$R_{display} = \max(0, \text{round}(R_{true} + \text{offset}(\text{rated\_count})))$$
 
 平滑偏移量根据选手累计参加的有效场次 $\text{rated\_count}$ 阶梯递进：
 
-| 累计参赛场次 ($\text{rated\_count}$) | 偏移量 ($\text{offset}$) | 初始真实分 1000 对应的展示分 | 说明 |
+| 累计参赛场次 ($\text{rated\_count}$) | 偏移量 ($\text{offset}$) | 真实分 800 对应的展示分 | 说明 |
 | :---: | :---: | :---: | :--- |
-| **0 场** | **-1000** | **0 分** | 未参加任何比赛，展示为 0 分（萌新） |
-| **1 场** | **-650** | **350 分** | 完成初次定级赛，开始获得基础分值 |
-| **2 场** | **-400** | **600 分** | 渐进过渡 |
-| **3 场** | **-200** | **800 分** | 积分大幅释放 |
-| **4 场** | **-80** | **920 分** | 接近真实水平 |
-| **$\ge$ 5 场** | **0** | **1000 分** | 偏移量完全归零，完全展现个人真实实力 |
+| **0 场** | **-1000** | **0 分** | 未参赛 |
+| **1 场** | **-500** | **300 分** | 完成首场比赛 |
+| **2 场** | **-250** | **550 分** | 定级过渡 |
+| **$\ge$ 3 场** | **0** | **800 分** | 偏移归零 |
 
 ---
 
 ### 2.2 多人体量战力合成公式 ($R_{team}$)
-在多人组队比赛中，队伍的综合实力并非成员个人能力的简单线性算术平均，而是呈现非线性的**木桶效应与长板效应交织**。系统采用基于 LogSumExp 的战力合成模型：
+本校队伍的赛前战力使用已有参赛历史的 $k$ 名成员的对数幂平均。全队首次参赛时，队伍赛前战力为 800 分。
 
-对于人数为 $k \ge 1$ 的校内队伍：
-$$R_{team} = 400 \cdot \log_{10}\left(\sum_{i=1}^k 10^{R_i / 400}\right) - C_k$$
-
-为保障数值稳定性，避免计算 $10^{R_i/400}$ 时在大分值下出现浮点溢出，算法内部采用 LogSumExp 标准形式进行向量化计算：
-$$M = \max_{1 \le i \le k} R_i, \quad R_{team} = M + 400 \cdot \log_{10}\left(\sum_{i=1}^k 10^{(R_i - M)/400}\right) - C_k$$
-
-体量折减常数体系 $C_k$：
-- **单人队 ($k=1$)**：$C_1 = 0.0$（队伍实力完全等于个人战力：$R_{team} = R_1$）
-- **双人队 ($k=2$)**：$C_2 = 100.0$
-- **三人队 ($k=3$)**：$C_3 = 160.0$
-- **超大规模队 ($k > 3$)**：$C_k = 400 \cdot \log_{10}(k) \times 0.84$
+$$R_{team} = 400 \cdot \log_{10}\left(\frac{1}{k}\sum_{i=1}^k 10^{R_i / 400}\right)$$
 
 > **外部队伍动态演化与全国真实 Elo 追踪（Persistent External Elo）**：
 > 为彻底解决传统积分系统中「外校队伍一律固定 1500 分，导致清华北大等 3000 分顶尖队伍被严重低估、本校队伍即使战胜高水平队伍也难以加分」的系统性失真问题，本系统实现了**全生命周期外部战力追踪引擎**：
@@ -113,21 +101,16 @@ $$M = \max_{1 \le i \le k} R_i, \quad R_{team} = M + 400 \cdot \log_{10}\left(\s
 3. **目标名次确定 (Geometric Mean Target)**：
    结合赛前预期名次与实际名次，计算几何平均目标排名：
    $$m_A = \sqrt{\text{Seed}_A \times \text{Rank}_A}$$
-4. **二分查找表现分 ($R_{perf}$)**：
-   在区间 $[-500.0, 3500.0]$ 内通过 50 次高精度二分迭代，找到一个虚拟表现分 $R_{perf}$，使得若将队伍 $A$ 的战力替换为 $R_{perf}$ 时，队伍 $A$ 面对所有对手的期望名次恰好收敛至 $m_A$。
-5. **队伍基础变动分**：
-   $$\Delta R_{team} = W_{contest} \times \frac{R_{perf} - R_{team}}{2}$$
-   其中比赛权重系数 $W_{contest}$：
-   - **校内赛 (`INTERNAL_SCHOOL`)**：$W_{contest} = 0.80$
-   - **校外赛 (`EXTERNAL_XCPC`)**：$W_{contest} = 1.00$
+4. **二分查找所需战力与表现分**。在区间 $[-500, 3500]$ 内二分查找。目标名次 $m_A$ 对应结算所需战力 $R_{needed}$，实际名次对应展示用的表现分 $R_{perf}$。
 
 ---
 
-### 2.4 零题掉分保护机制 (0-Solve Floor)
-为了保护初学者和偶发失误队员的参赛积极性，避免因零题签到失败遭受毁灭性扣分，系统严格执行**零题掉分保底保护**：
-- 若队伍解题数 $\text{solved} == 0$，其单场扣分幅度下限为 $-60.0$ 分：
-  $$\Delta R_{team} = \max(-60.0, \Delta R_{team})$$
-- 团队所有队员分配到的单场扣分均受此下限保护（全队同奖同惩）。
+### 2.4 个人变动分与赛事权重
+队员 $i$ 依据自身赛前真实分 $R_i$ 和此前计分场次 $n_i$ 计算变动分。零题队伍也按此公式结算。
+
+$$\Delta R_i = W_{contest} \cdot (R_{needed}-R_i) \cdot (0.6 + 0.3e^{-n_i})$$
+
+校内赛权重 $W_{contest}=0.80$，校外赛权重为 $1.00$。本校队伍在榜单上展示的变动分为队员结算分差的平均值。
 
 ---
 
@@ -135,7 +118,7 @@ $$M = \max_{1 \le i \le k} R_i, \quad R_{team} = M + 400 \cdot \log_{10}\left(\s
 在校内赛（`contest_type: "INTERNAL_SCHOOL"`）中，比赛完全在集训队内部进行。若不对全场漂移进行校准，可能因整体排名的非对称性导致整个集训队的平均分发生系统性膨胀或收缩。
 
 为此，引擎在校内赛中引入**零和均值校准**：
-1. 队伍各队员获得其队伍变动分 $\Delta R_i = \Delta R_{team}$。
+1. 按上一节公式计算每名队员的变动分 $\Delta R_i$。
 2. 统计所有参赛本校选手（共 $M$ 人）的均值漂移：
    $$\mu = \frac{1}{M} \sum_{i=1}^M \Delta R_i$$
 3. 对所有校内选手扣除均值漂移进行校准：
@@ -168,11 +151,12 @@ $$M = \max_{1 \le i \le k} R_i, \quad R_{team} = M + 400 \cdot \log_{10}\left(\s
 为了让排行榜客观反映当前集训队的现役实力结构，系统建立自动退役规则：
 - **判定条件**：
   1. 选手最近一次参加有效计分比赛的时间距今超过 **2 年（730.5 天）**；或
-  2. 选手入队注册年份满 **2 年以上且参赛记录为 0 场**；或
+  2. 选手入学满 **2 年且参赛记录为 0 场**；或
   3. 选手在 `users.csv` 中被管理员显式标记为 `is_active: false`。
 - **展示逻辑**：
-  - 前端总排行榜默认开启「仅现役」筛选，退役选手默认隐藏；
-  - 提供「现役 / 退役 / 全部」切换按钮，方便回溯已毕业学长学姐的历史荣誉。
+  - 总排行榜默认显示「现役选手」，包括现役集训队员和已登记的活跃队外新生。
+  - 通过「退役队员」或「全部队员」可查看历史记录。
+  - 队外选手距最近一场计分赛满 365 天、毕业或标为非活跃后，从总排行榜的所有筛选中隐藏。没有计分记录时从入学当年 9 月 1 日起算。毕业按入学年份加四年的 7 月 1 日判定，日期以北京时间为准。提前毕业可设为 `is_active=false`。单场榜单和个人参赛记录继续保留。
 
 ---
 
@@ -186,9 +170,7 @@ usts-rating/
 ├── data/                       # 核心数据目录（受 Git 版本控制）
 │   ├── users.csv               # 校内选手花名册（学号、姓名、年级、外部基准分、现役状态）
 │   └── contests/               # 标准化比赛历史榜单（按 YYYY_MM_DD 命名时序排列）
-│       ├── 2026_09_15_school_solo_1.json      # 样例文档：校内个人热身赛
-│       ├── 2026_10_10_school_team_1.json      # 样例文档：校内三人组队对抗赛
-│       └── 2026_10_25_icpc_regional_mock.json # 样例文档：ICPC 区域模拟赛（含校外锚点）
+│       └── 2026_11_15_ccpc2026jingzhou.json   # CCPC 荆州站榜单
 ├── scripts/                    # 工具链与核心算分引擎
 │   ├── recalculate.py          # 核心算分引擎：NumPy 向量化运算，输出 rating_db.json
 │   ├── validate_data.py        # 严格数据校验脚本：检查学号冲突、参照完整性与 JSON 格式
@@ -243,8 +225,8 @@ python scripts/validate_data.py --strict
 ### 4.3 自动化测试套件执行
 运行仓库全量自动化单元测试与端到端测试：
 ```bash
-# 运行全部 102 个测试用例
-pytest tests/ -v
+# 运行全部测试用例
+python -m pytest tests/ -v
 
 # 仅运行端到端 E2E 套件
 pytest tests/test_e2e_suite.py -v
@@ -261,6 +243,7 @@ pytest tests/test_elo_engine.py -v
 python scripts/recalculate.py
 ```
 默认会在 `web/data/rating_db.json` 与 `dist/data/rating_db.json` 中同步生成聚合数据库。
+公开积分库用 `participant_id` 和 `standings[].members` 中的站内编号关联队员。编号作用域为本次生成的积分库。姓名、专业班级和参赛历史仍用于展示，原始学号用于源数据关联。
 
 ---
 
@@ -268,11 +251,11 @@ python scripts/recalculate.py
 无需安装 Node.js 或任何前端构建工具，直接启动 Python 原生 HTTP 服务：
 ```bash
 # 在项目根目录下启动本地静态服务器
-python -m http.server 8000
+python -m http.server 8000 --bind 127.0.0.1 --directory web
 ```
 在浏览器中打开：
 ```text
-http://localhost:8000/web/
+http://127.0.0.1:8000/
 ```
 即可完整体验总排行榜、搜索筛选、比赛记录展开以及选手详情折线图。
 
@@ -285,24 +268,25 @@ http://localhost:8000/web/
 
 #### 表头与字段规范
 ```csv
-student_id,name,grade,initial_external_elo,is_active
+student_id,name,grade,initial_external_elo,is_active,is_team_member
 ```
 | 字段名 | 类型 | 必填 | 说明与约束 |
 | :--- | :---: | :---: | :--- |
 | `student_id` | String | 是 | 学号主键，必须全表唯一，仅含字母数字下划线 |
 | `name` | String | 是 | 选手真实姓名，支持中文，不可为空 |
 | `grade` | Integer | 是 | 入学年份四位整数（例如 `2023`、`2024`） |
-| `initial_external_elo` | Float/Int | 否 | 外部公开基准分，若无记录可留空，引擎将自动赋予初始 1000.0 分 |
-| `is_active` | Boolean | 是 | 管理员状态标记，填 `true`、`false`、`1` 或 `0` |
+| `initial_external_elo` | Integer | 否 | 外部公开基准分，留空则从 800 分起算 |
+| `is_active` | Boolean | 是 | 活跃状态，填 `true`、`false`、`1` 或 `0` |
+| `is_team_member` | Boolean | 否 | 集训队员填 `true`，队外新生填 `false`。旧五列格式默认按 `true` 读取 |
 
 #### 录入示例
 ```csv
-student_id,name,grade,initial_external_elo,is_active
-21001001,张三,2021,1420,true
-22002002,李四,2022,,true
-23003003,王五,2023,1200,true
-24004004,赵六,2024,,true
+student_id,name,grade,initial_external_elo,is_active,is_team_member
+24004004,集训队员甲,2024,,true,true
+26001001,参赛新生乙,2026,,true,false
 ```
+
+队外新生以 `is_active=true,is_team_member=false` 登记，在总排行榜和个人详情中显示「队外新生」。他们与集训队员按同一规则计分，现役队员人数和平均分按集训队员统计。导入校内赛时，两类校内计分选手都填 `is_school=true`，并在 `members` 填写花名册中的学号。新生正式入队后，把同一行的 `is_team_member` 改为 `true`，沿用原学号、积分和参赛记录。
 
 ---
 
@@ -344,7 +328,7 @@ student_id,name,grade,initial_external_elo,is_active
 - `contest_type` 仅允许两类枚举：
   - `"INTERNAL_SCHOOL"`：校内赛，权重 0.80，实施零和均值漂移校准；
   - `"EXTERNAL_XCPC"`：校外赛，权重 1.00，外部队伍充当基准锚点。
-- `is_school` 为 `true` 时，`members` 内列出的每一个学号必须已存在于 `data/users.csv` 中。
+- `is_school` 为 `true` 时，队伍参与本校积分结算，`members` 可包含已登记的集训队员和队外新生。
 - `is_school` 为 `false` 时为外部队伍，可不填写 `members`，可通过 `external_elo` 指定其实力锚点（缺省为 1500.0）。
 
 ---
@@ -395,7 +379,7 @@ python scripts/import_contest.py \
 全国各大 ICPC 区域赛、CCPC 分站赛及江苏省赛（JSCPC）等赛事在开源榜单库 `algoux/srk-collection`（RankLand 平台）中均有公开标准 JSON 存档：
 ```bash
 # 一键导入江苏省赛（JSCPC）或 ICPC 区域赛榜单：
-# 脚本会自动识别高校名称（"苏州科技大学"/"苏科大"）及花名册队员姓名（如"喻文州" -> 23001003），
+# 脚本会自动识别高校名称（"苏州科技大学"/"苏科大"），并按队员姓名匹配花名册。
 # 过滤教练信息，并将各兄弟高校队伍自动转换为校外实力锚点（默认 1500 分或指定基准分）：
 python scripts/import_contest.py \
   --input jscpc10th.srk.json \
@@ -422,7 +406,7 @@ python scripts/sync_xcpc_elo.py
 # 批量将某个目录下的全部 .srk.json 转换为 USTS 标准比赛 JSON：
 python scripts/import_srk_batch.py /path/to/srk-collection/contests/
 ```
-导入完成后运行 `python scripts/recalculate.py`，引擎将按照时间线全量重放，使外校强队分数随比赛自然流动，与全国官方 XCPC-Elo 大盘完全同构！
+批量导入默认跳过同名正式文件，传入 `--overwrite` 可重新导入。本校队伍出现未匹配的队员时，导入器会报告榜单文件和队员名，补齐花名册后可重跑。外校队伍优先按 SRK 中的学校字段查找 Elo 基准。导入完成后运行 `python scripts/recalculate.py`，按时间顺序重算历史积分。
 
 ---
 
@@ -458,7 +442,7 @@ python scripts/import_srk_batch.py /path/to/srk-collection/contests/
 ### 6.2 双重质量门禁机制
 流水线具备严格的质量防线，保证任何格式瑕疵或逻辑错误均不会污染线上页面：
 1. **数据防线 (`validate_data.py`)**：在算分开始前，检查全量 CSV 与 JSON 数据。如果出现未在花名册注册的外校学号混入校内队、学号格式错误、负数解题数或文件名与比赛日期不一致，立即熔断并阻断流水线。
-2. **算法防线 (`pytest tests/`)**：执行包括 70 项端到端测试与全部算法单元测试，确保零和均值校准、零题保底、段位映射无任何代码回归。
+2. **算法防线**使用 `python -m pytest tests/` 检查榜单导入、积分结算、段位和公开积分库。
 
 ---
 

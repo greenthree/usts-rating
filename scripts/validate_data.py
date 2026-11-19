@@ -27,7 +27,7 @@ VALID_CONTEST_TYPES = {"EXTERNAL_XCPC", "INTERNAL_SCHOOL"}
 STUDENT_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{4,32}$")
 CONTEST_FILENAME_PATTERN = re.compile(r"^(\d{4})_(\d{2})_(\d{2})_([a-z0-9_]+)\.json$")
 
-# Required CSV headers in exact order
+# Required CSV headers in exact order, with an optional membership column.
 EXPECTED_USER_HEADERS = [
     "student_id",
     "name",
@@ -35,6 +35,7 @@ EXPECTED_USER_HEADERS = [
     "initial_external_elo",
     "is_active",
 ]
+USER_HEADERS_WITH_MEMBERSHIP = [*EXPECTED_USER_HEADERS, "is_team_member"]
 
 
 class ValidationError(Exception):
@@ -87,20 +88,21 @@ def validate_users_csv(users_path: str | Path) -> tuple[dict[str, dict[str, Any]
 
             # Rule 2: HEADER_MATCH
             clean_header = [h.strip() for h in header]
-            if clean_header != EXPECTED_USER_HEADERS:
+            if clean_header not in (EXPECTED_USER_HEADERS, USER_HEADERS_WITH_MEMBERSHIP):
                 errors.append(
                     f"[HEADER_MATCH] Invalid CSV header: {clean_header}. "
-                    f"Expected exact order: {EXPECTED_USER_HEADERS}"
+                    f"Expected exact order: {EXPECTED_USER_HEADERS}, optionally followed by is_team_member."
                 )
                 return users, errors
 
+            has_membership = clean_header == USER_HEADERS_WITH_MEMBERSHIP
             for row_idx, row in enumerate(reader, start=2):
                 if not row or all(c.strip() == "" for c in row):
                     continue  # Ignore empty lines
 
-                if len(row) != len(EXPECTED_USER_HEADERS):
+                if len(row) != len(clean_header):
                     errors.append(
-                        f"[CSV_FORMAT] Row {row_idx}: expected {len(EXPECTED_USER_HEADERS)} "
+                        f"[CSV_FORMAT] Row {row_idx}: expected {len(clean_header)} "
                         f"columns, got {len(row)}: {row}"
                     )
                     continue
@@ -171,6 +173,13 @@ def validate_users_csv(users_path: str | Path) -> tuple[dict[str, dict[str, Any]
                         "must be boolean ('true'/'false'/'1'/'0')."
                     )
 
+                is_team_member = parse_bool(row[5]) if has_membership else True
+                if is_team_member is None:
+                    errors.append(
+                        f"[IS_TEAM_MEMBER_VALID] Row {row_idx}: is_team_member '{row[5]}' "
+                        "must be boolean ('true'/'false'/'1'/'0')."
+                    )
+
                 if student_id not in users:
                     users[student_id] = {
                         "row_idx": row_idx,
@@ -179,6 +188,7 @@ def validate_users_csv(users_path: str | Path) -> tuple[dict[str, dict[str, Any]
                         "grade": grade,
                         "initial_external_elo": initial_elo,
                         "is_active": is_active if is_active is not None else True,
+                        "is_team_member": is_team_member,
                     }
     except Exception as e:
         errors.append(f"[CSV_READ_ERROR] Error reading {path}: {e}")

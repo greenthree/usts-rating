@@ -10,12 +10,15 @@ Verifies:
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import shutil
 import sys
 import tempfile
 import unittest
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -28,6 +31,9 @@ from scripts.validate_data import (
     validate_users_csv,
 )
 from scripts.import_contest import import_contest
+from scripts.recalculate import load_contests, recalculate_all
+
+SAMPLE_USERS = Path(__file__).resolve().parent / "fixtures" / "sample_users.csv"
 
 
 class TestDataValidationPositive(unittest.TestCase):
@@ -45,7 +51,7 @@ class TestDataValidationPositive(unittest.TestCase):
         self.assertEqual(exit_code, 0)
 
     def test_contest_file_with_utf8_bom(self):
-        """Contest JSON with UTF-8 BOM must pass validate_contest_file() without errors."""
+        """UTF-8 BOM must be accepted by both validation and recalculation."""
         temp_dir = tempfile.mkdtemp()
         try:
             bom_json = Path(temp_dir) / "2026_09_15_school_solo_1.json"
@@ -68,6 +74,7 @@ class TestDataValidationPositive(unittest.TestCase):
             bom_json.write_text(json.dumps(contest_data, ensure_ascii=False), encoding="utf-8-sig")
             errors = validate_contest_file(bom_json, valid_student_ids={"23001003"})
             self.assertEqual(errors, [])
+            self.assertEqual(load_contests(temp_dir)[0]["standings"], contest_data["standings"])
         finally:
             shutil.rmtree(temp_dir, ignore_errors=True)
 
@@ -350,7 +357,7 @@ class TestImportContestTool(unittest.TestCase):
             output_path=out_json,
             fmt="csv",
             type="EXTERNAL_XCPC",
-            users_path="data/users.csv",
+            users_path=SAMPLE_USERS,
         )
         self.assertEqual(len(res["standings"]), 2)
         self.assertTrue(out_json.is_file())
@@ -381,7 +388,7 @@ class TestImportContestTool(unittest.TestCase):
             fmt="domjudge",
             teams_path=teams_file,
             type="EXTERNAL_XCPC",
-            users_path="data/users.csv",
+            users_path=SAMPLE_USERS,
         )
         self.assertEqual(len(res["standings"]), 1)
         self.assertEqual(res["standings"][0]["members"], ["23001003", "23001004"])
@@ -396,7 +403,7 @@ class TestImportContestTool(unittest.TestCase):
                 {
                     "ranking": 1,
                     "user": {
-                        "studentUser": {"studentNumber": "23001003", "name": "喻文州"},
+                        "studentUser": {"studentNumber": "23001003", "name": "测试队员甲"},
                         "organization": "苏州科技大学",
                     },
                     "score": 7,
@@ -411,7 +418,7 @@ class TestImportContestTool(unittest.TestCase):
             output_path=out_json,
             fmt="pta",
             type="INTERNAL_SCHOOL",
-            users_path="data/users.csv",
+            users_path=SAMPLE_USERS,
         )
         self.assertEqual(len(res["standings"]), 1)
         self.assertEqual(res["standings"][0]["members"], ["23001003"])
@@ -434,7 +441,7 @@ class TestImportContestTool(unittest.TestCase):
             output_path=out_json,
             fmt="csv",
             type="EXTERNAL_XCPC",
-            users_path="data/users.csv",
+            users_path=SAMPLE_USERS,
         )
         self.assertEqual(len(res["standings"]), 3)
 
@@ -477,7 +484,7 @@ class TestImportContestTool(unittest.TestCase):
             output_path=out_rank_json,
             fmt="csv",
             contest_type="EXTERNAL_XCPC",
-            users_path="data/users.csv",
+            users_path=SAMPLE_USERS,
             external_elo_mode="rank",
         )
         t_tsinghua = next(t for t in res_rank["standings"] if "清华" in t["team_name"])
@@ -494,7 +501,7 @@ class TestImportContestTool(unittest.TestCase):
             output_path=out_map_json,
             fmt="csv",
             contest_type="EXTERNAL_XCPC",
-            users_path="data/users.csv",
+            users_path=SAMPLE_USERS,
             external_elo_file=elo_map_file,
         )
         t_tsinghua_map = next(t for t in res_map["standings"] if "清华" in t["team_name"])
@@ -518,7 +525,7 @@ class TestImportContestTool(unittest.TestCase):
             "rows": [
                 {
                     "user": {
-                        "name": "南大一队",
+                        "name": "青石队",
                         "organization": "南京大学",
                         "teamMembers": [
                             {"name": "某选手A"},
@@ -536,8 +543,8 @@ class TestImportContestTool(unittest.TestCase):
                         "name": "苏科大一队",
                         "organization": "苏州科技大学",
                         "teamMembers": [
-                            {"name": "喻文州"},
-                            {"name": "黄少天"},
+                            {"name": "测试队员甲"},
+                            {"name": "测试队员乙"},
                             {"name": "某指导老师", "role": "coach"}
                         ],
                         "official": True
@@ -557,31 +564,35 @@ class TestImportContestTool(unittest.TestCase):
         users_csv = self.dir_path / "users.csv"
         users_csv.write_text(
             "student_id,name,grade,initial_external_elo,is_active\n"
-            "23001003,喻文州,2023,1650,true\n"
-            "23001004,黄少天,2023,1580,true\n",
+            "23001003,测试队员甲,2023,1650,true\n"
+            "23001004,测试队员乙,2023,1580,true\n",
             encoding="utf-8"
         )
 
         out_json = self.dir_path / "2025_06_02_jscpc.json"
+        elo_file = self.dir_path / "external_elo_map.json"
+        elo_file.write_text(json.dumps({"organizations": {"南京大学": 2500}}), encoding="utf-8")
         res = import_contest(
             input_path=srk_file,
             output_path=out_json,
             fmt="auto",
             contest_type="EXTERNAL_XCPC",
             users_path=users_csv,
+            external_elo_file=elo_file,
         )
 
         self.assertEqual(res["title"], "2025年江苏省大学生程序设计竞赛")
         self.assertEqual(res["start_time"], "2025-06-02T09:30:00+08:00")
         self.assertEqual(len(res["standings"]), 2)
 
-        # Team 1: 南大一队 (external)
+        # The external team name does not contain its organization's name.
         t1 = res["standings"][0]
-        self.assertEqual(t1["team_name"], "南大一队")
+        self.assertEqual(t1["team_name"], "青石队")
+        self.assertEqual(t1["organization"], "南京大学")
         self.assertFalse(t1["is_school"])
         self.assertEqual(t1["solved"], 9)
         self.assertEqual(t1["penalty"], 700)  # 42000s // 60 = 700min
-        self.assertEqual(t1["external_elo"], 1500)
+        self.assertEqual(t1["external_elo"], 2500)
         self.assertEqual(t1["members"], [])
 
         # Team 2: 苏科大一队 (school, mapped to student IDs, coach filtered)
@@ -594,6 +605,93 @@ class TestImportContestTool(unittest.TestCase):
 
         errors = validate_contest_file(out_json, valid_student_ids={"23001003", "23001004"})
         self.assertEqual(errors, [])
+
+    def test_import_srk_rejects_missing_school_members(self):
+        users_csv = self.dir_path / "users.csv"
+        users_csv.write_text(
+            "student_id,name,grade,initial_external_elo,is_active\n"
+            "23001003,Known Student,2023,,true\n",
+            encoding="utf-8",
+        )
+        srk_file = self.dir_path / "school.srk.json"
+        out_json = self.dir_path / "2025_06_02_school.json"
+        for members in (["Known Student", "Unknown Student"], ["Unknown Student"], []):
+            with self.subTest(members=members):
+                srk_file.write_text(json.dumps({
+                    "contest": {"startAt": "2025-06-02T09:30:00+08:00"},
+                    "rows": [{
+                        "user": {
+                            "name": "Local Team",
+                            "organization": "USTS",
+                            "teamMembers": members,
+                        },
+                        "score": {"value": 1},
+                    }],
+                }), encoding="utf-8")
+                message = "Unknown Student" if members else "no participant names or IDs"
+                with self.assertRaisesRegex(ValueError, message):
+                    import_contest(
+                        srk_file, out_json, fmt="srk", contest_type="EXTERNAL_XCPC",
+                        users_path=users_csv,
+                    )
+                self.assertFalse(out_json.exists())
+
+
+def test_recalculation_rejects_unreadable_scoreboard(tmp_path):
+    broken = tmp_path / "2025_06_02_broken.json"
+    broken.write_text("{", encoding="utf-8")
+    with pytest.raises(ValueError, match=broken.name):
+        load_contests(tmp_path)
+
+
+def test_outside_freshman_has_rating_history_before_and_after_joining(tmp_path):
+    start = datetime.now(timezone.utc)
+    roster = tmp_path / "users.csv"
+    roster.write_text(
+        "student_id,name,grade,initial_external_elo,is_active,is_team_member\n"
+        f"SCHOOL01,Team member,{start.year},,true,true\n"
+        f"SCHOOL02,Freshman,{start.year},,true,false\n",
+        encoding="utf-8",
+    )
+    raw = tmp_path / "scoreboard.csv"
+    raw.write_text(
+        "team_name,members,is_school,solved,penalty\n"
+        "Team member,SCHOOL01,true,2,90\n"
+        "Freshman,SCHOOL02,true,3,120\n",
+        encoding="utf-8",
+    )
+    contests = tmp_path / "contests"
+    contest_path = contests / f"{start:%Y_%m_%d}_training.json"
+    import_contest(raw, contest_path, users_path=roster, start_time=start.isoformat())
+    assert validate_all(roster, contests) == (True, [])
+
+    before = recalculate_all(tmp_path, [tmp_path / "before.json"])
+    freshman = next(user for user in before["users"] if user["name"] == "Freshman")
+    assert freshman["is_team_member"] is False
+    assert freshman["is_retired"] is False
+    assert freshman["rated_count"] == 1
+    assert freshman["history"][0]["delta"] > 0
+    assert before["contests"][0]["standings"][0]["members"] == [freshman["participant_id"]]
+
+    roster.write_text(
+        roster.read_text(encoding="utf-8").replace(",true,false\n", ",true,true\n"),
+        encoding="utf-8",
+    )
+    after = recalculate_all(tmp_path, [tmp_path / "after.json"])
+    promoted = next(user for user in after["users"] if user["name"] == "Freshman")
+    assert promoted == {**freshman, "is_team_member": True}
+
+
+def test_roster_rejects_invalid_team_membership(tmp_path):
+    roster = tmp_path / "users.csv"
+    roster.write_text(
+        "student_id,name,grade,initial_external_elo,is_active,is_team_member\n"
+        "SCHOOL01,Test Student,2026,,true,maybe\n",
+        encoding="utf-8",
+    )
+    _, errors = validate_users_csv(roster)
+    assert len(errors) == 1
+    assert "[IS_TEAM_MEMBER_VALID]" in errors[0]
 
 
 if __name__ == "__main__":

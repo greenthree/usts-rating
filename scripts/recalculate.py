@@ -7,16 +7,18 @@ Pure, unit-testable mathematical functions and chronological contest processing 
 from __future__ import annotations
 
 import argparse
-import csv
 import json
-import math
-import os
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any
 
 import numpy as np
+
+if __package__:
+    from .validate_data import validate_users_csv
+else:
+    from validate_data import validate_users_csv
 
 
 # ==============================================================================
@@ -251,16 +253,6 @@ def compute_perf_ratings(
     return (low + high) * 0.5
 
 
-def apply_zero_solve_limit(delta: float, solved: int) -> float:
-    """
-    Enforce zero-solve drop floor protection:
-    If solved == 0, single contest delta is clamped to delta >= -60.0.
-    """
-    if solved == 0:
-        return max(-60.0, float(delta))
-    return float(delta)
-
-
 def calibrate_internal_school_deltas(deltas: list[float]) -> list[float]:
     """
     For INTERNAL_SCHOOL contests, calibrate deltas by subtracting mean drift:
@@ -295,7 +287,7 @@ def extract_member_ids(members: list) -> list[str]:
 
 def parse_iso_datetime(dt_str: str) -> datetime:
     """Parse ISO-8601 string to timezone-aware UTC datetime."""
-    dt = datetime.fromisoformat(dt_str)
+    dt = datetime.fromisoformat(dt_str.strip())
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return dt
@@ -332,11 +324,14 @@ def is_user_retired(
 def load_users(users_csv_path: Path | str) -> dict[str, dict[str, Any]]:
     """
     Load users from users.csv (supporting UTF-8 and UTF-8-SIG).
-    Initializes true_rating (from initial_external_elo or default 1000.0).
+    Initializes true_rating from initial_external_elo or the default of 800.
     """
     path = Path(users_csv_path)
     if not path.exists():
         raise FileNotFoundError(f"Users file not found: {path}")
+    roster, errors = validate_users_csv(path)
+    if errors:
+        raise ValueError(f"Invalid roster {path}:\n" + "\n".join(errors))
 
     info_path = path.parent / "student_info.json"
     student_info: dict[str, Any] = {}
@@ -348,46 +343,34 @@ def load_users(users_csv_path: Path | str) -> dict[str, dict[str, Any]]:
             student_info = {}
 
     users: dict[str, dict[str, Any]] = {}
-    with open(path, "r", encoding="utf-8-sig") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            sid = row["student_id"].strip()
-            name = row["name"].strip()
-            grade = int(row["grade"].strip())
-            raw_elo = row["initial_external_elo"].strip() if "initial_external_elo" in row else ""
-            if raw_elo != "":
-                init_true = float(raw_elo)
-            else:
-                init_true = 800.0
-
-            raw_active = row.get("is_active", "true").strip().lower()
-            is_active = raw_active in ("true", "1", "yes")
-
-            u_meta = student_info.get(name, {})
-            class_name = u_meta.get("class_name", "")
-            pinyin = u_meta.get("pinyin", "")
-            major = u_meta.get("major", "")
-
-            initial_display = to_display_rating(init_true, 0)
-            users[sid] = {
-                "student_id": sid,
-                "name": name,
-                "grade": grade,
-                "class_name": class_name,
-                "pinyin": pinyin,
-                "major": major,
-                "is_active": is_active,
-                "is_retired": (not is_active) or (grade <= 2022),
-                "true_rating": init_true,
-                "display_rating": initial_display,
-                "max_display_rating": initial_display,
-                "rated_count": 0,
-                "tier": "Newbie",
-                "color": "#808080",
-                "last_contest_date": None,
-                "history": [],
-                "_last_contest_dt": None,
-            }
+    for sid, row in roster.items():
+        name = row["name"]
+        grade = row["grade"]
+        initial_elo = row["initial_external_elo"]
+        init_true = float(initial_elo) if initial_elo is not None else 800.0
+        is_active = row["is_active"]
+        u_meta = student_info.get(name, {})
+        initial_display = to_display_rating(init_true, 0)
+        users[sid] = {
+            "student_id": sid,
+            "name": name,
+            "grade": grade,
+            "class_name": u_meta.get("class_name", ""),
+            "pinyin": u_meta.get("pinyin", ""),
+            "major": u_meta.get("major", ""),
+            "is_active": is_active,
+            "is_team_member": row["is_team_member"],
+            "is_retired": (not is_active) or (grade <= 2022),
+            "true_rating": init_true,
+            "display_rating": initial_display,
+            "max_display_rating": initial_display,
+            "rated_count": 0,
+            "tier": "Newbie",
+            "color": "#808080",
+            "last_contest_date": None,
+            "history": [],
+            "_last_contest_dt": None,
+        }
     return users
 
 
@@ -399,18 +382,19 @@ def load_contests(contests_dir: Path | str) -> list[dict[str, Any]]:
     if not dir_path.exists():
         return []
 
-    contests: list[dict[str, Any]] = []
-    for json_file in dir_path.glob("*.json"):
+    contests: list[tuple[datetime, dict[str, Any]]] = []
+    for json_file in sorted(dir_path.glob("*.json")):
         try:
-            with open(json_file, "r", encoding="utf-8") as f:
+            with json_file.open("r", encoding="utf-8-sig") as f:
                 data = json.load(f)
-                data["_file_path"] = str(json_file)
-                contests.append(data)
-        except Exception as e:
-            print(f"Warning: Failed to load contest {json_file}: {e}", file=sys.stderr)
+            start = parse_iso_datetime(data["start_time"])
+            data["_file_path"] = str(json_file)
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+            raise ValueError(f"Failed to load contest {json_file}: {exc}") from exc
+        contests.append((start, data))
 
-    contests.sort(key=lambda c: parse_iso_datetime(c["start_time"]))
-    return contests
+    contests.sort(key=lambda item: item[0])
+    return [data for _, data in contests]
 
 
 # ==============================================================================
@@ -570,6 +554,7 @@ def process_contest(
                         "name": sid,
                         "grade": 2026,
                         "is_active": True,
+                        "is_team_member": False,
                         "is_retired": False,
                         "true_rating": 800.0,
                         "display_rating": to_display_rating(800.0, 0),
@@ -726,6 +711,15 @@ def recalculate_all(
     now_utc = datetime.now(timezone.utc)
     ref_time = max(latest_contest_dt, now_utc) if latest_contest_dt else now_utc
 
+    # Use IDs scoped to this database for public roster and standings links.
+    participant_ids = {sid: number for number, sid in enumerate(sorted(user_db), start=1)}
+    for contest in processed_contests:
+        for standing in contest["standings"]:
+            members = standing.get("members", []) if standing.get("is_school", True) else []
+            standing["members"] = [
+                participant_ids[sid] for sid in extract_member_ids(members)
+            ]
+
     # Finalize users: retirement status, tier, clean private fields, round ratings
     final_users: list[dict[str, Any]] = []
     for user in user_db.values():
@@ -739,14 +733,17 @@ def recalculate_all(
         user["tier"] = tier_name
         user["color"] = hex_color
 
+        sid = user["student_id"]
+        participant_id = participant_ids[sid]
         clean_user = {
-            "student_id": user["student_id"],
-            "name": user["name"],
+            "participant_id": participant_id,
+            "name": user["name"] if user["name"] != sid else f"队员 {participant_id}",
             "grade": user["grade"],
             "class_name": user.get("class_name", ""),
             "pinyin": user.get("pinyin", ""),
             "major": user.get("major", ""),
             "is_active": user["is_active"],
+            "is_team_member": user["is_team_member"],
             "is_retired": user["is_retired"],
             "true_rating": round(float(user["true_rating"]), 1),
             "display_rating": int(user["display_rating"]),
@@ -759,8 +756,7 @@ def recalculate_all(
         }
         final_users.append(clean_user)
 
-    # Sort users by display_rating desc, then true_rating desc, then student_id asc
-    final_users.sort(key=lambda u: (-u["display_rating"], -u["true_rating"], u["student_id"]))
+    final_users.sort(key=lambda u: (-u["display_rating"], -u["true_rating"], u["participant_id"]))
 
     total_users = len(final_users)
     active_users = sum(1 for u in final_users if not u["is_retired"])
