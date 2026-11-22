@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-22T12:06:16.874849+00:00",
+    "generated_at": "2026-11-22T12:31:13.455652+00:00",
     "total_users": 116,
     "active_users": 56,
     "retired_users": 60,
@@ -4470,10 +4470,10 @@
     {
       "participant_id": 83,
       "name": "温晨聪",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2024,
+      "class_name": "区块链2412",
       "pinyin": "Wen Chencong",
-      "major": "计算机",
+      "major": "区块链",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -4547,10 +4547,10 @@
       ]
     },
     {
-      "participant_id": 84,
+      "participant_id": 99,
       "name": "金晨雨",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Jin Chenyu",
       "major": "计算机",
       "is_active": true,
@@ -4580,10 +4580,10 @@
       ]
     },
     {
-      "participant_id": 85,
+      "participant_id": 100,
       "name": "周晨希",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Zhou Chenxi",
       "major": "计算机",
       "is_active": true,
@@ -4613,10 +4613,10 @@
       ]
     },
     {
-      "participant_id": 86,
+      "participant_id": 101,
       "name": "朱思哲",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Zhu Sizhe",
       "major": "计算机",
       "is_active": true,
@@ -4646,12 +4646,12 @@
       ]
     },
     {
-      "participant_id": 87,
+      "participant_id": 84,
       "name": "柏涵望",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "信计2511",
       "pinyin": "Bai Hanwang",
-      "major": "计算机",
+      "major": "信计",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -4712,12 +4712,12 @@
       ]
     },
     {
-      "participant_id": 88,
+      "participant_id": 102,
       "name": "燕子涵",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "通信2611",
       "pinyin": "Yan Zihan",
-      "major": "计算机",
+      "major": "通信",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -4811,12 +4811,12 @@
       ]
     },
     {
-      "participant_id": 89,
+      "participant_id": 103,
       "name": "陆俊霖",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "区块链2611",
       "pinyin": "Lu Junlin",
-      "major": "计算机",
+      "major": "区块链",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -4844,10 +4844,10 @@
       ]
     },
     {
-      "participant_id": 90,
+      "participant_id": 85,
       "name": "钮硕",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2512",
       "pinyin": "Niu Shuo",
       "major": "计算机",
       "is_active": true,
@@ -4976,10 +4976,10 @@
       ]
     },
     {
-      "participant_id": 91,
+      "participant_id": 104,
       "name": "徐烨晖",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2611",
       "pinyin": "Xu Yehui",
       "major": "计算机",
       "is_active": true,
@@ -5009,10 +5009,10 @@
       ]
     },
     {
-      "participant_id": 92,
+      "participant_id": 105,
       "name": "黄发俊",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Huang Fajun",
       "major": "计算机",
       "is_active": true,
@@ -5042,12 +5042,12 @@
       ]
     },
     {
-      "participant_id": 93,
+      "participant_id": 86,
       "name": "姚岩枫",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "信计2511",
       "pinyin": "Yao Yanfeng",
-      "major": "计算机",
+      "major": "信计",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5174,10 +5174,10 @@
       ]
     },
     {
-      "participant_id": 94,
+      "participant_id": 106,
       "name": "李函祺",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2611",
       "pinyin": "Li Hanqi",
       "major": "计算机",
       "is_active": true,
@@ -5207,12 +5207,12 @@
       ]
     },
     {
-      "participant_id": 95,
+      "participant_id": 107,
       "name": "甄诚",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "环境2613",
       "pinyin": "Zhen Cheng",
-      "major": "计算机",
+      "major": "环境",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5240,10 +5240,10 @@
       ]
     },
     {
-      "participant_id": 96,
+      "participant_id": 87,
       "name": "吕源浩",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2511",
       "pinyin": "Lv Yuanhao",
       "major": "计算机",
       "is_active": true,
@@ -5273,12 +5273,12 @@
       ]
     },
     {
-      "participant_id": 97,
+      "participant_id": 88,
       "name": "邢朱乐",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "人工智能2511",
       "pinyin": "Xing Zhule",
-      "major": "计算机",
+      "major": "人工智能",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5306,10 +5306,10 @@
       ]
     },
     {
-      "participant_id": 98,
+      "participant_id": 108,
       "name": "颜佳伟",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Yan Jiawei",
       "major": "计算机",
       "is_active": true,
@@ -5339,10 +5339,10 @@
       ]
     },
     {
-      "participant_id": 99,
+      "participant_id": 89,
       "name": "孙超逸",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2511",
       "pinyin": "Sun Chaoyi",
       "major": "计算机",
       "is_active": true,
@@ -5372,12 +5372,12 @@
       ]
     },
     {
-      "participant_id": 100,
+      "participant_id": 90,
       "name": "宋沅潮",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "人工智能2512",
       "pinyin": "Song Yuanchao",
-      "major": "计算机",
+      "major": "人工智能",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5471,12 +5471,12 @@
       ]
     },
     {
-      "participant_id": 101,
+      "participant_id": 91,
       "name": "焦朝博",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "电子信息2512",
       "pinyin": "Jiao Chaobo",
-      "major": "计算机",
+      "major": "电子信息",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5504,10 +5504,10 @@
       ]
     },
     {
-      "participant_id": 102,
+      "participant_id": 109,
       "name": "黄博文",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Huang Bowen",
       "major": "计算机",
       "is_active": true,
@@ -5537,10 +5537,10 @@
       ]
     },
     {
-      "participant_id": 103,
+      "participant_id": 92,
       "name": "解宇翔",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2511",
       "pinyin": "Xie Yuxiang",
       "major": "计算机",
       "is_active": true,
@@ -5570,10 +5570,10 @@
       ]
     },
     {
-      "participant_id": 104,
+      "participant_id": 93,
       "name": "乔子怡",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2511",
       "pinyin": "Qiao Ziyi",
       "major": "计算机",
       "is_active": true,
@@ -5603,10 +5603,10 @@
       ]
     },
     {
-      "participant_id": 105,
+      "participant_id": 94,
       "name": "沈睿",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2512",
       "pinyin": "Shen Rui",
       "major": "计算机",
       "is_active": true,
@@ -5636,10 +5636,10 @@
       ]
     },
     {
-      "participant_id": 106,
+      "participant_id": 110,
       "name": "吴深泽",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2611",
       "pinyin": "Wu Shenze",
       "major": "计算机",
       "is_active": true,
@@ -5669,12 +5669,12 @@
       ]
     },
     {
-      "participant_id": 107,
+      "participant_id": 111,
       "name": "王棋",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "区块链2612",
       "pinyin": "Wang Qi",
-      "major": "计算机",
+      "major": "区块链",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5702,12 +5702,12 @@
       ]
     },
     {
-      "participant_id": 108,
+      "participant_id": 95,
       "name": "王雨诺",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "人工智能2511",
       "pinyin": "Wang Yunuo",
-      "major": "计算机",
+      "major": "人工智能",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5735,10 +5735,10 @@
       ]
     },
     {
-      "participant_id": 109,
+      "participant_id": 112,
       "name": "钱家星",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Qian Jiaxing",
       "major": "计算机",
       "is_active": true,
@@ -5768,12 +5768,12 @@
       ]
     },
     {
-      "participant_id": 110,
+      "participant_id": 113,
       "name": "郎梦琳",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "通信2614",
       "pinyin": "Lang Menglin",
-      "major": "计算机",
+      "major": "通信",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5801,12 +5801,12 @@
       ]
     },
     {
-      "participant_id": 111,
+      "participant_id": 96,
       "name": "黄怡",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "统计2512",
       "pinyin": "Huang Yi",
-      "major": "计算机",
+      "major": "统计",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5834,12 +5834,12 @@
       ]
     },
     {
-      "participant_id": 112,
+      "participant_id": 97,
       "name": "陈佳怡",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "区块链2511",
       "pinyin": "Chen Jiayi",
-      "major": "计算机",
+      "major": "区块链",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5867,10 +5867,10 @@
       ]
     },
     {
-      "participant_id": 113,
+      "participant_id": 114,
       "name": "顾浩然",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "计算机2612",
       "pinyin": "Gu Haoran",
       "major": "计算机",
       "is_active": true,
@@ -5900,10 +5900,10 @@
       ]
     },
     {
-      "participant_id": 114,
+      "participant_id": 98,
       "name": "朱璐",
-      "grade": 2026,
-      "class_name": "2026级",
+      "grade": 2025,
+      "class_name": "计算机2511",
       "pinyin": "Zhu Lu",
       "major": "计算机",
       "is_active": true,
@@ -5936,9 +5936,9 @@
       "participant_id": 115,
       "name": "韦雅晴",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "建智2611",
       "pinyin": "Wei Yaqing",
-      "major": "计算机",
+      "major": "建智",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -5969,9 +5969,9 @@
       "participant_id": 116,
       "name": "孟源",
       "grade": 2026,
-      "class_name": "2026级",
+      "class_name": "通信2614",
       "pinyin": "Meng Yuan",
-      "major": "计算机",
+      "major": "通信",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
@@ -706613,7 +706613,7 @@
           "team_name": "金晨雨",
           "is_school": true,
           "members": [
-            84
+            99
           ],
           "external_elo": null,
           "solved": 6,
@@ -706629,7 +706629,7 @@
           "team_name": "周晨希",
           "is_school": true,
           "members": [
-            85
+            100
           ],
           "external_elo": null,
           "solved": 6,
@@ -706645,7 +706645,7 @@
           "team_name": "朱思哲",
           "is_school": true,
           "members": [
-            86
+            101
           ],
           "external_elo": null,
           "solved": 6,
@@ -706661,7 +706661,7 @@
           "team_name": "柏涵望",
           "is_school": true,
           "members": [
-            87
+            84
           ],
           "external_elo": null,
           "solved": 6,
@@ -706677,7 +706677,7 @@
           "team_name": "燕子涵",
           "is_school": true,
           "members": [
-            88
+            102
           ],
           "external_elo": null,
           "solved": 5,
@@ -706693,7 +706693,7 @@
           "team_name": "陆俊霖",
           "is_school": true,
           "members": [
-            89
+            103
           ],
           "external_elo": null,
           "solved": 5,
@@ -706709,7 +706709,7 @@
           "team_name": "钮硕",
           "is_school": true,
           "members": [
-            90
+            85
           ],
           "external_elo": null,
           "solved": 5,
@@ -706725,7 +706725,7 @@
           "team_name": "徐烨晖",
           "is_school": true,
           "members": [
-            91
+            104
           ],
           "external_elo": null,
           "solved": 5,
@@ -706741,7 +706741,7 @@
           "team_name": "黄发俊",
           "is_school": true,
           "members": [
-            92
+            105
           ],
           "external_elo": null,
           "solved": 5,
@@ -706757,7 +706757,7 @@
           "team_name": "姚岩枫",
           "is_school": true,
           "members": [
-            93
+            86
           ],
           "external_elo": null,
           "solved": 5,
@@ -706773,7 +706773,7 @@
           "team_name": "李函祺",
           "is_school": true,
           "members": [
-            94
+            106
           ],
           "external_elo": null,
           "solved": 5,
@@ -706805,7 +706805,7 @@
           "team_name": "甄诚",
           "is_school": true,
           "members": [
-            95
+            107
           ],
           "external_elo": null,
           "solved": 5,
@@ -706837,7 +706837,7 @@
           "team_name": "吕源浩",
           "is_school": true,
           "members": [
-            96
+            87
           ],
           "external_elo": null,
           "solved": 5,
@@ -706853,7 +706853,7 @@
           "team_name": "邢朱乐",
           "is_school": true,
           "members": [
-            97
+            88
           ],
           "external_elo": null,
           "solved": 4,
@@ -706869,7 +706869,7 @@
           "team_name": "颜佳伟",
           "is_school": true,
           "members": [
-            98
+            108
           ],
           "external_elo": null,
           "solved": 3,
@@ -706885,7 +706885,7 @@
           "team_name": "孙超逸",
           "is_school": true,
           "members": [
-            99
+            89
           ],
           "external_elo": null,
           "solved": 3,
@@ -706901,7 +706901,7 @@
           "team_name": "宋沅潮",
           "is_school": true,
           "members": [
-            100
+            90
           ],
           "external_elo": null,
           "solved": 3,
@@ -706917,7 +706917,7 @@
           "team_name": "焦朝博",
           "is_school": true,
           "members": [
-            101
+            91
           ],
           "external_elo": null,
           "solved": 3,
@@ -706933,7 +706933,7 @@
           "team_name": "黄博文",
           "is_school": true,
           "members": [
-            102
+            109
           ],
           "external_elo": null,
           "solved": 2,
@@ -706949,7 +706949,7 @@
           "team_name": "解宇翔",
           "is_school": true,
           "members": [
-            103
+            92
           ],
           "external_elo": null,
           "solved": 2,
@@ -706965,7 +706965,7 @@
           "team_name": "乔子怡",
           "is_school": true,
           "members": [
-            104
+            93
           ],
           "external_elo": null,
           "solved": 2,
@@ -706981,7 +706981,7 @@
           "team_name": "沈睿",
           "is_school": true,
           "members": [
-            105
+            94
           ],
           "external_elo": null,
           "solved": 2,
@@ -706997,7 +706997,7 @@
           "team_name": "吴深泽",
           "is_school": true,
           "members": [
-            106
+            110
           ],
           "external_elo": null,
           "solved": 2,
@@ -707013,7 +707013,7 @@
           "team_name": "王棋",
           "is_school": true,
           "members": [
-            107
+            111
           ],
           "external_elo": null,
           "solved": 2,
@@ -707029,7 +707029,7 @@
           "team_name": "王雨诺",
           "is_school": true,
           "members": [
-            108
+            95
           ],
           "external_elo": null,
           "solved": 2,
@@ -707045,7 +707045,7 @@
           "team_name": "钱家星",
           "is_school": true,
           "members": [
-            109
+            112
           ],
           "external_elo": null,
           "solved": 1,
@@ -707061,7 +707061,7 @@
           "team_name": "郎梦琳",
           "is_school": true,
           "members": [
-            110
+            113
           ],
           "external_elo": null,
           "solved": 1,
@@ -707077,7 +707077,7 @@
           "team_name": "黄怡",
           "is_school": true,
           "members": [
-            111
+            96
           ],
           "external_elo": null,
           "solved": 1,
@@ -707093,7 +707093,7 @@
           "team_name": "陈佳怡",
           "is_school": true,
           "members": [
-            112
+            97
           ],
           "external_elo": null,
           "solved": 1,
@@ -707109,7 +707109,7 @@
           "team_name": "顾浩然",
           "is_school": true,
           "members": [
-            113
+            114
           ],
           "external_elo": null,
           "solved": 1,
@@ -707125,7 +707125,7 @@
           "team_name": "朱璐",
           "is_school": true,
           "members": [
-            114
+            98
           ],
           "external_elo": null,
           "solved": 0,
