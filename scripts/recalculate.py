@@ -590,6 +590,8 @@ def process_contest(
                     "contest_date": start_time_str,
                     "team_name": team.get("team_name", "Team"),
                     "rank": float(ranks[i]),
+                    "solved": int(team.get("solved", 0)),
+                    "penalty": int(team.get("penalty", 0)),
                     "perf_rating": round(float(perf_ratings[i]), 1),
                     "delta": round(float(f_delta), 1),
                     "true_rating_after": round(float(new_true), 1),
@@ -638,6 +640,7 @@ def process_contest(
         "title": contest_title,
         "contest_type": contest_type,
         "start_time": start_time_str,
+        "team_count": len(standings),
         "standings": processed_standings,
     }
 
@@ -776,6 +779,31 @@ def recalculate_all(
         "contests": processed_contests,
     }
 
+    summary_contests: list[dict[str, Any]] = []
+    for contest in processed_contests:
+        summary_contests.append({
+            "contest_id": contest["contest_id"],
+            "title": contest["title"],
+            "contest_type": contest["contest_type"],
+            "start_time": contest["start_time"],
+            "team_count": len(contest.get("standings", [])),
+            "standings": [],
+        })
+
+    summary_db = {
+        "metadata": {
+            "generated_at": now_utc.isoformat(),
+            "total_users": total_users,
+            "active_users": active_users,
+            "retired_users": retired_users,
+            "total_contests": len(processed_contests),
+            "external_teams_tracked": len(external_db),
+        },
+        "tiers": TIERS_CONFIG,
+        "users": final_users,
+        "contests": summary_contests,
+    }
+
     # Default output paths if none provided
     if output_paths is None or len(output_paths) == 0:
         output_paths = [
@@ -787,8 +815,23 @@ def recalculate_all(
         target = Path(out_p)
         target.parent.mkdir(parents=True, exist_ok=True)
         with open(target, "w", encoding="utf-8") as f:
-            json.dump(rating_db, f, ensure_ascii=False, indent=2)
+            json.dump(rating_db, f, ensure_ascii=False, separators=(',', ':'))
         print(f"[RECALCULATE] Successfully exported rating database to: {target}")
+
+        summary_target = target.parent / "summary.json"
+        with open(summary_target, "w", encoding="utf-8") as f:
+            json.dump(summary_db, f, ensure_ascii=False, separators=(',', ':'))
+        print(f"[RECALCULATE] Successfully exported summary database to: {summary_target}")
+
+        contests_dir_out = target.parent / "contests"
+        if contests_dir_out.resolve() != contests_dir.resolve():
+            contests_dir_out.mkdir(parents=True, exist_ok=True)
+            for p_c in processed_contests:
+                cid = p_c["contest_id"]
+                c_target = contests_dir_out / f"{cid}.json"
+                with open(c_target, "w", encoding="utf-8") as f:
+                    json.dump(p_c, f, ensure_ascii=False, separators=(',', ':'))
+            print(f"[RECALCULATE] Successfully exported {len(processed_contests)} contest details to: {contests_dir_out}")
 
     return rating_db
 

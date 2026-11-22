@@ -174,18 +174,113 @@ const app = createApp({
     const expandedContestIds = ref(new Set());
 
     // Candidate relative paths for resilient data loading
-    const candidatePaths = [
+    const candidateSummaryPaths = [
+      'data/summary.json',
+      '../data/summary.json',
+      './data/summary.json',
+      '../dist/data/summary.json',
+      'dist/data/summary.json',
+      // Legacy fallback
       'data/rating_db.json',
       '../data/rating_db.json',
       './data/rating_db.json',
       '../dist/data/rating_db.json',
       'dist/data/rating_db.json'
     ];
+    const SUMMARY_CACHE_KEY = 'usts_rating_summary_cache_v1';
+    let activeDataBasePath = '';
+
+    // In-memory cache and loading state for lazy-loaded contest standings
+    const contestCache = new Map();
+    const contestLoading = ref(new Set());
+    const contestErrors = ref(new Map());
+    const inFlightContestRequests = new Map();
+
+    function isContestLoading(contestId) {
+      return contestLoading.value.has(contestId);
+    }
+
+    function getContestError(contestId) {
+      return contestErrors.value.get(contestId) || '';
+    }
+
+    function applyContestStandings(contestId, standings) {
+      if (db.value && Array.isArray(db.value.contests)) {
+        const contest = db.value.contests.find(c => c.contest_id === contestId);
+        if (contest) {
+          contest.standings = standings;
+        }
+      }
+    }
+
+    // Lazy load contest details with Map cache and request deduplication
+    async function loadContestStandings(contestId) {
+      if (contestCache.has(contestId)) {
+        const cached = contestCache.get(contestId);
+        applyContestStandings(contestId, cached.standings);
+        return cached;
+      }
+
+      if (inFlightContestRequests.has(contestId)) {
+        return inFlightContestRequests.get(contestId);
+      }
+
+      contestLoading.value.add(contestId);
+      contestErrors.value.delete(contestId);
+
+      const candidateContestPaths = [];
+      if (activeDataBasePath) {
+        candidateContestPaths.push(`${activeDataBasePath}contests/${contestId}.json`);
+      }
+      for (const p of [
+        `data/contests/${contestId}.json`,
+        `../data/contests/${contestId}.json`,
+        `./data/contests/${contestId}.json`,
+        `../dist/data/contests/${contestId}.json`,
+        `dist/data/contests/${contestId}.json`
+      ]) {
+        if (!candidateContestPaths.includes(p)) {
+          candidateContestPaths.push(p);
+        }
+      }
+
+      const fetchPromise = (async () => {
+        let contestData = null;
+        for (const p of candidateContestPaths) {
+          try {
+            const res = await fetch(p);
+            if (res.ok) {
+              contestData = await res.json();
+              if (contestData && Array.isArray(contestData.standings)) {
+                break;
+              }
+            }
+          } catch (e) {
+            // Continue attempting candidate paths
+          }
+        }
+
+        contestLoading.value.delete(contestId);
+        inFlightContestRequests.delete(contestId);
+
+        if (contestData && Array.isArray(contestData.standings)) {
+          contestCache.set(contestId, contestData);
+          applyContestStandings(contestId, contestData.standings);
+          return contestData;
+        } else {
+          contestErrors.value.set(contestId, '无法加载赛事榜单明细，请重试');
+          return null;
+        }
+      })();
+
+      inFlightContestRequests.set(contestId, fetchPromise);
+      return fetchPromise;
+    }
 
     // Fast lookup maps
     const usersMap = computed(() => {
       const map = new Map();
-      for (const u of db.value.users) {
+      for (const u of (db.value.users || [])) {
         map.set(String(u.participant_id), u);
       }
       return map;
@@ -194,7 +289,7 @@ const app = createApp({
     // Detailed contest member stats lookup map: contest_id -> participant_id -> stats
     const contestMemberStats = computed(() => {
       const map = {};
-      for (const c of db.value.contests) {
+      for (const c of (db.value.contests || [])) {
         map[c.contest_id] = {};
         for (const s of (c.standings || [])) {
           if (Array.isArray(s.members)) {
@@ -307,26 +402,44 @@ const app = createApp({
     });
     const visibleContests = computed(() => contestsByType.value[contestType.value]);
 
-    // Resilient data loader with fallback
+    // Resilient data loader with Stale-While-Revalidate caching strategy
     async function loadData() {
-      loading.value = true;
       errorMessage.value = '';
+      let hasValidCache = false;
 
-      for (const p of candidatePaths) {
+      // 1. Stale: Immediately render from localStorage cache if available
+      try {
+        if (typeof localStorage !== 'undefined') {
+          const cachedStr = localStorage.getItem(SUMMARY_CACHE_KEY);
+          if (cachedStr) {
+            const cachedData = JSON.parse(cachedStr);
+            if (cachedData && (Array.isArray(cachedData.users) || Array.isArray(cachedData.contests))) {
+              db.value = cachedData;
+              loading.value = false;
+              hasValidCache = true;
+            }
+          }
+        }
+      } catch (e) {
+        // Ignore localStorage error
+      }
+
+      if (!hasValidCache) {
+        loading.value = true;
+      }
+
+      // 2. Revalidate: Fetch latest summary.json in background/foreground without cache-busting timestamp
+      let freshData = null;
+      let matchedPath = '';
+      for (const p of candidateSummaryPaths) {
         try {
-          const url = `${p}?_t=${Date.now()}`;
-          const res = await fetch(url);
+          const res = await fetch(p);
           if (res.ok) {
             const data = await res.json();
-            if (data && (Array.isArray(data.users) || Array.isArray(data.contests))) {
-              db.value = data;
-              // Expand the most recent contest in each category by default.
-              expandedContestIds.value.clear();
-              for (const [latest] of Object.values(contestsByType.value)) {
-                if (latest) expandedContestIds.value.add(latest.contest_id);
-              }
-              loading.value = false;
-              return;
+            if (data && Array.isArray(data.users) && Array.isArray(data.contests)) {
+              freshData = data;
+              matchedPath = p;
+              break;
             }
           }
         } catch (e) {
@@ -334,16 +447,76 @@ const app = createApp({
         }
       }
 
-      loading.value = false;
-      errorMessage.value = '未检测到积分数据库文件 rating_db.json。请先在项目根目录运行 `python scripts/recalculate.py` 生成积分聚合数据。';
+      if (matchedPath) {
+        const lastSlash = matchedPath.lastIndexOf('/');
+        activeDataBasePath = lastSlash >= 0 ? matchedPath.substring(0, lastSlash + 1) : '';
+      }
+
+      if (freshData) {
+        const curGen = db.value?.metadata?.generated_at;
+        const freshGen = freshData.metadata?.generated_at;
+
+        // Persist clean summary to localStorage (without heavy standings) to prevent storage quota exhaustion
+        try {
+          if (typeof localStorage !== 'undefined') {
+            const cachePayload = {
+              metadata: freshData.metadata,
+              tiers: freshData.tiers,
+              users: freshData.users,
+              contests: (freshData.contests || []).map(c => ({
+                contest_id: c.contest_id,
+                title: c.title,
+                contest_type: c.contest_type,
+                start_time: c.start_time,
+                team_count: c.team_count !== undefined ? c.team_count : (c.standings || []).length,
+                standings: []
+              }))
+            };
+            localStorage.setItem(SUMMARY_CACHE_KEY, JSON.stringify(cachePayload));
+          }
+        } catch (e) {
+          // Storage quota exceeded or disabled
+        }
+
+        // If no cache was present or data was updated on server, update state
+        if (!hasValidCache || curGen !== freshGen) {
+          // Re-attach any already in-memory cached contest standings
+          if (Array.isArray(freshData.contests)) {
+            for (const fc of freshData.contests) {
+              if (contestCache.has(fc.contest_id)) {
+                fc.standings = contestCache.get(fc.contest_id).standings;
+              }
+            }
+          }
+          db.value = freshData;
+
+          // If a user modal was open during revalidation, refresh selectedUser and chart
+          if (selectedUser.value && Array.isArray(freshData.users)) {
+            const updated = freshData.users.find(u => u.participant_id === selectedUser.value.participant_id);
+            if (updated) {
+              selectedUser.value = updated;
+              nextTick(() => {
+                renderChart(updated);
+              });
+            }
+          }
+        }
+
+        loading.value = false;
+        errorMessage.value = '';
+      } else if (!hasValidCache) {
+        loading.value = false;
+        errorMessage.value = '未检测到积分数据库文件 summary.json (或 rating_db.json)。请先在项目根目录运行 `python scripts/recalculate.py` 生成积分聚合数据。';
+      }
     }
 
-    // Toggle contest standings accordion
-    function toggleContest(contestId) {
+    // Toggle contest standings accordion with on-demand lazy loading
+    async function toggleContest(contestId) {
       if (expandedContestIds.value.has(contestId)) {
         expandedContestIds.value.delete(contestId);
       } else {
         expandedContestIds.value.add(contestId);
+        await loadContestStandings(contestId);
       }
     }
 
@@ -400,6 +573,20 @@ const app = createApp({
     // Lookup solved/penalty for user's contest history
     function getUserContestStats(userId, contestId) {
       const stats = contestMemberStats.value[contestId]?.[String(userId)];
+      if (stats && stats.solved !== undefined) {
+        return {
+          solved: stats.solved ?? '-',
+          penalty: stats.penalty ?? '-'
+        };
+      }
+      const user = usersMap.value.get(String(userId));
+      const h = user?.history?.find(x => x.contest_id === contestId);
+      if (h && h.solved !== undefined) {
+        return {
+          solved: h.solved,
+          penalty: h.penalty
+        };
+      }
       return {
         solved: stats?.solved ?? '-',
         penalty: stats?.penalty ?? '-'
@@ -686,6 +873,10 @@ const app = createApp({
       visibleContests,
       toggleContest,
       isContestExpanded,
+      contestCache,
+      isContestLoading,
+      getContestError,
+      loadContestStandings,
       formatDate,
       formatDateTime,
       getBestPerf,

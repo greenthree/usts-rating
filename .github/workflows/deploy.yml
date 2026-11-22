@@ -49,13 +49,13 @@ jobs:
         run: |
           mkdir -p dist/data
           cp -r web/* dist/
-          # Ensure rating_db.json is present in dist/data/ and web/data/
-          if [ -f web/data/rating_db.json ]; then
-            cp web/data/rating_db.json dist/data/rating_db.json
+          # Ensure all data files (summary.json, contests, rating_db.json) are present in dist/data/ and web/data/
+          if [ -d web/data ]; then
+            cp -r web/data/* dist/data/
           fi
-          if [ -f dist/data/rating_db.json ]; then
+          if [ -d dist/data ]; then
             mkdir -p web/data
-            cp dist/data/rating_db.json web/data/rating_db.json
+            cp -r dist/data/* web/data/
           fi
 
       - name: Upload GitHub Pages Artifact
