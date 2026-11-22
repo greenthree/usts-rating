@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generated_at": "2026-11-19T09:09:42.738122+00:00",
-    "total_users": 82,
-    "active_users": 22,
+    "generated_at": "2026-11-22T12:06:16.874849+00:00",
+    "total_users": 116,
+    "active_users": 56,
     "retired_users": 60,
-    "total_contests": 43,
+    "total_contests": 44,
     "external_teams_tracked": 22563
   },
   "tiers": [
@@ -402,6 +402,169 @@
           "true_rating_after": 1790.7,
           "display_rating_after": 1791,
           "rated_count_after": 9
+        }
+      ]
+    },
+    {
+      "participant_id": 27,
+      "name": "陈泽玮",
+      "grade": 2024,
+      "class_name": "区块链2412",
+      "pinyin": "Chen Zewei",
+      "major": "区块链",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 1760.9,
+      "display_rating": 1761,
+      "max_display_rating": 1831,
+      "rated_count": 11,
+      "tier": "Master",
+      "color": "#FF8C00",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2025_09_07_icpc2025preliminary_1",
+          "contest_title": "2025 ICPC Asia EC网络预选赛 - 第一场",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2025-09-07T13:00:00+08:00",
+          "team_name": "鹅鹅鹅",
+          "rank": 1199.0,
+          "perf_rating": 1556.9,
+          "delta": 528.3,
+          "true_rating_after": 1328.3,
+          "display_rating_after": 828,
+          "rated_count_after": 1
+        },
+        {
+          "contest_id": "2025_09_14_icpc2025preliminary_2",
+          "contest_title": "2025 ICPC Asia EC网络预选赛 - 第二场",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2025-09-14T13:00:00+08:00",
+          "team_name": "鹅鹅鹅",
+          "rank": 2166.0,
+          "perf_rating": 1124.9,
+          "delta": -66.4,
+          "true_rating_after": 1261.9,
+          "display_rating_after": 1012,
+          "rated_count_after": 2
+        },
+        {
+          "contest_id": "2025_09_20_ccpc2025preliminary",
+          "contest_title": "2025年CCPC网络预选赛",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2025-09-20T13:00:00+08:00",
+          "team_name": "鹅鹅鹅",
+          "rank": 1745.5,
+          "perf_rating": 1152.7,
+          "delta": -31.9,
+          "true_rating_after": 1230.0,
+          "display_rating_after": 1230,
+          "rated_count_after": 3
+        },
+        {
+          "contest_id": "icpc2025nanjing.srk",
+          "contest_title": "「华为杯」第 50 届 ICPC 国际大学生程序设计竞赛区域赛南京站",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2025-11-09T09:30:00+08:00",
+          "team_name": "鹅鹅鹅",
+          "rank": 309.5,
+          "perf_rating": 1280.9,
+          "delta": 28.2,
+          "true_rating_after": 1258.3,
+          "display_rating_after": 1258,
+          "rated_count_after": 4
+        },
+        {
+          "contest_id": "icpc2026invitational-nanchang",
+          "contest_title": "2026 年 ICPC 国际大学生程序设计竞赛全国邀请赛（南昌）暨江西省赛",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-05-17T09:00:00+08:00",
+          "team_name": "洛克王国高玩",
+          "rank": 63.5,
+          "perf_rating": 2147.2,
+          "delta": 314.4,
+          "true_rating_after": 1572.7,
+          "display_rating_after": 1573,
+          "rated_count_after": 5
+        },
+        {
+          "contest_id": "2026_09_06_icpc2026preliminary_1",
+          "contest_title": "2026 ICPC Asia EC网络预选赛 - 第一场",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-09-06T13:00:00+08:00",
+          "team_name": "为什么你会这么熟练啊！",
+          "rank": 749.0,
+          "perf_rating": 1912.9,
+          "delta": 118.3,
+          "true_rating_after": 1691.0,
+          "display_rating_after": 1691,
+          "rated_count_after": 6
+        },
+        {
+          "contest_id": "2026_09_12_icpc2026preliminary_2",
+          "contest_title": "2026 ICPC Asia EC网络预选赛 - 第二场",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-09-12T13:00:00+08:00",
+          "team_name": "为什么你会这么熟练啊！",
+          "rank": 671.0,
+          "perf_rating": 2014.5,
+          "delta": 105.4,
+          "true_rating_after": 1796.5,
+          "display_rating_after": 1796,
+          "rated_count_after": 7
+        },
+        {
+          "contest_id": "2026_09_19_ccpc2026preliminary",
+          "contest_title": "2026年CCPC网络预选赛",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-09-19T13:00:00+08:00",
+          "team_name": "为什么你会这么熟练啊！",
+          "rank": 737.0,
+          "perf_rating": 1903.7,
+          "delta": 34.4,
+          "true_rating_after": 1830.8,
+          "display_rating_after": 1831,
+          "rated_count_after": 8
+        },
+        {
+          "contest_id": "icpc2026nanjing.srk",
+          "contest_title": "「华为杯」第 51 届 ICPC 国际大学生程序设计竞赛区域赛南京站 - 正式赛",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-11-08T09:30:00+08:00",
+          "team_name": "How did you get so good at this?!",
+          "rank": 213.0,
+          "perf_rating": 1700.9,
+          "delta": -45.6,
+          "true_rating_after": 1785.2,
+          "display_rating_after": 1785,
+          "rated_count_after": 9
+        },
+        {
+          "contest_id": "ccpc2026jingzhou",
+          "contest_title": "第十二届中国大学生程序设计竞赛荆州站",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-11-15T09:40:00+08:00",
+          "team_name": "彳亍",
+          "rank": 225.5,
+          "perf_rating": 1575.9,
+          "delta": -70.2,
+          "true_rating_after": 1715.0,
+          "display_rating_after": 1715,
+          "rated_count_after": 10
+        },
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "陈泽玮",
+          "rank": 1.0,
+          "perf_rating": 3500.0,
+          "delta": 45.8,
+          "true_rating_after": 1760.9,
+          "display_rating_after": 1761,
+          "rated_count_after": 11
         }
       ]
     },
@@ -806,156 +969,6 @@
           "true_rating_after": 1715.5,
           "display_rating_after": 1715,
           "rated_count_after": 13
-        }
-      ]
-    },
-    {
-      "participant_id": 27,
-      "name": "陈泽玮",
-      "grade": 2024,
-      "class_name": "区块链2412",
-      "pinyin": "Chen Zewei",
-      "major": "区块链",
-      "is_active": true,
-      "is_team_member": true,
-      "is_retired": false,
-      "true_rating": 1715.0,
-      "display_rating": 1715,
-      "max_display_rating": 1831,
-      "rated_count": 10,
-      "tier": "Master",
-      "color": "#FF8C00",
-      "last_contest_date": "2026-11-15T09:40:00+08:00",
-      "history": [
-        {
-          "contest_id": "2025_09_07_icpc2025preliminary_1",
-          "contest_title": "2025 ICPC Asia EC网络预选赛 - 第一场",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2025-09-07T13:00:00+08:00",
-          "team_name": "鹅鹅鹅",
-          "rank": 1199.0,
-          "perf_rating": 1556.9,
-          "delta": 528.3,
-          "true_rating_after": 1328.3,
-          "display_rating_after": 828,
-          "rated_count_after": 1
-        },
-        {
-          "contest_id": "2025_09_14_icpc2025preliminary_2",
-          "contest_title": "2025 ICPC Asia EC网络预选赛 - 第二场",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2025-09-14T13:00:00+08:00",
-          "team_name": "鹅鹅鹅",
-          "rank": 2166.0,
-          "perf_rating": 1124.9,
-          "delta": -66.4,
-          "true_rating_after": 1261.9,
-          "display_rating_after": 1012,
-          "rated_count_after": 2
-        },
-        {
-          "contest_id": "2025_09_20_ccpc2025preliminary",
-          "contest_title": "2025年CCPC网络预选赛",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2025-09-20T13:00:00+08:00",
-          "team_name": "鹅鹅鹅",
-          "rank": 1745.5,
-          "perf_rating": 1152.7,
-          "delta": -31.9,
-          "true_rating_after": 1230.0,
-          "display_rating_after": 1230,
-          "rated_count_after": 3
-        },
-        {
-          "contest_id": "icpc2025nanjing.srk",
-          "contest_title": "「华为杯」第 50 届 ICPC 国际大学生程序设计竞赛区域赛南京站",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2025-11-09T09:30:00+08:00",
-          "team_name": "鹅鹅鹅",
-          "rank": 309.5,
-          "perf_rating": 1280.9,
-          "delta": 28.2,
-          "true_rating_after": 1258.3,
-          "display_rating_after": 1258,
-          "rated_count_after": 4
-        },
-        {
-          "contest_id": "icpc2026invitational-nanchang",
-          "contest_title": "2026 年 ICPC 国际大学生程序设计竞赛全国邀请赛（南昌）暨江西省赛",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-05-17T09:00:00+08:00",
-          "team_name": "洛克王国高玩",
-          "rank": 63.5,
-          "perf_rating": 2147.2,
-          "delta": 314.4,
-          "true_rating_after": 1572.7,
-          "display_rating_after": 1573,
-          "rated_count_after": 5
-        },
-        {
-          "contest_id": "2026_09_06_icpc2026preliminary_1",
-          "contest_title": "2026 ICPC Asia EC网络预选赛 - 第一场",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-09-06T13:00:00+08:00",
-          "team_name": "为什么你会这么熟练啊！",
-          "rank": 749.0,
-          "perf_rating": 1912.9,
-          "delta": 118.3,
-          "true_rating_after": 1691.0,
-          "display_rating_after": 1691,
-          "rated_count_after": 6
-        },
-        {
-          "contest_id": "2026_09_12_icpc2026preliminary_2",
-          "contest_title": "2026 ICPC Asia EC网络预选赛 - 第二场",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-09-12T13:00:00+08:00",
-          "team_name": "为什么你会这么熟练啊！",
-          "rank": 671.0,
-          "perf_rating": 2014.5,
-          "delta": 105.4,
-          "true_rating_after": 1796.5,
-          "display_rating_after": 1796,
-          "rated_count_after": 7
-        },
-        {
-          "contest_id": "2026_09_19_ccpc2026preliminary",
-          "contest_title": "2026年CCPC网络预选赛",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-09-19T13:00:00+08:00",
-          "team_name": "为什么你会这么熟练啊！",
-          "rank": 737.0,
-          "perf_rating": 1903.7,
-          "delta": 34.4,
-          "true_rating_after": 1830.8,
-          "display_rating_after": 1831,
-          "rated_count_after": 8
-        },
-        {
-          "contest_id": "icpc2026nanjing.srk",
-          "contest_title": "「华为杯」第 51 届 ICPC 国际大学生程序设计竞赛区域赛南京站 - 正式赛",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-11-08T09:30:00+08:00",
-          "team_name": "How did you get so good at this?!",
-          "rank": 213.0,
-          "perf_rating": 1700.9,
-          "delta": -45.6,
-          "true_rating_after": 1785.2,
-          "display_rating_after": 1785,
-          "rated_count_after": 9
-        },
-        {
-          "contest_id": "ccpc2026jingzhou",
-          "contest_title": "第十二届中国大学生程序设计竞赛荆州站",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-11-15T09:40:00+08:00",
-          "team_name": "彳亍",
-          "rank": 225.5,
-          "perf_rating": 1575.9,
-          "delta": -70.2,
-          "true_rating_after": 1715.0,
-          "display_rating_after": 1715,
-          "rated_count_after": 10
         }
       ]
     },
@@ -4198,6 +4211,52 @@
       ]
     },
     {
+      "participant_id": 54,
+      "name": "迮天浩",
+      "grade": 2025,
+      "class_name": "计算机2511",
+      "pinyin": "ZeTianHao",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 1017.4,
+      "display_rating": 767,
+      "max_display_rating": 767,
+      "rated_count": 2,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "jscpc11th.srk",
+          "contest_title": "2026 年江苏省大学生程序设计竞赛",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-05-17T10:00:00+08:00",
+          "team_name": "吱吱吱",
+          "rank": 220.5,
+          "perf_rating": 993.4,
+          "delta": 104.0,
+          "true_rating_after": 904.0,
+          "display_rating_after": 404,
+          "rated_count_after": 1
+        },
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "迮天浩",
+          "rank": 3.0,
+          "perf_rating": 1397.5,
+          "delta": 113.3,
+          "true_rating_after": 1017.4,
+          "display_rating_after": 767,
+          "rated_count_after": 2
+        }
+      ]
+    },
+    {
       "participant_id": 45,
       "name": "赵叶勇",
       "grade": 2023,
@@ -4330,6 +4389,52 @@
       ]
     },
     {
+      "participant_id": 52,
+      "name": "胡增辉",
+      "grade": 2025,
+      "class_name": "计算机2511",
+      "pinyin": "Hu ZengHui",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 887.2,
+      "display_rating": 637,
+      "max_display_rating": 637,
+      "rated_count": 2,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "jscpc11th.srk",
+          "contest_title": "2026 年江苏省大学生程序设计竞赛",
+          "contest_type": "EXTERNAL_XCPC",
+          "contest_date": "2026-05-17T10:00:00+08:00",
+          "team_name": "吱吱吱",
+          "rank": 220.5,
+          "perf_rating": 993.4,
+          "delta": 104.0,
+          "true_rating_after": 904.0,
+          "display_rating_after": 404,
+          "rated_count_after": 1
+        },
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "胡增辉",
+          "rank": 15.0,
+          "perf_rating": 901.2,
+          "delta": -16.9,
+          "true_rating_after": 887.2,
+          "display_rating_after": 637,
+          "rated_count_after": 2
+        }
+      ]
+    },
+    {
       "participant_id": 48,
       "name": "周波",
       "grade": 2023,
@@ -4363,34 +4468,212 @@
       ]
     },
     {
-      "participant_id": 52,
-      "name": "胡增辉",
-      "grade": 2025,
-      "class_name": "计算机2511",
-      "pinyin": "Hu ZengHui",
+      "participant_id": 83,
+      "name": "温晨聪",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Wen Chencong",
       "major": "计算机",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
-      "true_rating": 904.0,
-      "display_rating": 404,
-      "max_display_rating": 404,
+      "true_rating": 1035.1,
+      "display_rating": 535,
+      "max_display_rating": 535,
       "rated_count": 1,
       "tier": "Newbie",
       "color": "#808080",
-      "last_contest_date": "2026-05-17T10:00:00+08:00",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "温晨聪",
+          "rank": 2.0,
+          "perf_rating": 1609.1,
+          "delta": 235.1,
+          "true_rating_after": 1035.1,
+          "display_rating_after": 535,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 61,
+      "name": "姜志豪",
+      "grade": 2025,
+      "class_name": "计算机2512",
+      "pinyin": "JiangZhiHao",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 782.2,
+      "display_rating": 532,
+      "max_display_rating": 532,
+      "rated_count": 2,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
       "history": [
         {
           "contest_id": "jscpc11th.srk",
           "contest_title": "2026 年江苏省大学生程序设计竞赛",
           "contest_type": "EXTERNAL_XCPC",
           "contest_date": "2026-05-17T10:00:00+08:00",
-          "team_name": "吱吱吱",
-          "rank": 220.5,
-          "perf_rating": 993.4,
-          "delta": 104.0,
-          "true_rating_after": 904.0,
-          "display_rating_after": 404,
+          "team_name": "咕咕嘎嘎 (苏州科技大学 #2)",
+          "rank": 238.0,
+          "perf_rating": 726.8,
+          "delta": -30.2,
+          "true_rating_after": 769.8,
+          "display_rating_after": 270,
+          "rated_count_after": 1
+        },
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "姜志豪",
+          "rank": 17.0,
+          "perf_rating": 864.2,
+          "delta": 12.3,
+          "true_rating_after": 782.2,
+          "display_rating_after": 532,
+          "rated_count_after": 2
+        }
+      ]
+    },
+    {
+      "participant_id": 84,
+      "name": "金晨雨",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Jin Chenyu",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 965.6,
+      "display_rating": 466,
+      "max_display_rating": 466,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "金晨雨",
+          "rank": 4.0,
+          "perf_rating": 1291.6,
+          "delta": 165.6,
+          "true_rating_after": 965.6,
+          "display_rating_after": 466,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 85,
+      "name": "周晨希",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Zhou Chenxi",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 943.3,
+      "display_rating": 443,
+      "max_display_rating": 443,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "周晨希",
+          "rank": 5.0,
+          "perf_rating": 1219.7,
+          "delta": 143.3,
+          "true_rating_after": 943.3,
+          "display_rating_after": 443,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 86,
+      "name": "朱思哲",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Zhu Sizhe",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 924.8,
+      "display_rating": 425,
+      "max_display_rating": 425,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "朱思哲",
+          "rank": 6.0,
+          "perf_rating": 1165.7,
+          "delta": 124.8,
+          "true_rating_after": 924.8,
+          "display_rating_after": 425,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 87,
+      "name": "柏涵望",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Bai Hanwang",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 909.0,
+      "display_rating": 409,
+      "max_display_rating": 409,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "柏涵望",
+          "rank": 7.0,
+          "perf_rating": 1121.9,
+          "delta": 109.0,
+          "true_rating_after": 909.0,
+          "display_rating_after": 409,
           "rated_count_after": 1
         }
       ]
@@ -4429,34 +4712,34 @@
       ]
     },
     {
-      "participant_id": 54,
-      "name": "迮天浩",
-      "grade": 2025,
-      "class_name": "计算机2511",
-      "pinyin": "ZeTianHao",
+      "participant_id": 88,
+      "name": "燕子涵",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Yan Zihan",
       "major": "计算机",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
-      "true_rating": 904.0,
-      "display_rating": 404,
-      "max_display_rating": 404,
+      "true_rating": 895.0,
+      "display_rating": 395,
+      "max_display_rating": 395,
       "rated_count": 1,
       "tier": "Newbie",
       "color": "#808080",
-      "last_contest_date": "2026-05-17T10:00:00+08:00",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
       "history": [
         {
-          "contest_id": "jscpc11th.srk",
-          "contest_title": "2026 年江苏省大学生程序设计竞赛",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-05-17T10:00:00+08:00",
-          "team_name": "吱吱吱",
-          "rank": 220.5,
-          "perf_rating": 993.4,
-          "delta": 104.0,
-          "true_rating_after": 904.0,
-          "display_rating_after": 404,
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "燕子涵",
+          "rank": 8.0,
+          "perf_rating": 1084.8,
+          "delta": 95.0,
+          "true_rating_after": 895.0,
+          "display_rating_after": 395,
           "rated_count_after": 1
         }
       ]
@@ -4523,6 +4806,72 @@
           "delta": 91.3,
           "true_rating_after": 891.3,
           "display_rating_after": 391,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 89,
+      "name": "陆俊霖",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Lu Junlin",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 882.3,
+      "display_rating": 382,
+      "max_display_rating": 382,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "陆俊霖",
+          "rank": 9.0,
+          "perf_rating": 1052.2,
+          "delta": 82.3,
+          "true_rating_after": 882.3,
+          "display_rating_after": 382,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 90,
+      "name": "钮硕",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Niu Shuo",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 870.8,
+      "display_rating": 371,
+      "max_display_rating": 371,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "钮硕",
+          "rank": 10.0,
+          "perf_rating": 1023.0,
+          "delta": 70.8,
+          "true_rating_after": 870.8,
+          "display_rating_after": 371,
           "rated_count_after": 1
         }
       ]
@@ -4627,6 +4976,105 @@
       ]
     },
     {
+      "participant_id": 91,
+      "name": "徐烨晖",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Xu Yehui",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 860.2,
+      "display_rating": 360,
+      "max_display_rating": 360,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "徐烨晖",
+          "rank": 11.0,
+          "perf_rating": 996.2,
+          "delta": 60.2,
+          "true_rating_after": 860.2,
+          "display_rating_after": 360,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 92,
+      "name": "黄发俊",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Huang Fajun",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 850.2,
+      "display_rating": 350,
+      "max_display_rating": 350,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "黄发俊",
+          "rank": 12.0,
+          "perf_rating": 971.3,
+          "delta": 50.2,
+          "true_rating_after": 850.2,
+          "display_rating_after": 350,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 93,
+      "name": "姚岩枫",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Yao Yanfeng",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 840.9,
+      "display_rating": 341,
+      "max_display_rating": 341,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "姚岩枫",
+          "rank": 13.0,
+          "perf_rating": 947.9,
+          "delta": 40.9,
+          "true_rating_after": 840.9,
+          "display_rating_after": 341,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
       "participant_id": 58,
       "name": "吕子奇",
       "grade": 2025,
@@ -4726,34 +5174,232 @@
       ]
     },
     {
-      "participant_id": 61,
-      "name": "姜志豪",
-      "grade": 2025,
-      "class_name": "计算机2512",
-      "pinyin": "JiangZhiHao",
+      "participant_id": 94,
+      "name": "李函祺",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Li Hanqi",
       "major": "计算机",
       "is_active": true,
       "is_team_member": true,
       "is_retired": false,
-      "true_rating": 769.8,
-      "display_rating": 270,
-      "max_display_rating": 270,
+      "true_rating": 832.0,
+      "display_rating": 332,
+      "max_display_rating": 332,
       "rated_count": 1,
       "tier": "Newbie",
       "color": "#808080",
-      "last_contest_date": "2026-05-17T10:00:00+08:00",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
       "history": [
         {
-          "contest_id": "jscpc11th.srk",
-          "contest_title": "2026 年江苏省大学生程序设计竞赛",
-          "contest_type": "EXTERNAL_XCPC",
-          "contest_date": "2026-05-17T10:00:00+08:00",
-          "team_name": "咕咕嘎嘎 (苏州科技大学 #2)",
-          "rank": 238.0,
-          "perf_rating": 726.8,
-          "delta": -30.2,
-          "true_rating_after": 769.8,
-          "display_rating_after": 270,
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "李函祺",
+          "rank": 14.0,
+          "perf_rating": 925.6,
+          "delta": 32.0,
+          "true_rating_after": 832.0,
+          "display_rating_after": 332,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 95,
+      "name": "甄诚",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Zhen Cheng",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 815.4,
+      "display_rating": 315,
+      "max_display_rating": 315,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "甄诚",
+          "rank": 16.0,
+          "perf_rating": 883.5,
+          "delta": 15.4,
+          "true_rating_after": 815.4,
+          "display_rating_after": 315,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 96,
+      "name": "吕源浩",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Lv Yuanhao",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 800.1,
+      "display_rating": 300,
+      "max_display_rating": 300,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "吕源浩",
+          "rank": 18.0,
+          "perf_rating": 843.6,
+          "delta": 0.1,
+          "true_rating_after": 800.1,
+          "display_rating_after": 300,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 97,
+      "name": "邢朱乐",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Xing Zhule",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 792.8,
+      "display_rating": 293,
+      "max_display_rating": 293,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "邢朱乐",
+          "rank": 19.0,
+          "perf_rating": 824.1,
+          "delta": -7.2,
+          "true_rating_after": 792.8,
+          "display_rating_after": 293,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 98,
+      "name": "颜佳伟",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Yan Jiawei",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 785.7,
+      "display_rating": 286,
+      "max_display_rating": 286,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "颜佳伟",
+          "rank": 20.0,
+          "perf_rating": 804.7,
+          "delta": -14.3,
+          "true_rating_after": 785.7,
+          "display_rating_after": 286,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 99,
+      "name": "孙超逸",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Sun Chaoyi",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 778.7,
+      "display_rating": 279,
+      "max_display_rating": 279,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "孙超逸",
+          "rank": 21.0,
+          "perf_rating": 785.3,
+          "delta": -21.3,
+          "true_rating_after": 778.7,
+          "display_rating_after": 279,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 100,
+      "name": "宋沅潮",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Song Yuanchao",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 771.9,
+      "display_rating": 272,
+      "max_display_rating": 272,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "宋沅潮",
+          "rank": 22.0,
+          "perf_rating": 765.8,
+          "delta": -28.1,
+          "true_rating_after": 771.9,
+          "display_rating_after": 272,
           "rated_count_after": 1
         }
       ]
@@ -4820,6 +5466,534 @@
           "delta": -30.2,
           "true_rating_after": 769.8,
           "display_rating_after": 270,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 101,
+      "name": "焦朝博",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Jiao Chaobo",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 765.3,
+      "display_rating": 265,
+      "max_display_rating": 265,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "焦朝博",
+          "rank": 23.0,
+          "perf_rating": 746.0,
+          "delta": -34.7,
+          "true_rating_after": 765.3,
+          "display_rating_after": 265,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 102,
+      "name": "黄博文",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Huang Bowen",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 758.7,
+      "display_rating": 259,
+      "max_display_rating": 259,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "黄博文",
+          "rank": 24.0,
+          "perf_rating": 725.9,
+          "delta": -41.3,
+          "true_rating_after": 758.7,
+          "display_rating_after": 259,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 103,
+      "name": "解宇翔",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Xie Yuxiang",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 749.1,
+      "display_rating": 249,
+      "max_display_rating": 249,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "解宇翔",
+          "rank": 25.5,
+          "perf_rating": 694.6,
+          "delta": -50.9,
+          "true_rating_after": 749.1,
+          "display_rating_after": 249,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 104,
+      "name": "乔子怡",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Qiao Ziyi",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 749.1,
+      "display_rating": 249,
+      "max_display_rating": 249,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "乔子怡",
+          "rank": 25.5,
+          "perf_rating": 694.6,
+          "delta": -50.9,
+          "true_rating_after": 749.1,
+          "display_rating_after": 249,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 105,
+      "name": "沈睿",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Shen Rui",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 739.6,
+      "display_rating": 240,
+      "max_display_rating": 240,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "沈睿",
+          "rank": 27.0,
+          "perf_rating": 661.5,
+          "delta": -60.4,
+          "true_rating_after": 739.6,
+          "display_rating_after": 240,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 106,
+      "name": "吴深泽",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Wu Shenze",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 733.4,
+      "display_rating": 233,
+      "max_display_rating": 233,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "吴深泽",
+          "rank": 28.0,
+          "perf_rating": 638.1,
+          "delta": -66.6,
+          "true_rating_after": 733.4,
+          "display_rating_after": 233,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 107,
+      "name": "王棋",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Wang Qi",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 727.2,
+      "display_rating": 227,
+      "max_display_rating": 227,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "王棋",
+          "rank": 29.0,
+          "perf_rating": 613.2,
+          "delta": -72.8,
+          "true_rating_after": 727.2,
+          "display_rating_after": 227,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 108,
+      "name": "王雨诺",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Wang Yunuo",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 721.1,
+      "display_rating": 221,
+      "max_display_rating": 221,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "王雨诺",
+          "rank": 30.0,
+          "perf_rating": 586.3,
+          "delta": -78.9,
+          "true_rating_after": 721.1,
+          "display_rating_after": 221,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 109,
+      "name": "钱家星",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Qian Jiaxing",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 714.9,
+      "display_rating": 215,
+      "max_display_rating": 215,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "钱家星",
+          "rank": 31.0,
+          "perf_rating": 557.0,
+          "delta": -85.1,
+          "true_rating_after": 714.9,
+          "display_rating_after": 215,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 110,
+      "name": "郎梦琳",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Lang Menglin",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 708.8,
+      "display_rating": 209,
+      "max_display_rating": 209,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "郎梦琳",
+          "rank": 32.0,
+          "perf_rating": 524.2,
+          "delta": -91.2,
+          "true_rating_after": 708.8,
+          "display_rating_after": 209,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 111,
+      "name": "黄怡",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Huang Yi",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 702.7,
+      "display_rating": 203,
+      "max_display_rating": 203,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "黄怡",
+          "rank": 33.0,
+          "perf_rating": 486.8,
+          "delta": -97.3,
+          "true_rating_after": 702.7,
+          "display_rating_after": 203,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 112,
+      "name": "陈佳怡",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Chen Jiayi",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 696.6,
+      "display_rating": 197,
+      "max_display_rating": 197,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "陈佳怡",
+          "rank": 34.0,
+          "perf_rating": 442.4,
+          "delta": -103.4,
+          "true_rating_after": 696.6,
+          "display_rating_after": 197,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 113,
+      "name": "顾浩然",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Gu Haoran",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 690.5,
+      "display_rating": 190,
+      "max_display_rating": 190,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "顾浩然",
+          "rank": 35.0,
+          "perf_rating": 387.1,
+          "delta": -109.5,
+          "true_rating_after": 690.5,
+          "display_rating_after": 190,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 114,
+      "name": "朱璐",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Zhu Lu",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 678.2,
+      "display_rating": 178,
+      "max_display_rating": 178,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "朱璐",
+          "rank": 37.0,
+          "perf_rating": 185.9,
+          "delta": -121.8,
+          "true_rating_after": 678.2,
+          "display_rating_after": 178,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 115,
+      "name": "韦雅晴",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Wei Yaqing",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 678.2,
+      "display_rating": 178,
+      "max_display_rating": 178,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "韦雅晴",
+          "rank": 37.0,
+          "perf_rating": 185.9,
+          "delta": -121.8,
+          "true_rating_after": 678.2,
+          "display_rating_after": 178,
+          "rated_count_after": 1
+        }
+      ]
+    },
+    {
+      "participant_id": 116,
+      "name": "孟源",
+      "grade": 2026,
+      "class_name": "2026级",
+      "pinyin": "Meng Yuan",
+      "major": "计算机",
+      "is_active": true,
+      "is_team_member": true,
+      "is_retired": false,
+      "true_rating": 678.2,
+      "display_rating": 178,
+      "max_display_rating": 178,
+      "rated_count": 1,
+      "tier": "Newbie",
+      "color": "#808080",
+      "last_contest_date": "2026-11-22T13:00:00+08:00",
+      "history": [
+        {
+          "contest_id": "2026_11_22_ustscpc13th",
+          "contest_title": "第十三届苏州科技大学程序设计竞赛",
+          "contest_type": "INTERNAL_SCHOOL",
+          "contest_date": "2026-11-22T13:00:00+08:00",
+          "team_name": "孟源",
+          "rank": 37.0,
+          "perf_rating": 185.9,
+          "delta": -121.8,
+          "true_rating_after": 678.2,
+          "display_rating_after": 178,
           "rated_count_after": 1
         }
       ]
@@ -705378,6 +706552,622 @@
           "perf_rating": -500.0,
           "delta": -91.3,
           "rating_after": 1008.7
+        }
+      ]
+    },
+    {
+      "contest_id": "2026_11_22_ustscpc13th",
+      "title": "第十三届苏州科技大学程序设计竞赛",
+      "contest_type": "INTERNAL_SCHOOL",
+      "start_time": "2026-11-22T13:00:00+08:00",
+      "standings": [
+        {
+          "team_name": "陈泽玮",
+          "is_school": true,
+          "members": [
+            27
+          ],
+          "external_elo": null,
+          "solved": 11,
+          "penalty": 714,
+          "rank": 1.0,
+          "is_star": true,
+          "team_rating": 1715.0,
+          "seed": 1.2,
+          "perf_rating": 3500.0,
+          "delta": 45.8
+        },
+        {
+          "team_name": "温晨聪",
+          "is_school": true,
+          "members": [
+            83
+          ],
+          "external_elo": null,
+          "solved": 9,
+          "penalty": 625,
+          "rank": 2.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1609.1,
+          "delta": 235.1
+        },
+        {
+          "team_name": "迮天浩",
+          "is_school": true,
+          "members": [
+            54
+          ],
+          "external_elo": null,
+          "solved": 8,
+          "penalty": 794,
+          "rank": 3.0,
+          "is_star": true,
+          "team_rating": 904.0,
+          "seed": 14.86,
+          "perf_rating": 1397.5,
+          "delta": 113.3
+        },
+        {
+          "team_name": "金晨雨",
+          "is_school": true,
+          "members": [
+            84
+          ],
+          "external_elo": null,
+          "solved": 6,
+          "penalty": 207,
+          "rank": 4.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1291.6,
+          "delta": 165.6
+        },
+        {
+          "team_name": "周晨希",
+          "is_school": true,
+          "members": [
+            85
+          ],
+          "external_elo": null,
+          "solved": 6,
+          "penalty": 247,
+          "rank": 5.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1219.7,
+          "delta": 143.3
+        },
+        {
+          "team_name": "朱思哲",
+          "is_school": true,
+          "members": [
+            86
+          ],
+          "external_elo": null,
+          "solved": 6,
+          "penalty": 307,
+          "rank": 6.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1165.7,
+          "delta": 124.8
+        },
+        {
+          "team_name": "柏涵望",
+          "is_school": true,
+          "members": [
+            87
+          ],
+          "external_elo": null,
+          "solved": 6,
+          "penalty": 409,
+          "rank": 7.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1121.9,
+          "delta": 109.0
+        },
+        {
+          "team_name": "燕子涵",
+          "is_school": true,
+          "members": [
+            88
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 116,
+          "rank": 8.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1084.8,
+          "delta": 95.0
+        },
+        {
+          "team_name": "陆俊霖",
+          "is_school": true,
+          "members": [
+            89
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 118,
+          "rank": 9.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1052.2,
+          "delta": 82.3
+        },
+        {
+          "team_name": "钮硕",
+          "is_school": true,
+          "members": [
+            90
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 140,
+          "rank": 10.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 1023.0,
+          "delta": 70.8
+        },
+        {
+          "team_name": "徐烨晖",
+          "is_school": true,
+          "members": [
+            91
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 149,
+          "rank": 11.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 996.2,
+          "delta": 60.2
+        },
+        {
+          "team_name": "黄发俊",
+          "is_school": true,
+          "members": [
+            92
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 160,
+          "rank": 12.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 971.3,
+          "delta": 50.2
+        },
+        {
+          "team_name": "姚岩枫",
+          "is_school": true,
+          "members": [
+            93
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 196,
+          "rank": 13.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 947.9,
+          "delta": 40.9
+        },
+        {
+          "team_name": "李函祺",
+          "is_school": true,
+          "members": [
+            94
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 208,
+          "rank": 14.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 925.6,
+          "delta": 32.0
+        },
+        {
+          "team_name": "胡增辉",
+          "is_school": true,
+          "members": [
+            52
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 269,
+          "rank": 15.0,
+          "is_star": true,
+          "team_rating": 904.0,
+          "seed": 14.86,
+          "perf_rating": 901.2,
+          "delta": -16.9
+        },
+        {
+          "team_name": "甄诚",
+          "is_school": true,
+          "members": [
+            95
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 362,
+          "rank": 16.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 883.5,
+          "delta": 15.4
+        },
+        {
+          "team_name": "姜志豪",
+          "is_school": true,
+          "members": [
+            61
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 393,
+          "rank": 17.0,
+          "is_star": true,
+          "team_rating": 769.8,
+          "seed": 21.84,
+          "perf_rating": 864.2,
+          "delta": 12.3
+        },
+        {
+          "team_name": "吕源浩",
+          "is_school": true,
+          "members": [
+            96
+          ],
+          "external_elo": null,
+          "solved": 5,
+          "penalty": 427,
+          "rank": 18.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 843.6,
+          "delta": 0.1
+        },
+        {
+          "team_name": "邢朱乐",
+          "is_school": true,
+          "members": [
+            97
+          ],
+          "external_elo": null,
+          "solved": 4,
+          "penalty": 164,
+          "rank": 19.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 824.1,
+          "delta": -7.2
+        },
+        {
+          "team_name": "颜佳伟",
+          "is_school": true,
+          "members": [
+            98
+          ],
+          "external_elo": null,
+          "solved": 3,
+          "penalty": 59,
+          "rank": 20.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 804.7,
+          "delta": -14.3
+        },
+        {
+          "team_name": "孙超逸",
+          "is_school": true,
+          "members": [
+            99
+          ],
+          "external_elo": null,
+          "solved": 3,
+          "penalty": 142,
+          "rank": 21.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 785.3,
+          "delta": -21.3
+        },
+        {
+          "team_name": "宋沅潮",
+          "is_school": true,
+          "members": [
+            100
+          ],
+          "external_elo": null,
+          "solved": 3,
+          "penalty": 152,
+          "rank": 22.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 765.8,
+          "delta": -28.1
+        },
+        {
+          "team_name": "焦朝博",
+          "is_school": true,
+          "members": [
+            101
+          ],
+          "external_elo": null,
+          "solved": 3,
+          "penalty": 247,
+          "rank": 23.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 746.0,
+          "delta": -34.7
+        },
+        {
+          "team_name": "黄博文",
+          "is_school": true,
+          "members": [
+            102
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 13,
+          "rank": 24.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 725.9,
+          "delta": -41.3
+        },
+        {
+          "team_name": "解宇翔",
+          "is_school": true,
+          "members": [
+            103
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 29,
+          "rank": 25.5,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 694.6,
+          "delta": -50.9
+        },
+        {
+          "team_name": "乔子怡",
+          "is_school": true,
+          "members": [
+            104
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 29,
+          "rank": 25.5,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 694.6,
+          "delta": -50.9
+        },
+        {
+          "team_name": "沈睿",
+          "is_school": true,
+          "members": [
+            105
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 45,
+          "rank": 27.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 661.5,
+          "delta": -60.4
+        },
+        {
+          "team_name": "吴深泽",
+          "is_school": true,
+          "members": [
+            106
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 60,
+          "rank": 28.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 638.1,
+          "delta": -66.6
+        },
+        {
+          "team_name": "王棋",
+          "is_school": true,
+          "members": [
+            107
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 105,
+          "rank": 29.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 613.2,
+          "delta": -72.8
+        },
+        {
+          "team_name": "王雨诺",
+          "is_school": true,
+          "members": [
+            108
+          ],
+          "external_elo": null,
+          "solved": 2,
+          "penalty": 170,
+          "rank": 30.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 586.3,
+          "delta": -78.9
+        },
+        {
+          "team_name": "钱家星",
+          "is_school": true,
+          "members": [
+            109
+          ],
+          "external_elo": null,
+          "solved": 1,
+          "penalty": 9,
+          "rank": 31.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 557.0,
+          "delta": -85.1
+        },
+        {
+          "team_name": "郎梦琳",
+          "is_school": true,
+          "members": [
+            110
+          ],
+          "external_elo": null,
+          "solved": 1,
+          "penalty": 13,
+          "rank": 32.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 524.2,
+          "delta": -91.2
+        },
+        {
+          "team_name": "黄怡",
+          "is_school": true,
+          "members": [
+            111
+          ],
+          "external_elo": null,
+          "solved": 1,
+          "penalty": 15,
+          "rank": 33.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 486.8,
+          "delta": -97.3
+        },
+        {
+          "team_name": "陈佳怡",
+          "is_school": true,
+          "members": [
+            112
+          ],
+          "external_elo": null,
+          "solved": 1,
+          "penalty": 21,
+          "rank": 34.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 442.4,
+          "delta": -103.4
+        },
+        {
+          "team_name": "顾浩然",
+          "is_school": true,
+          "members": [
+            113
+          ],
+          "external_elo": null,
+          "solved": 1,
+          "penalty": 35,
+          "rank": 35.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 387.1,
+          "delta": -109.5
+        },
+        {
+          "team_name": "朱璐",
+          "is_school": true,
+          "members": [
+            114
+          ],
+          "external_elo": null,
+          "solved": 0,
+          "penalty": 0,
+          "rank": 37.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 185.9,
+          "delta": -121.8
+        },
+        {
+          "team_name": "韦雅晴",
+          "is_school": true,
+          "members": [
+            115
+          ],
+          "external_elo": null,
+          "solved": 0,
+          "penalty": 0,
+          "rank": 37.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 185.9,
+          "delta": -121.8
+        },
+        {
+          "team_name": "孟源",
+          "is_school": true,
+          "members": [
+            116
+          ],
+          "external_elo": null,
+          "solved": 0,
+          "penalty": 0,
+          "rank": 37.0,
+          "is_star": false,
+          "team_rating": 800.0,
+          "seed": 20.24,
+          "perf_rating": 185.9,
+          "delta": -121.8
         }
       ]
     }

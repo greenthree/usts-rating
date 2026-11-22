@@ -1,0 +1,464 @@
+{
+  "contest_id": "2026_11_22_ustscpc13th",
+  "title": "第十三届苏州科技大学程序设计竞赛",
+  "contest_type": "INTERNAL_SCHOOL",
+  "start_time": "2026-11-22T13:00:00+08:00",
+  "standings": [
+    {
+      "team_name": "陈泽玮",
+      "is_school": true,
+      "members": [
+        "20210031"
+      ],
+      "external_elo": null,
+      "solved": 11,
+      "penalty": 714,
+      "rank": 1,
+      "is_star": true
+    },
+    {
+      "team_name": "温晨聪",
+      "is_school": true,
+      "members": [
+        "20260083"
+      ],
+      "external_elo": null,
+      "solved": 9,
+      "penalty": 625,
+      "rank": 2,
+      "is_star": false
+    },
+    {
+      "team_name": "迮天浩",
+      "is_school": true,
+      "members": [
+        "20230044"
+      ],
+      "external_elo": null,
+      "solved": 8,
+      "penalty": 794,
+      "rank": 3,
+      "is_star": true
+    },
+    {
+      "team_name": "金晨雨",
+      "is_school": true,
+      "members": [
+        "20260084"
+      ],
+      "external_elo": null,
+      "solved": 6,
+      "penalty": 207,
+      "rank": 4,
+      "is_star": false
+    },
+    {
+      "team_name": "周晨希",
+      "is_school": true,
+      "members": [
+        "20260085"
+      ],
+      "external_elo": null,
+      "solved": 6,
+      "penalty": 247,
+      "rank": 5,
+      "is_star": false
+    },
+    {
+      "team_name": "朱思哲",
+      "is_school": true,
+      "members": [
+        "20260086"
+      ],
+      "external_elo": null,
+      "solved": 6,
+      "penalty": 307,
+      "rank": 6,
+      "is_star": false
+    },
+    {
+      "team_name": "柏涵望",
+      "is_school": true,
+      "members": [
+        "20260087"
+      ],
+      "external_elo": null,
+      "solved": 6,
+      "penalty": 409,
+      "rank": 7,
+      "is_star": false
+    },
+    {
+      "team_name": "燕子涵",
+      "is_school": true,
+      "members": [
+        "20260088"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 116,
+      "rank": 8,
+      "is_star": false
+    },
+    {
+      "team_name": "陆俊霖",
+      "is_school": true,
+      "members": [
+        "20260089"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 118,
+      "rank": 9,
+      "is_star": false
+    },
+    {
+      "team_name": "钮硕",
+      "is_school": true,
+      "members": [
+        "20260090"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 140,
+      "rank": 10,
+      "is_star": false
+    },
+    {
+      "team_name": "徐烨晖",
+      "is_school": true,
+      "members": [
+        "20260091"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 149,
+      "rank": 11,
+      "is_star": false
+    },
+    {
+      "team_name": "黄发俊",
+      "is_school": true,
+      "members": [
+        "20260092"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 160,
+      "rank": 12,
+      "is_star": false
+    },
+    {
+      "team_name": "姚岩枫",
+      "is_school": true,
+      "members": [
+        "20260093"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 196,
+      "rank": 13,
+      "is_star": false
+    },
+    {
+      "team_name": "李函祺",
+      "is_school": true,
+      "members": [
+        "20260094"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 208,
+      "rank": 14,
+      "is_star": false
+    },
+    {
+      "team_name": "胡增辉",
+      "is_school": true,
+      "members": [
+        "20230042"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 269,
+      "rank": 15,
+      "is_star": true
+    },
+    {
+      "team_name": "甄诚",
+      "is_school": true,
+      "members": [
+        "20260095"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 362,
+      "rank": 16,
+      "is_star": false
+    },
+    {
+      "team_name": "姜志豪",
+      "is_school": true,
+      "members": [
+        "20230051"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 393,
+      "rank": 17,
+      "is_star": true
+    },
+    {
+      "team_name": "吕源浩",
+      "is_school": true,
+      "members": [
+        "20260096"
+      ],
+      "external_elo": null,
+      "solved": 5,
+      "penalty": 427,
+      "rank": 18,
+      "is_star": false
+    },
+    {
+      "team_name": "邢朱乐",
+      "is_school": true,
+      "members": [
+        "20260097"
+      ],
+      "external_elo": null,
+      "solved": 4,
+      "penalty": 164,
+      "rank": 19,
+      "is_star": false
+    },
+    {
+      "team_name": "颜佳伟",
+      "is_school": true,
+      "members": [
+        "20260098"
+      ],
+      "external_elo": null,
+      "solved": 3,
+      "penalty": 59,
+      "rank": 20,
+      "is_star": false
+    },
+    {
+      "team_name": "孙超逸",
+      "is_school": true,
+      "members": [
+        "20260099"
+      ],
+      "external_elo": null,
+      "solved": 3,
+      "penalty": 142,
+      "rank": 21,
+      "is_star": false
+    },
+    {
+      "team_name": "宋沅潮",
+      "is_school": true,
+      "members": [
+        "20260100"
+      ],
+      "external_elo": null,
+      "solved": 3,
+      "penalty": 152,
+      "rank": 22,
+      "is_star": false
+    },
+    {
+      "team_name": "焦朝博",
+      "is_school": true,
+      "members": [
+        "20260101"
+      ],
+      "external_elo": null,
+      "solved": 3,
+      "penalty": 247,
+      "rank": 23,
+      "is_star": false
+    },
+    {
+      "team_name": "黄博文",
+      "is_school": true,
+      "members": [
+        "20260102"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 13,
+      "rank": 24,
+      "is_star": false
+    },
+    {
+      "team_name": "解宇翔",
+      "is_school": true,
+      "members": [
+        "20260103"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 29,
+      "rank": 25,
+      "is_star": false
+    },
+    {
+      "team_name": "乔子怡",
+      "is_school": true,
+      "members": [
+        "20260104"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 29,
+      "rank": 26,
+      "is_star": false
+    },
+    {
+      "team_name": "沈睿",
+      "is_school": true,
+      "members": [
+        "20260105"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 45,
+      "rank": 27,
+      "is_star": false
+    },
+    {
+      "team_name": "吴深泽",
+      "is_school": true,
+      "members": [
+        "20260106"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 60,
+      "rank": 28,
+      "is_star": false
+    },
+    {
+      "team_name": "王棋",
+      "is_school": true,
+      "members": [
+        "20260107"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 105,
+      "rank": 29,
+      "is_star": false
+    },
+    {
+      "team_name": "王雨诺",
+      "is_school": true,
+      "members": [
+        "20260108"
+      ],
+      "external_elo": null,
+      "solved": 2,
+      "penalty": 170,
+      "rank": 30,
+      "is_star": false
+    },
+    {
+      "team_name": "钱家星",
+      "is_school": true,
+      "members": [
+        "20260109"
+      ],
+      "external_elo": null,
+      "solved": 1,
+      "penalty": 9,
+      "rank": 31,
+      "is_star": false
+    },
+    {
+      "team_name": "郎梦琳",
+      "is_school": true,
+      "members": [
+        "20260110"
+      ],
+      "external_elo": null,
+      "solved": 1,
+      "penalty": 13,
+      "rank": 32,
+      "is_star": false
+    },
+    {
+      "team_name": "黄怡",
+      "is_school": true,
+      "members": [
+        "20260111"
+      ],
+      "external_elo": null,
+      "solved": 1,
+      "penalty": 15,
+      "rank": 33,
+      "is_star": false
+    },
+    {
+      "team_name": "陈佳怡",
+      "is_school": true,
+      "members": [
+        "20260112"
+      ],
+      "external_elo": null,
+      "solved": 1,
+      "penalty": 21,
+      "rank": 34,
+      "is_star": false
+    },
+    {
+      "team_name": "顾浩然",
+      "is_school": true,
+      "members": [
+        "20260113"
+      ],
+      "external_elo": null,
+      "solved": 1,
+      "penalty": 35,
+      "rank": 35,
+      "is_star": false
+    },
+    {
+      "team_name": "朱璐",
+      "is_school": true,
+      "members": [
+        "20260114"
+      ],
+      "external_elo": null,
+      "solved": 0,
+      "penalty": 0,
+      "rank": 36,
+      "is_star": false
+    },
+    {
+      "team_name": "韦雅晴",
+      "is_school": true,
+      "members": [
+        "20260115"
+      ],
+      "external_elo": null,
+      "solved": 0,
+      "penalty": 0,
+      "rank": 37,
+      "is_star": false
+    },
+    {
+      "team_name": "孟源",
+      "is_school": true,
+      "members": [
+        "20260116"
+      ],
+      "external_elo": null,
+      "solved": 0,
+      "penalty": 0,
+      "rank": 38,
+      "is_star": false
+    }
+  ]
+}
